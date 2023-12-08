@@ -83,7 +83,7 @@ function suggestEventualPackageUpdate(_package) {
     warn(`This script cannot determine if you have an update of ${_package} because either the installed or the latest version are betas. Please check for the update manually. Installed version: ${pkg.installed} - Latest version: ${pkg.latestVersion}`);
     return true;
   } else if (needsUpdate) {
-    warn(`There is an update for ${_package}. Please update to get support for the latest Tezos networks. Installed version: ${pkg.installed} - Latest version: ${pkg.latestVersion}`);
+    warn(`There is an update for ${_package}. Please update to get support for the latest Mavryk networks. Installed version: ${pkg.installed} - Latest version: ${pkg.latestVersion}`);
     return true;
   }
 
@@ -105,7 +105,7 @@ const config: ConfigType = configJson
     "tmpConfig.ts"
   )
 
-;["minTez", "maxTez"].forEach((str) => {
+;["minMav", "maxMav"].forEach((str) => {
   const numValue = Number(Config.application[str])
   if (isNaN(numValue) || numValue <= 0) {
     throw new Error(
@@ -114,9 +114,9 @@ const config: ConfigType = configJson
   }
 })
 
-if (Config.application.minTez > Config.application.maxTez) {
+if (Config.application.minMav > Config.application.maxMav) {
   throw new Error(
-    `In config.json, application.minTez is greater than application.maxTez. Please ensure that minTez is less than or equal to maxTez.`
+    `In config.json, application.minMav is greater than application.maxMav. Please ensure that minMav is less than or equal to maxMav.`
   )
 }
 
@@ -141,7 +141,7 @@ const airgapUpdate = suggestEventualPackageUpdate("@mavrykdynamics/beacon-sdk");
 const taquitoUpdate = suggestEventualPackageUpdate("@mavrykdynamics/taquito");
 
 if (!airgapUpdate && !taquitoUpdate) {
-  err(`There seems to be no updates for the Tezos network support NPM packages.\n\nPlease double check your entry, valid values are: ${networkKeys.map(x => `"${NetworkType[x].toLowerCase()}"` ).join(", ")}`);
+  err(`There seems to be no updates for the Mavryk network support NPM packages.\n\nPlease double check your entry, valid values are: ${networkKeys.map(x => `"${NetworkType[x].toLowerCase()}"` ).join(", ")}`);
 }
 
 process.exit(1);

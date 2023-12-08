@@ -10,8 +10,8 @@ type ApplicationConfig = {
   backendUrl: string
   githubRepo: string
   disableChallenges?: boolean
-  minTez: number
-  maxTez: number
+  minMav: number
+  maxMav: number
 }
 
 export type ConfigType = {

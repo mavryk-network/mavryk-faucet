@@ -21,18 +21,18 @@ export const api = axios.create({
   timeoutErrorMessage: "Connection timeout exceeded. Please try again.",
 })
 
-const { minTez, maxTez } = Config.application
-// Compute the step for the Tezos amount range slider.
-const tezRangeStep = (() => {
-  const magnitude = Math.floor(Math.log10(maxTez))
+const { minMav, maxMav } = Config.application
+// Compute the step for the Mavryk amount range slider.
+const mavRangeStep = (() => {
+  const magnitude = Math.floor(Math.log10(maxMav))
 
-  // When maxTez is greater than 1
-  if (maxTez > 1) {
+  // When maxMav is greater than 1
+  if (maxMav > 1) {
     return Math.max(0.5, Math.pow(10, magnitude - 2))
   }
 
-  // When maxTez is less than or equal to 1 and minTez is fractional
-  const minMagnitude = Math.abs(Math.floor(Math.log10(minTez)))
+  // When maxMav is less than or equal to 1 and minMav is fractional
+  const minMagnitude = Math.abs(Math.floor(Math.log10(minMav)))
   return Math.max(0.001, 1 / Math.pow(10, minMagnitude))
 })()
 
@@ -89,7 +89,7 @@ export default function FaucetRequestButton({
   }
 
   const validateAmount = (amount: number) =>
-    amount >= minTez && amount <= maxTez
+    amount >= minMav && amount <= maxMav
 
   const updateAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value.slice(0, 16))
@@ -144,7 +144,7 @@ export default function FaucetRequestButton({
     return powSolution
   }
 
-  const getTez = async () => {
+  const getMav = async () => {
     try {
       if (Config.application.disableChallenges) {
         startLoading()
@@ -168,7 +168,7 @@ export default function FaucetRequestButton({
         status.setPowWorker(null)
       }
     } catch (err: any) {
-      stopLoadingError(err.message || "Error getting Tez")
+      stopLoadingError(err.message || "Error getting Mav")
     }
   }
 
@@ -247,7 +247,7 @@ export default function FaucetRequestButton({
     return {}
   }
 
-  const step = amount === tezRangeStep ? minTez : tezRangeStep
+  const step = amount === mavRangeStep ? minMav : mavRangeStep
 
   return (
     <>
@@ -259,16 +259,16 @@ export default function FaucetRequestButton({
       />
 
       <Form.Group controlId="tezosRange" className="mt-4">
-        <Form.Label>Select Tez Amount</Form.Label>
+        <Form.Label>Select Mav Amount</Form.Label>
         <Row className="mb-2">
           <Col xs="auto" className="pe-0">
-            <Form.Label className="fw-bold">{formatAmount(minTez)}</Form.Label>
+            <Form.Label className="fw-bold">{formatAmount(minMav)}</Form.Label>
           </Col>
 
           <Col>
             <Form.Range
               min={step}
-              max={maxTez}
+              max={maxMav}
               step={step}
               value={amount}
               disabled={disabled}
@@ -277,7 +277,7 @@ export default function FaucetRequestButton({
           </Col>
 
           <Col xs="auto" className="ps-0">
-            <Form.Label className="fw-bold">{formatAmount(maxTez)}</Form.Label>
+            <Form.Label className="fw-bold">{formatAmount(maxMav)}</Form.Label>
           </Col>
         </Row>
 
@@ -285,8 +285,8 @@ export default function FaucetRequestButton({
           <Col xs={12} sm={6}>
             <Form.Control
               type="number"
-              min={minTez}
-              max={maxTez}
+              min={minMav}
+              max={maxMav}
               value={amount}
               disabled={disabled}
               onChange={updateAmount}
@@ -298,7 +298,7 @@ export default function FaucetRequestButton({
             <Button
               variant="primary"
               disabled={disabled || !validateAmount(amount)}
-              onClick={getTez}
+              onClick={getMav}
             >
               <DropletFill />
               &nbsp;

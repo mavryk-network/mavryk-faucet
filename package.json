@@ -1,7 +1,7 @@
 {
-  "name": "tezos-faucet",
+  "name": "mavryk-faucet",
   "version": "2.0.0",
-  "description": "Tezos Faucet Frontend",
+  "description": "Mavryk Faucet Frontend",
   "license": "MIT",
   "private": true,
   "dependencies": {

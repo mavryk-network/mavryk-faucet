@@ -1,12 +1,12 @@
 {
-  "name": "@oxheadalpha/get-tez",
+  "name": "@mavrykdynamics/get-mav",
   "version": "1.0.7",
-  "description": "Programmatic script to get Tezos from faucet",
-  "main": "dist/getTez.js",
+  "description": "Programmatic script to get Mavryk from faucet",
+  "main": "dist/getMav.js",
   "bin": {
-    "get-tez": "dist/getTez.js"
+    "get-mav": "dist/getMav.js"
   },
-  "types": "dist/getTez.d.ts",
+  "types": "dist/getMav.d.ts",
   "files": [
     "dist",
     "package.json",
@@ -18,16 +18,16 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/getTez.js",
+    "start": "node ./dist/getMav.js",
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oxheadalpha/tezos-faucet.git#main"
+    "url": "git+https://github.com/mavryk-network/mavryk-faucet.git#main"
   },
   "keywords": [
-    "tezos",
+    "mavryk",
     "blockchain",
     "faucet",
     "ghostnet",

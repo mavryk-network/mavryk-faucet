@@ -21,7 +21,7 @@ function Footer() {
             className="d-flex align-items-center justify-content-md-end justify-content-center"
           >
             <a
-              href="https://www.oxheadalpha.com"
+              href="https://www.mavrykdynamics.com"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted d-flex align-items-center"
@@ -29,14 +29,14 @@ function Footer() {
             >
               <img
                 src="/oxheadalpha.svg"
-                alt="Oxhead Alpha Logo"
+                alt="Mavryk Dynamics Logo"
                 height="24"
               />
-              <span className="logotext_oxhead me-1">Oxhead</span>
-              <span className="logotext_alpha">Alpha</span>
+              <span className="logotext_oxhead me-1">Mavryk</span>
+              <span className="logotext_alpha">Dynamics</span>
             </a>
             <a
-              href="https://github.com/oxheadalpha"
+              href="https://github.com/mavryk-network"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted"
@@ -52,7 +52,7 @@ function Footer() {
               <Medium size={24} />
             </a>
             <a
-              href="https://twitter.com/oxheadalpha"
+              href="https://x.com/MavrykNetwork"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted"
