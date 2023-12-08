@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
-import { TezosToolkit } from "@taquito/taquito"
-import { BeaconWallet } from "@taquito/beacon-wallet"
-import { NetworkType } from "@airgap/beacon-sdk"
+import { TezosToolkit } from "@mavrykdynamics/taquito"
+import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet"
+import { NetworkType } from "@mavrykdynamics/beacon-sdk"
 
 type ApplicationConfig = {
   name: string

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Row, Col, Container } from "react-bootstrap"
-import { TezosToolkit } from "@taquito/taquito"
+import { TezosToolkit } from "@mavrykdynamics/taquito"
 import "./App.css"
 //import AppLogo from "../public/faucet-logo.png";
 import Header from "./components/Header"

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { TezosToolkit } from "@taquito/taquito"
+import { TezosToolkit } from "@mavrykdynamics/taquito"
 import { Alert, Card, Col, Row, Button, ProgressBar } from "react-bootstrap"
 import Parser from "html-react-parser"
 import FaucetToWalletRequest from "./FaucetToWalletRequest"

@@ -1,4 +1,4 @@
-import { NetworkType } from "@airgap/beacon-sdk"
+import { NetworkType } from "@mavrykdynamics/beacon-sdk"
 import { ConfigType } from "./lib/Types"
 
 const Config: ConfigType = await fetch("/config.json").then((c) => c.json())
@@ -24,7 +24,7 @@ const network = networkKeys.find(
 )
 if (!network) {
   throw new Error(
-    `Unknown network.name "${Config.network.name}" in config.json. If you did not make any typos, please consider updating Tezos support NPM packages to get latest networks support:\n - @airgap/beacon-sdk\n - @taquito/...`
+    `Unknown network.name "${Config.network.name}" in config.json. If you did not make any typos, please consider updating Tezos support NPM packages to get latest networks support:\n - @mavrykdynamics/beacon-sdk\n - @mavrykdynamics/...`
   )
 }
 

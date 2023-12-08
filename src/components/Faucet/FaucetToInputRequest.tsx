@@ -1,4 +1,4 @@
-import { validateKeyHash } from "@taquito/utils"
+import { validateKeyHash } from "@mavrykdynamics/taquito-utils"
 import { ChangeEvent, useState } from "react"
 import { Form } from "react-bootstrap"
 import { autoSelectInputText } from "../../lib/Utils"

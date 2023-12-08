@@ -1,7 +1,7 @@
 const path = require("path")
 const { execSync } = require("child_process")
 const chalk = require("chalk")
-const { NetworkType } = require("@airgap/beacon-types")
+const { NetworkType } = require("@mavrykdynamics/beacon-types")
 
 console.log(chalk.cyan("Validating config.json file...\n"))
 
@@ -137,8 +137,8 @@ if (network) { // Happy path: config verified with success
 // Check for newer versions?
 console.log(chalk.bold.red(`Unknown network.name "${Config.network.name}" specified in config.json.`));
 
-const airgapUpdate = suggestEventualPackageUpdate("@airgap/beacon-sdk");
-const taquitoUpdate = suggestEventualPackageUpdate("@taquito/taquito");
+const airgapUpdate = suggestEventualPackageUpdate("@mavrykdynamics/beacon-sdk");
+const taquitoUpdate = suggestEventualPackageUpdate("@mavrykdynamics/taquito");
 
 if (!airgapUpdate && !taquitoUpdate) {
   err(`There seems to be no updates for the Tezos network support NPM packages.\n\nPlease double check your entry, valid values are: ${networkKeys.map(x => `"${NetworkType[x].toLowerCase()}"` ).join(", ")}`);

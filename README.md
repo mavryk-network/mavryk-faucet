@@ -53,10 +53,10 @@ Currently supported networks include:
 - Nairobinet
 - Oxfordnet
 
-To add a new network, first check that `@airgap/beacon-sdk` handles it ([check their config on the latest release](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts)), then update:
+To add a new network, first check that `@mavrykdynamics/beacon-sdk` handles it ([check their config on the latest release](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts)), then update:
 
 ```
-npm i @airgap/beacon-sdk
+npm i @mavrykdynamics/beacon-sdk
 ```
 
 ### 2. Deploy backend
@@ -82,7 +82,7 @@ See https://github.com/oxheadalpha/tezos-faucet-backend
 
 **Network configuration:**
 
-- `name`: network name. Must match one of [@airgap/beacon-sdk NetworkType](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts) value (case insensitive). Also used to be displayed.
+- `name`: network name. Must match one of [@mavrykdynamics/beacon-sdk NetworkType](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts) value (case insensitive). Also used to be displayed.
 
 - `rpcUrl`: Tezos network RPC endpoint to be used by faucet
 
