@@ -234,7 +234,7 @@ export default function FaucetRequestButton({
         const viewerUrl = `${network.viewer}/${data.txHash}`
 
         stopLoadingSuccess(
-          `Your ꜩ is on the way! <a target="_blank" href="${viewerUrl}" class="alert-link">Check it.</a>`
+          `Your ṁ is on the way! <a target="_blank" href="${viewerUrl}" class="alert-link">Check it.</a>`
         )
       } else {
         stopLoadingError("Error verifying solution")
@@ -303,8 +303,8 @@ export default function FaucetRequestButton({
               <DropletFill />
               &nbsp;
               {isLocalLoading
-                ? `Requested ${formattedAmount} ꜩ`
-                : `Request ${formattedAmount} ꜩ`}
+                ? `Requested ${formattedAmount} ṁ`
+                : `Request ${formattedAmount} ṁ`}
               &nbsp;{" "}
               {isLocalLoading ? (
                 <Spinner

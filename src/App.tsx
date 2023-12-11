@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Row, Col, Container } from "react-bootstrap"
 import { TezosToolkit } from "@mavrykdynamics/taquito"
 import "./App.css"
-//import AppLogo from "../public/faucet-logo.png";
+//import AppLogo from "../public/faucet-logo.svg";
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import SplittedFaucet from "./components/Faucet/SplittedFaucet"
@@ -48,7 +48,7 @@ function App() {
       <Container>
         <Row className="d-flex gy-3 align-items-center">
           <Col sm={5} className="d-flex justify-content-center">
-            <img src="faucet-logo.png" alt="Faucet logo" />
+            <img src="faucet-logo.svg" alt="Faucet logo" />
           </Col>
           <Col sm={7}>
             <SplittedWallet

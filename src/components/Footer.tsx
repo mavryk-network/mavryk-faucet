@@ -1,4 +1,5 @@
-import { Github, Twitter, Medium } from "react-bootstrap-icons"
+// import { Github, Twitter, Medium } from "react-bootstrap-icons"
+import { Github, Twitter } from "react-bootstrap-icons"
 import { Container, Row, Col } from "react-bootstrap"
 
 const { APP_DESCRIPTION, APP_VERSION } = import.meta.env
@@ -28,12 +29,11 @@ function Footer() {
               style={{ textDecoration: "none" }}
             >
               <img
-                src="/oxheadalpha.svg"
+                src="/mavrykdynamics.svg"
                 alt="Mavryk Dynamics Logo"
                 height="24"
               />
-              <span className="logotext_oxhead me-1">Mavryk</span>
-              <span className="logotext_alpha">Dynamics</span>
+              <span className="logotext_oxhead me-1">Mavryk Dynamics</span>
             </a>
             <a
               href="https://github.com/mavryk-network"
@@ -43,14 +43,14 @@ function Footer() {
             >
               <Github size={24} />
             </a>
-            <a
+            {/* <a
               href="https://medium.com/the-aleph"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted"
             >
               <Medium size={24} />
-            </a>
+            </a> */}
             <a
               href="https://x.com/MavrykNetwork"
               target="_blank"
