@@ -49,11 +49,10 @@ To setup the faucet for a new network:
 Currently supported networks include:
 
 - Mainnet
-- Ghostnet
+- Basenet
 - Mondaynet
 - Dailynet
-- Nairobinet
-- Oxfordnet
+- Atlasnet
 
 To add a new network, first check that `@mavrykdynamics/beacon-sdk` handles it ([check their config on the latest release](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts)), then update:
 
