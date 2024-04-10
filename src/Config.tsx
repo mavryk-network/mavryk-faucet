@@ -24,7 +24,7 @@ const network = networkKeys.find(
 )
 if (!network) {
   throw new Error(
-    `Unknown network.name "${Config.network.name}" in config.json. If you did not make any typos, please consider updating Mavryk support NPM packages to get latest networks support:\n - @mavrykdynamics/beacon-sdk\n - @mavrykdynamics/...`
+    `Unknown network.name "${Config.network.name}" in config.json. If you did not make any typos, please consider updating Mavryk support NPM packages to get latest networks support:\n - @mavrykdynamics/beacon-types\n - @mavrykdynamics/...`
   )
 }
 
