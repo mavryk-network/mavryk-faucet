@@ -1,4 +1,4 @@
-import { NetworkType } from "@mavrykdynamics/beacon-sdk"
+import { NetworkType } from "@mavrykdynamics/beacon-types"
 import { ConfigType } from "./lib/Types"
 
 const Config: ConfigType = await fetch("/config.json").then((c) => c.json())
@@ -31,6 +31,6 @@ if (!network) {
 Config.network.networkType = NetworkType[network]
 Config.application.isBeaconWallet = !!Config.network.networkType
 Config.application.disableChallenges =
-  Config.application.disableChallenges === true
+Config.application.disableChallenges === true
 
 export default Config
