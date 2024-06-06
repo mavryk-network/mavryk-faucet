@@ -194,7 +194,7 @@ const validateArgs = async (args: GetMavArgs): Promise<ValidatedArgs> => {
   }
 
   if (!args.faucetUrl) {
-    const teztnetsUrl = "https://teztnets.xyz/teztnets.json"
+    const teztnetsUrl = "https://testnets.mavryk.network/teztnets.json"
     const response = await fetch(teztnetsUrl, {
       signal: AbortSignal.timeout(10_000),
     })
@@ -439,7 +439,7 @@ if (isMainModule) {
 
   getMav(parsedArgs).then(
     (txHash) => txHash && process.stderr.write("- Transfer done!\nOperation hash: ") &&
-      process.stdout.write(txHash) && process.stderr.write("\n")>>>>>>> 8e243d8 (Mavryk Protocol integration):getMav/getMav.ts
+      process.stdout.write(txHash) && process.stderr.write("\n")
   )
 }
 

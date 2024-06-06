@@ -1,6 +1,6 @@
 # get-mav
 
-This zero dependency package provides a programmatic interface to interact with the [Tezos faucet](https://github.com/oxheadalpha/tezos-faucet-backend). It is a script that can be run from a JavaScript/Typescript program or directly from a shell. Your NodeJS version should support the [`fetch`](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#fetch) api.
+This zero dependency package provides a programmatic interface to interact with the [Mavryk faucet](https://github.com/mavryk-network/mavryk-faucet-backend). It is a script that can be run from a JavaScript/Typescript program or directly from a shell. Your NodeJS version should support the [`fetch`](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#fetch) api.
 
 ## Installation
 
@@ -38,7 +38,7 @@ Here is an example of how to use the `getMav` function:
 const txHash = await getMav({
   address: "mv1...",
   amount: 10,
-  network: "ghostnet",
+  network: "basenet",
 })
 // txHash: ooaEskbj...
 ```
@@ -49,7 +49,7 @@ Using an address alias:
 const txHash = await getMav({
   address: "alice",
   amount: 10,
-  network: "ghostnet",
+  network: "basenet",
 })
 // txHash: ooaEskbj...
 ```
