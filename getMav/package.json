@@ -1,6 +1,6 @@
 {
   "name": "@mavrykdynamics/get-mav",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Programmatic script to get Mavryk from faucet",
   "main": "dist/getMav.js",
   "bin": {
