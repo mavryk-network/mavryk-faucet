@@ -1,6 +1,5 @@
-import { BeaconEvent, defaultEventCallbacks } from "@airgap/beacon-sdk"
-import { BeaconWallet } from "@taquito/beacon-wallet"
-import { TezosToolkit } from "@taquito/taquito"
+import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet"
+import { TezosToolkit } from "@mavrykdynamics/taquito"
 import Config from "../../Config"
 import { useEffect } from "react"
 import { Button, Card, Row, Col } from "react-bootstrap"

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { TezosToolkit } from "@taquito/taquito"
+import { TezosToolkit } from "@mavrykdynamics/taquito"
 import { Alert, Card, Col, Row, Button, ProgressBar } from "react-bootstrap"
 import Parser from "html-react-parser"
 import FaucetToWalletRequest from "./FaucetToWalletRequest"
@@ -8,7 +8,7 @@ import Config from "../../Config"
 
 import { Network, UserContext, StatusContext } from "../../lib/Types"
 
-const { minTez, maxTez } = Config.application
+const { minMav, maxMav } = Config.application
 export default function SplittedFaucet({
   network,
   user,
@@ -28,7 +28,7 @@ export default function SplittedFaucet({
   const [showInfo, setShowInfo] = useState(
     localStorage.getItem("showInfo") !== "false"
   )
-  const [amount, setAmount] = useState<number>(minTez)
+  const [amount, setAmount] = useState<number>(minMav)
   const [inputToAddr, setInputToAddr] = useState<string>("")
 
   const unsetStatus = () => (setStatus(""), setStatusType(""))
@@ -165,13 +165,13 @@ export default function SplittedFaucet({
                 Tired of captchas? Need to fund a lot of addresses?
               </p>
               <p>
-                💡 Try the <a href="https://forum.tezosagora.org/t/programmatic-faucet/5804" target="_blank"><b>get-tez</b></a> command!
+                💡 Try the <a href="https://forum.tezosagora.org/t/programmatic-faucet/5804" target="_blank"><b>get-mav</b></a> command!
               </p>
               <p>
-                <code>npx @oxheadalpha/get-tez {inputToAddr || '<your-address>'} --amount {amount} --network {network.name.toLowerCase()}</code>
+                <code>npx @mavrykdynamics/get-mav {inputToAddr || '<your-address>'} --amount {amount} --network {network.name.toLowerCase()}</code>
               </p>
               <p>
-                You can also request tokens with the <a href="https://www.npmjs.com/package/@oxheadalpha/get-tez" target="_blank">get-tez NodeJS library</a> or directly through the <a href="https://github.com/oxheadalpha/tezos-faucet-backend#api-endpoints" target="_blank">API</a>.
+                You can also request tokens with the <a href="https://www.npmjs.com/package/@mavrykdynamics/get-mav" target="_blank">get-mav NodeJS library</a> or directly through the <a href="https://github.com/oxheadalpha/tezos-faucet-backend#api-endpoints" target="_blank">API</a>.
               </p>
               <p>
                 Note: to prevent abuse, tokens are granted more slowly when using this method.

@@ -1,4 +1,5 @@
-import { Github, Twitter, Medium } from "react-bootstrap-icons"
+// import { Github, Twitter, Medium } from "react-bootstrap-icons"
+import { Github, Twitter } from "react-bootstrap-icons"
 import { Container, Row, Col } from "react-bootstrap"
 
 const { APP_DESCRIPTION, APP_VERSION } = import.meta.env
@@ -21,38 +22,37 @@ function Footer() {
             className="d-flex align-items-center justify-content-md-end justify-content-center"
           >
             <a
-              href="https://www.oxheadalpha.com"
+              href="https://www.mavrykdynamics.com"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted d-flex align-items-center"
               style={{ textDecoration: "none" }}
             >
               <img
-                src="/oxheadalpha.svg"
-                alt="Oxhead Alpha Logo"
+                src="/mavrykdynamics.svg"
+                alt="Mavryk Dynamics Logo"
                 height="24"
               />
-              <span className="logotext_oxhead me-1">Oxhead</span>
-              <span className="logotext_alpha">Alpha</span>
+              <span className="logotext_oxhead me-1">Mavryk Dynamics</span>
             </a>
             <a
-              href="https://github.com/oxheadalpha"
+              href="https://github.com/mavryk-network"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted"
             >
               <Github size={24} />
             </a>
-            <a
+            {/* <a
               href="https://medium.com/the-aleph"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted"
             >
               <Medium size={24} />
-            </a>
+            </a> */}
             <a
-              href="https://twitter.com/oxheadalpha"
+              href="https://x.com/MavrykNetwork"
               target="_blank"
               rel="noopener noreferrer"
               className="mx-2 text-muted"

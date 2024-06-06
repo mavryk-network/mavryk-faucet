@@ -20,7 +20,7 @@ function UserInfo({
         </span>
         {displayBalance && (
           <Badge bg="secondary" className="balance-badge">
-            {toBalance(user.userBalance)} ꜩ
+            {toBalance(user.userBalance)} ṁ
           </Badge>
         )}
       </Card.Body>

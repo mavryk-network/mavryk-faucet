@@ -1,4 +1,4 @@
-import { validateKeyHash } from "@taquito/utils"
+import { validateKeyHash } from "@mavrykdynamics/taquito-utils"
 import { ChangeEvent, useState } from "react"
 import { Form } from "react-bootstrap"
 import { autoSelectInputText } from "../../lib/Utils"
@@ -45,7 +45,7 @@ export default function FaucetToInputRequest({
       <Form.Group className="faucet-address-to">
         <Form.Control
           type="text"
-          placeholder="tz1..."
+          placeholder="mv1..."
           id={inputId}
           className={inputClass}
           disabled={status.isLoading}

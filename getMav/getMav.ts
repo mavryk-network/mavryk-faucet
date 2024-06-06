@@ -9,7 +9,7 @@ const isMainModule = require.main === module
 /*
 We instantiate a "Console" to stderr for logging so that logs are not written to
 stdout when the script is run from the CLI. We want the transaction hash to be
-the only stdout once the Tez is sent to the user.
+the only stdout once the Mav is sent to the user.
 */
 import { Console } from "console"
 const console = new Console(isMainModule ? process.stderr : process.stdout)
@@ -30,17 +30,17 @@ const [time, timeLog, timeEnd] = [
 )
 
 const displayHelp = () => {
-  log(`CLI Usage: npx @oxheadalpha/get-tez [options] <address>
+  log(`CLI Usage: npx @mavrykdynamics/get-mav [options] <address>
 
 <address>:
-  The address where Tez should be sent. This can be either a standard Tezos public key hash (e.g. tz1234abc...)
+  The address where Mav should be sent. This can be either a standard Mavryk public key hash (e.g. mv1234abc...)
   or a local alias. If an alias is provided (e.g., 'alice'), the program will attempt to resolve it to a public
   key hash by looking it up in the specified client directory, set by --client-dir or by the TEZOS_CLIENT_DIR
   environment variable. If neither is set, the default lookup location is $HOME/.tezos-client.
 
 Options:
   -h, --help                Display help information.
-  -a, --amount     <value>  The amount of Tez to request.
+  -a, --amount     <value>  The amount of Mav to request.
   -n, --network    <value>  Set the faucet's network name. Must match a
                             network name with a faucet listed at https://teztnets.xyz.
                             Ignored if --faucet-url is set.
@@ -81,10 +81,10 @@ const resolveAliasToPkh = (
   return null
 }
 
-type GetTezArgs = {
-  /** The address to send Tez to. */
+type GetMavArgs = {
+  /** The address to send Mav to. */
   address: string
-  /** The amount of Tez to request. */
+  /** The amount of Mav to request. */
   amount: number
   /** Custom client directory path to look up address alias. */
   clientDir?: string
@@ -99,10 +99,10 @@ type GetTezArgs = {
   time?: boolean
 }
 
-const parseCliArgs = (args: string | string[]): GetTezArgs => {
+const parseCliArgs = (args: string | string[]): GetMavArgs => {
   if (typeof args === "string") args = args.split(" ")
 
-  const parsedArgs: GetTezArgs = {
+  const parsedArgs: GetMavArgs = {
     address: "",
     amount: 0,
     network: "",
@@ -164,16 +164,16 @@ const parseCliArgs = (args: string | string[]): GetTezArgs => {
   return parsedArgs
 }
 
-type ValidatedArgs = Required<Omit<GetTezArgs, "verbose" | "time" | "network">>
+type ValidatedArgs = Required<Omit<GetMavArgs, "verbose" | "time" | "network">>
 
-const validateArgs = async (args: GetTezArgs): Promise<ValidatedArgs> => {
+const validateArgs = async (args: GetMavArgs): Promise<ValidatedArgs> => {
   if (args.clientDir && !fs.existsSync(args.clientDir)) {
     handleError(`Client dir '${args.clientDir}' doesn't exist.`)
   }
 
   if (!args.address) {
-    handleError("Tezos address is required.", DISPLAY_HELP)
-  } else if (!args.address.startsWith("tz")) {
+    handleError("Mavryk address is required.", DISPLAY_HELP)
+  } else if (!args.address.startsWith("mv")) {
     const resolvedAddress = resolveAliasToPkh(args.address, args.clientDir)
     if (!resolvedAddress) {
       handleError(`Alias '${args.address}' not found.`)
@@ -194,7 +194,7 @@ const validateArgs = async (args: GetTezArgs): Promise<ValidatedArgs> => {
   }
 
   if (!args.faucetUrl) {
-    const teztnetsUrl = "https://teztnets.xyz/teztnets.json"
+    const teztnetsUrl = "https://testnets.mavryk.network/teztnets.json"
     const response = await fetch(teztnetsUrl, {
       signal: AbortSignal.timeout(10_000),
     })
@@ -310,7 +310,7 @@ const solveChallenge = ({
     const hash = crypto.createHash("sha256").update(input).digest("hex")
     if (hash.startsWith("0".repeat(difficulty))) {
       timeEnd("solved")
-      timeLog("getTez time")
+      timeLog("getMav time")
       verboseLog(`Solution found`)
       return { solution: hash, nonce }
     }
@@ -354,7 +354,7 @@ const verifySolution = async ({
 
   if (txHash) {
     verboseLog(`Solution is valid`)
-    verboseLog(`Tez sent! Check transaction: ${txHash}\n`)
+    verboseLog(`Mav sent! Check transaction: ${txHash}\n`)
     return { txHash }
   } else if (challenge && difficulty && challengeCounter) {
     verboseLog(`Solution is valid\n`)
@@ -371,19 +371,19 @@ const formatAmount = (amount: number) =>
     maximumFractionDigits: 7,
   })
 
-const getTez = async (args: GetTezArgs) => {
+const getMav = async (args: GetMavArgs) => {
   try {
     const validatedArgs = await validateArgs(args)
 
-    const { challengesEnabled, minTez, maxTez } = await getInfo(
+    const { challengesEnabled, minMav, maxMav } = await getInfo(
       validatedArgs.faucetUrl
     )
 
-    if (!(args.amount >= minTez && args.amount <= maxTez)) {
+    if (!(args.amount >= minMav && args.amount <= maxMav)) {
       handleError(
-        `Amount must be between ${formatAmount(minTez)} and ${formatAmount(
-          maxTez
-        )} tez.`
+        `Amount must be between ${formatAmount(minMav)} and ${formatAmount(
+          maxMav
+        )} mav.`
       )
     }
 
@@ -397,7 +397,7 @@ const getTez = async (args: GetTezArgs) => {
     let { challenge, difficulty, challengeCounter, challengesNeeded } =
       await getChallenge(validatedArgs)
 
-    time("getTez time")
+    time("getMav time")
 
     while (challenge && difficulty && challengeCounter && challengesNeeded) {
       verboseLog({ challenge, difficulty, challengeCounter })
@@ -416,7 +416,7 @@ const getTez = async (args: GetTezArgs) => {
           await verifySolution({ solution, nonce, ...validatedArgs }))
 
       if (txHash) {
-        timeEnd("getTez time")
+        timeEnd("getMav time")
         return txHash
       }
     }
@@ -435,14 +435,14 @@ if (isMainModule) {
   const args = process.argv.slice(isMainModule ? 2 : 1)
   const parsedArgs = parseCliArgs(args)
 
-  log(`get-tez v${pkgJson.version} by Oxhead Alpha - Get Free Tez\n`)
+  log(`get-mav v${pkgJson.version} by Mavryk Dynamics - Get Free Mav\n`)
 
-  getTez(parsedArgs).then(
+  getMav(parsedArgs).then(
     (txHash) => txHash && process.stderr.write("- Transfer done!\nOperation hash: ") &&
       process.stdout.write(txHash) && process.stderr.write("\n")
   )
 }
 
 // https://remarkablemark.org/blog/2020/05/05/typescript-export-commonjs-es6-modules
-getTez.default = getTez
-export = getTez
+getMav.default = getMav
+export = getMav

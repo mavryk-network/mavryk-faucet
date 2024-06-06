@@ -1,17 +1,17 @@
 {
     "application": {
-      "name": "Tezos Ghostnet Faucet",
+      "name": "Mavryk Basenet Faucet",
       "googleCaptchaSiteKey": "6LefC8QmAAAAAIXuoOhyI-FtALkYXZm4JK0GBYfb",
       "backendUrl": "http://localhost:3000",
-      "githubRepo": "https://github.com/oxheadalpha/tezos-faucet",
+      "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
       "disableChallenges": false,
-      "minTez": 1,
-      "maxTez": 6000
+      "minMav": 1,
+      "maxMav": 6000
     },
     "network": {
-      "name": "Ghostnet",
+      "name": "Basenet",
       "rpcUrl": "http://localhost:8732",
-      "faucetAddress": "tz1PWgj8DP6dKCm6shSfhY3FnXP5kr3Y9CiD",
-      "viewer": "https://ghost.tzstats.com"
+      "faucetAddress": "mv1V4h45W3p4e1sjSBvRkK2uYbvkTnSuHg8g",
+      "viewer": "https://basenet.tzstats.com"
     }
 }

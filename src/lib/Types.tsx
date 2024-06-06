@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
-import { TezosToolkit } from "@taquito/taquito"
-import { BeaconWallet } from "@taquito/beacon-wallet"
-import { NetworkType } from "@airgap/beacon-sdk"
+import { TezosToolkit } from "@mavrykdynamics/taquito"
+import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet"
+import { NetworkType } from "@mavrykdynamics/beacon-types"
 
 type ApplicationConfig = {
   name: string
@@ -10,8 +10,8 @@ type ApplicationConfig = {
   backendUrl: string
   githubRepo: string
   disableChallenges?: boolean
-  minTez: number
-  maxTez: number
+  minMav: number
+  maxMav: number
 }
 
 export type ConfigType = {

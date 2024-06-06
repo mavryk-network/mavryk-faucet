@@ -41,6 +41,6 @@ div.balances {
   display: inline-block;
   font-family: 'Titillium Web';
   --tw-text-opacity: 1;
-  color: rgba(30, 38, 166, var(--tw-text-opacity));
+  color: rgba(95, 88, 255, var(--tw-text-opacity));
   font-weight: 900;
 }
