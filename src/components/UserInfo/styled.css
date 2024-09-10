@@ -1,0 +1,39 @@
+.account-info-wrapper {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 8px;
+  background: #313131;
+  width: fit-content;
+}
+.user-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.user-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.user-info-address,
+.user-info-account-name,
+.account-info-balance,
+.account-info-address {
+  color: #b9eefe;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+}
+.user-info-address {
+  font-size: 12px;
+}
+.user-info-account-name,
+.account-info-balance {
+  color: var(--color-white-text)
+}
+.user-info-wrapper {
+
+}

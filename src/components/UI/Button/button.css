@@ -18,6 +18,10 @@
   border: none;
 }
 .custom-btn-outlined {
+  background: transparent;
+  border: 2px solid var(--color-blue-main);
+  font-size: 14px;
+  height: 33px;
 }
 .custom-btn:disabled {
   opacity: 0.5;

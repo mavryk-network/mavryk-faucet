@@ -1,5 +1,5 @@
 import "./styled.css";
-import SplittedWallet from "../Wallet/SplittedWallet";
+import Wallet from "../Wallet/Wallet";
 import { Network, TestnetContext, UserContext } from "../../lib/Types";
 
 type Props = {
@@ -20,7 +20,12 @@ function Header(props: Props) {
           alt="Mavryk Dynamics Logo"
         />
       </a>
-      <SplittedWallet user={user} network={network} testnetContext={testnet} />
+      <Wallet
+        type="userInfo"
+        user={user}
+        network={network}
+        testnetContext={testnet}
+      />
     </div>
   );
 }

@@ -1,23 +1,22 @@
 import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet";
-import { TezosToolkit } from "@mavrykdynamics/taquito";
-import Config from "../../Config";
 import { useEffect } from "react";
-import { Button, Card, Row, Col } from "react-bootstrap";
-import UserInfo from "../Faucet/UserInfo";
+import { Button } from "../UI/Button/button";
+import UserInfo from "../UserInfo/UserInfo";
 import { Network, TestnetContext, UserContext } from "../../lib/Types";
+import { NetworkType } from "@mavrykdynamics/beacon-types";
+import "./wallet.css";
+import { AccountInfo } from "../UserInfo/AccountInfo";
 
-function SplittedWallet({
-  user,
-  testnetContext,
-  network,
-}: {
+type Props = {
   user: UserContext;
   testnetContext: TestnetContext;
   network: Network;
-}) {
-  /**
-   * Set user address and balances on wallet connection
-   */
+  type?: "accountInfo" | "userInfo";
+};
+
+function Wallet(props: Props) {
+  const { user, testnetContext, network, type = "accountInfo" } = props;
+
   const setup = async (userAddress: string): Promise<void> => {
     user.setUserAddress(userAddress);
 
@@ -50,8 +49,8 @@ function SplittedWallet({
     (async () => {
       // creates a wallet instance
       const wallet = new BeaconWallet({
-        name: Config.application.name,
-        preferredNetwork: network.networkType,
+        name: "Maven",
+        preferredNetwork: "atlasnet" as NetworkType,
         disableDefaultEvents: false,
       });
       testnetContext.Tezos.setWalletProvider(wallet);
@@ -65,34 +64,24 @@ function SplittedWallet({
     })();
   }, []);
 
-  const disconnectWallet = async (): Promise<void> => {
-    user.setUserAddress("");
-    user.setUserBalance(0);
-    const tezosTK = new TezosToolkit(network.rpcUrl);
-    testnetContext.setTezos(tezosTK);
-    if (testnetContext.wallet) {
-      await testnetContext.wallet.clearActiveAccount();
-    }
-    window.location.reload();
-  };
+  if (type === "userInfo")
+    return user.userAddress ? (
+      <UserInfo user={user} displayBalance={false} />
+    ) : (
+      <div className="wallet-btn-wrapper">
+        <Button onClick={connectWallet}>Connect wallet</Button>
+      </div>
+    );
 
   return user.userAddress ? (
-    <Row className="d-flex gy-2 flex-wrap align-items-center">
-      <Col>
-        <UserInfo user={user} displayBalance={false} />
-      </Col>
-
-      <Col>
-        <Button variant="outline-danger" onClick={disconnectWallet}>
-          Disconnect
-        </Button>
-      </Col>
-    </Row>
+    <AccountInfo user={user} displayBalance={false} />
   ) : (
-    <Button variant="outline-primary" onClick={connectWallet}>
-      Connect wallet
-    </Button>
+    <div className="wallet-btn-wrapper">
+      <Button variant="outlined" onClick={connectWallet}>
+        Connect wallet
+      </Button>
+    </div>
   );
 }
 
-export default SplittedWallet;
+export default Wallet;

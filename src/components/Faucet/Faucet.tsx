@@ -7,12 +7,14 @@ import {
   UserContext,
   StatusContext,
   TransactionType,
+  TestnetContext,
 } from "../../lib/Types";
 import { AddressField } from "./AddressField";
 import { AmountField } from "./AmountField";
 import { TransactionTypeSelect } from "./TransactionTypeSelect";
 import { TokenSelect } from "./TokenSelect";
 import FaucetRequestButton from "./FaucetRequestButton";
+import { MyAddress } from "./MyAddress";
 
 export type FormState = {
   tokenAmount: string;
@@ -26,10 +28,12 @@ export default function Faucet({
   network,
   user,
   Tezos,
+  testnet,
 }: {
   network: Network;
   user: UserContext;
   Tezos: TezosToolkit;
+  testnet: TestnetContext;
 }) {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("");
@@ -123,6 +127,10 @@ export default function Faucet({
             formState={formState}
             setFormState={setFormState}
           />
+        )}
+
+        {formState.transactionType === TransactionType.wallet && (
+          <MyAddress network={network} user={user} testnet={testnet} />
         )}
 
         <TokenSelect formState={formState} setFormState={setFormState} />

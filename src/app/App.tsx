@@ -42,7 +42,7 @@ function App() {
     <div className="main-wrapper">
       <Header user={user} network={network} testnet={testnet} />
 
-      <Faucet network={network} user={user} Tezos={Tezos} />
+      <Faucet network={network} user={user} Tezos={Tezos} testnet={testnet} />
 
       <Footer />
     </div>
