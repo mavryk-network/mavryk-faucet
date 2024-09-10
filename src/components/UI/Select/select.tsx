@@ -1,6 +1,6 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import './select.css';
-import Select, { CSSObjectWithLabel } from 'react-select';
+import Select, {CSSObjectWithLabel, FormatOptionLabelMeta} from 'react-select';
 
 
 type Props = {
@@ -12,14 +12,21 @@ type Props = {
     onChange: (option: { value: string; label: string }) => void;
     options: { value: string; label: string }[];
     isSearchable?: boolean
+    formatOptionLabel?: (data: { value: string; label: string }, formatOptionLabelMeta: FormatOptionLabelMeta<{ value: string; label: string }>) => ReactNode
 }
 
 export function CustomSelect(props: Props) {
-    const { name, options, noOptionsMessage, value, onChange, label, disabled, placeholder, isSearchable } = props;
+    const { name, options, noOptionsMessage, value, onChange, label, disabled, placeholder, isSearchable = false, formatOptionLabel } = props;
 
     const customStyles = {
-        control: (provided: CSSObjectWithLabel) => ({
+        container:(provided: CSSObjectWithLabel) => ({
             ...provided,
+            outline: 'none',
+            boxShadow: 'none',
+            border: 'none'
+        }),
+        control: (provided: CSSObjectWithLabel, state: any) => ({
+            display: "flex",
             width: '100%',
             height: '43px',
             border: '1px solid var(--color-gray-border)',
@@ -29,6 +36,7 @@ export function CustomSelect(props: Props) {
             fontWeight: 400,
             color: 'var(--color-white-text)',
             outline: 'none',
+            cursor: 'pointer'
         }),
         indicatorSeparator: (provided: CSSObjectWithLabel) => ({
             ...provided,
@@ -40,6 +48,7 @@ export function CustomSelect(props: Props) {
             fontSize: '16px',
             background: 'var(--color-black-main)',
             fontWeight: 400,
+            marginLeft: 0,
             padding: '0',
         }),
         valueContainer: (provided: CSSObjectWithLabel) => ({
@@ -69,7 +78,6 @@ export function CustomSelect(props: Props) {
             padding: 0,
         }),
         option: (provided: CSSObjectWithLabel) => ({
-            ...provided,
             borderBottom: '1px solid var(--color-gray-border)',
             padding: '16px 12px',
             background: 'var(--color-black-main)',
@@ -85,6 +93,7 @@ export function CustomSelect(props: Props) {
             value={value}
             isSearchable={isSearchable}
             options={options}
+            formatOptionLabel={formatOptionLabel}
             noOptionsMessage={() => (noOptionsMessage ? noOptionsMessage : "Nothing found")}
             isDisabled={disabled}
             styles={customStyles}

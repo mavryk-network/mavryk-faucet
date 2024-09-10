@@ -1,24 +1,34 @@
-import React, {useMemo} from "react";
+import React, {useCallback, useMemo} from "react";
 import {CustomSelect} from "../UI/Select/select";
-import {TokenType} from "../../lib/Types";
-import {tokensLabels} from "./Faucet.const";
+import {tokensImages, tokensLabels} from "./Faucet.const";
+import {FormState} from "./Faucet";
 
 type Props = {
-    setSelectedToken: (value: (((prevState: (TokenType | null)) => (TokenType | null)) | TokenType | null)) => void
-    selectedToken: string | null
+    setFormState: (value: (((prevState: FormState) => FormState) | FormState)) => void
+    formState: FormState
 }
 
 export function TokenSelect(props: Props) {
-    const { selectedToken, setSelectedToken } = props;
+    const { formState, setFormState } = props;
+
+    const selectedToken = formState.selectedToken;
 
     const currentValue = useMemo(() => selectedToken ? { value: selectedToken, label: tokensLabels[selectedToken]} : null, [selectedToken])
 
     const options = useMemo(() => Object.entries(tokensLabels).map(([value, label]) => ({value, label})), [tokensLabels])
 
+    const formatTokenOptionLabel = useCallback(
+        (option: { value: string; label: string }) => <div className="select-token-option">
+           <img alt={option.label} src={tokensImages[option.value]} className="select-token-image" /> {option.label}
+        </div>,
+        [],
+    );
+
     return <CustomSelect
-        onChange={(option) => setSelectedToken(option.value)}
+        onChange={(option) => setFormState(prevState => ({...prevState, selectedToken: option.value}))}
         value={currentValue}
         placeholder="Select token"
         label="Select token"
+        formatOptionLabel={formatTokenOptionLabel}
         options={options} />
 }

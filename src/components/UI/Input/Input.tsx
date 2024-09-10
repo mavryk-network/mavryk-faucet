@@ -1,5 +1,6 @@
-import React, {ChangeEvent, MouseEvent } from "react";
+import React, {ChangeEvent, MouseEvent, useMemo, useState} from "react";
 import './input.css';
+import classnames from "classnames";
 
 type Props = {
     label?: string;
@@ -19,6 +20,10 @@ type Props = {
 export function Input(props: Props) {
     const { label, type, id, value, error, onChange, placeholder, disabled, subLabel, min, max, onClick } = props;
 
+    const [isBlur, setIsBlur] = useState(false);
+
+    const isError = useMemo(() => isBlur && error, [error, isBlur]);
+
     return <div className="custom-input-wrapper">
         {(label || subLabel) ?
             <div className="custom-input-label-container">
@@ -26,7 +31,7 @@ export function Input(props: Props) {
             {subLabel && <span className="custom-input-sub-label">{subLabel}</span>}
         </div> : null}
 
-        <input id={id} onClick={onClick} min={min} max={max} type={type} className={"custom-input"} disabled={disabled} value={value} onChange={onChange} placeholder={placeholder}/>
-        {error && <span className="custom-input-error">{error}</span>}
+        <input onBlur={() => setIsBlur(true)} id={id} onClick={onClick} min={min} max={max} type={type} className={classnames("custom-input", {['custom-input-error']: isError})} disabled={disabled} value={value} onChange={onChange} placeholder={placeholder}/>
+        {isError && <span className="custom-input-error-text">{error}</span>}
     </div>
 }

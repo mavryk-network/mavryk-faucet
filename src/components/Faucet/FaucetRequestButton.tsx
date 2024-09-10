@@ -1,5 +1,5 @@
 import axios from "axios"
-import { RefObject, useRef } from "react"
+import {RefObject, useRef, useState} from "react"
 import { Button} from "../UI/Button/button";
 import ReCAPTCHA from "react-google-recaptcha"
 
@@ -13,6 +13,8 @@ import {
   VerifyResponse,
 } from "../../lib/Types"
 import {tokensLabels} from "./Faucet.const";
+import {InfoModal} from "../UI/InfoModal/infoModal";
+import {FormState} from "./Faucet";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
@@ -24,38 +26,45 @@ const { minMav, maxMav } = Config.application
 
 
 export default function FaucetRequestButton({
-  address,
   disabled,
   network,
   status,
-  amount,
-  selectedToken,
+  formState,
+  address
 }: {
-  address: string
-  disabled: boolean
-  selectedToken: string
-  network: Network
-  status: StatusContext
-  amount: number
+  formState: FormState,
+  disabled: boolean,
+  network: Network,
+  status: StatusContext,
+  address: string,
 }) {
   const recaptchaRef: RefObject<ReCAPTCHA> = useRef(null)
+
+  const [isOpenSuccessModal, setIsOpenSuccessModal] = useState(false);
+  const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
+
+  const amount = Number(formState.tokenAmount);
 
   const startLoading = () => {
     status.setLoading(true)
     status.setStatus("")
     status.setStatusType("")
+    setIsOpenSuccessModal(false);
+    setIsOpenErrorModal(false);
   }
 
-  const  stopLoadingSuccess = (message: string) => {
+  const stopLoadingSuccess = (message: string) => {
     status.setStatus(message)
     status.setStatusType("success")
     status.setLoading(false)
+    setIsOpenSuccessModal(true);
   }
 
   const stopLoadingError = (message: string) => {
     status.setStatus(message)
     status.setStatusType("danger")
     status.setLoading(false)
+    setIsOpenErrorModal(true);
   }
 
   const validateAmount = (amount: number) =>
@@ -223,8 +232,24 @@ export default function FaucetRequestButton({
         <Button
          disabled={disabled || !validateAmount(amount)}
          onClick={getMav} >
-          Request {tokensLabels[selectedToken] ?? 'token'}
+          Request {tokensLabels[formState.selectedToken] ?? 'token'}
         </Button>
+
+        <InfoModal
+            isOpen={isOpenSuccessModal}
+            onClick={() => setIsOpenSuccessModal(false)}
+            onClose={() => setIsOpenSuccessModal(false)}
+            btnText="OK"
+            message="Fund address request sent! Confirming..."
+        />
+        <InfoModal
+            isOpen={isOpenErrorModal}
+            onClick={async () => {await getMav()}}
+            onClose={() => setIsOpenErrorModal(false)}
+            btnText="Try again"
+            type="error"
+            message="Something went wrong. Please try again"
+        />
     </div>
   )
 }

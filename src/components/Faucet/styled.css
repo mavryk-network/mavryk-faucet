@@ -41,3 +41,8 @@
 .faucet-btn-wrapper {
     max-width: 195px;
 }
+.select-token-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}

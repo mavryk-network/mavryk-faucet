@@ -1,6 +1,7 @@
 .custom-input-wrapper {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 12px;
 }
 
@@ -16,6 +17,15 @@
     line-height: 19px;
     letter-spacing: -0.02em;
     color: var(--color-white-text);
+}
+.custom-input-error {
+   border-color: var(--color-red-main);
+}
+.custom-input-error-text {
+   position: absolute;
+    bottom: -17px;
+    font-size: 12px;
+   color: var(--color-red-main);
 }
 .custom-input::placeholder {
     font-size: 16px;
