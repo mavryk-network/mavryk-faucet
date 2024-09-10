@@ -1,0 +1,26 @@
+.custom-select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.custom-select-label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: var(--color-white);
+}
+.custom-select {
+    outline: none;
+    border: 1px solid var(--color-gray-border);
+    height: 43px;
+    background: var(--color-black-main);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: -0.02em;
+    color: var(--color-white-text);
+}

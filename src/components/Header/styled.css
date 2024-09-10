@@ -1,0 +1,7 @@
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 100px;
+    background: var(--color-black-secondary);
+    width: 100%;
+}

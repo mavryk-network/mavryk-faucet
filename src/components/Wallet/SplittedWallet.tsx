@@ -76,11 +76,7 @@ function SplittedWallet({
     window.location.reload()
   }
 
-  return (
-    <Card>
-      <Card.Header>My wallet</Card.Header>
-      <Card.Body>
-        {user.userAddress ? (
+  return user.userAddress ? (
           <Row className="d-flex gy-2 flex-wrap align-items-center">
             <Col>
               <UserInfo user={user} displayBalance={false} />
@@ -96,10 +92,7 @@ function SplittedWallet({
           <Button variant="outline-primary" onClick={connectWallet}>
             Connect wallet
           </Button>
-        )}
-      </Card.Body>
-    </Card>
-  )
+        );
 }
 
 export default SplittedWallet

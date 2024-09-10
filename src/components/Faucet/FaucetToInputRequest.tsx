@@ -5,6 +5,7 @@ import { autoSelectInputText } from "../../lib/Utils"
 import FaucetRequestButton from "./FaucetRequestButton"
 
 import { Network, StatusContext } from "../../lib/Types"
+import {Input} from "../UI/Input/Input";
 
 export default function FaucetToInputRequest({
   network,
@@ -22,7 +23,6 @@ export default function FaucetToInputRequest({
   setInputToAddr: any
 
 }) {
-  const [inputClass, setInputClass] = useState<string>("")
 
   const inputId: string = network.name + "-to"
   const disableButton = status.isLoading || inputClass !== "is-valid"
@@ -31,19 +31,16 @@ export default function FaucetToInputRequest({
     const value: string = event.target.value
 
     if (value.length === 0 || validateKeyHash(value) === 3) {
-      setInputToAddr(value)
 
-      if (value.length > 0) setInputClass("is-valid")
-      else setInputClass("")
     } else {
-      setInputClass("is-invalid")
+      setAddressError(true)
     }
   }
 
   return (
     <>
       <Form.Group className="faucet-address-to">
-        <Form.Control
+        <Input
           type="text"
           placeholder="mv1..."
           id={inputId}
