@@ -1,48 +1,48 @@
 .faucet-main-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 90%;
-    max-width: 664px;
-    color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 90%;
+  max-width: 664px;
+  color: var(--color-white);
 }
 .faucet-info-block {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .faucet-main-title {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 28px;
-    letter-spacing: -0.02em;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.02em;
 }
 .faucet-info-text {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: -0.02em;
-    color: var(--color-white-secondary)
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  color: var(--color-white-secondary);
 }
 .faucet-container {
-    padding: 32px 32px 44px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    border-radius: 16px;
-    background: var(--color-gray-main);
-    border: 1px solid var(--color-gray-border);
+  padding: 32px 32px 44px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 16px;
+  background: var(--color-gray-main);
+  border: 1px solid var(--color-gray-border);
 }
 .address-field-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 .faucet-btn-wrapper {
-    max-width: 195px;
+  max-width: 195px;
 }
 .select-token-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

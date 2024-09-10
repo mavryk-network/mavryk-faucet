@@ -1,24 +1,25 @@
 .alert-wrapper {
-    width: 100%;
-    padding: 8px 12px 12px 12px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--color-braun);
+  width: 100%;
+  padding: 8px 12px 12px 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-braun);
 }
 .alert-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.alert-title, .alert-message {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: -0.02em;
+.alert-title,
+.alert-message {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: -0.02em;
 }
 .alert-message {
-    font-size: 14px;
-    line-height: 16px;
+  font-size: 14px;
+  line-height: 16px;
 }

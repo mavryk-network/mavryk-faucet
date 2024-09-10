@@ -1,64 +1,64 @@
 .custom-input-wrapper {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 12px;
 }
 
 .custom-input {
-    outline: none;
-    border: 1px solid var(--color-gray-border);
-    height: 43px;
-    background: var(--color-black-main);
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: -0.02em;
-    color: var(--color-white-text);
+  outline: none;
+  border: 1px solid var(--color-gray-border);
+  height: 43px;
+  background: var(--color-black-main);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  color: var(--color-white-text);
 }
 .custom-input-error {
-   border-color: var(--color-red-main);
+  border-color: var(--color-red-main);
 }
 .custom-input-error-text {
-   position: absolute;
-    bottom: -17px;
-    font-size: 12px;
-   color: var(--color-red-main);
+  position: absolute;
+  bottom: -17px;
+  font-size: 12px;
+  color: var(--color-red-main);
 }
 .custom-input::placeholder {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: -0.02em;
-    color: var(--color-gray-light);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  color: var(--color-gray-light);
 }
 .custom-input-sub-label,
 .custom-input-label {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: -0.02em;
-    text-align: left;
-    color: var(--color-white);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: var(--color-white);
 }
 .custom-input-sub-label {
-    font-size: 14px;
+  font-size: 14px;
 }
 .custom-input-label-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 /* Chrome, Safari, Edge, Opera */
 .custom-input::-webkit-outer-spin-button,
 .custom-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
-.custom-input[type=number] {
-    -moz-appearance: textfield;
+.custom-input[type="number"] {
+  -moz-appearance: textfield;
 }

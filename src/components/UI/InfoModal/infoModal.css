@@ -1,48 +1,48 @@
 .info-modal-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    padding: 44px 64px;
-    border-radius: 16px;
-    background: var(--color-gray-main);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 44px 64px;
+  border-radius: 16px;
+  background: var(--color-gray-main);
 }
 body .modal-content {
-    background-color: transparent;
+  background-color: transparent;
 }
 .info-modal-btn-wrapper {
-    width: 100%;
+  width: 100%;
 }
 .info-modal-text-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-white-text);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white-text);
 }
 .info-modal-text-block {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
 }
 .info-modal-title {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.02em;
 }
 .info-modal-message {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: -0.02em;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.02em;
 }
 .info-modal-close-btn {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
 }

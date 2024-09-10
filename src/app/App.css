@@ -1,5 +1,5 @@
-@import 'vars.css';
-@import 'font.css';
+@import "vars.css";
+@import "font.css";
 
 html {
   box-sizing: border-box;
@@ -17,7 +17,12 @@ html {
   padding: 0;
 }
 
-html h1, html h2, html h3, html h4, html h5, html h6 {
+html h1,
+html h2,
+html h3,
+html h4,
+html h5,
+html h6 {
   margin-bottom: 0;
   padding: 0;
 }
