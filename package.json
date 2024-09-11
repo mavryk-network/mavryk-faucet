@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@dicebear/avatars": "^4.10.8",
-    "@dicebear/avatars-bottts-sprites": "^4.10.8",
+    "@dicebear/avatars": "^4.2.5",
+    "@dicebear/avatars-bottts-sprites": "^4.2.5",
     "@mavrykdynamics/taquito": "^19.2.2",
     "@mavrykdynamics/taquito-beacon-wallet": "^19.2.2",
     "@mavrykdynamics/taquito-signer": "^19.2.2",
