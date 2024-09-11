@@ -69,7 +69,7 @@ function Wallet(props: Props) {
       <UserInfo user={user} displayBalance={false} />
     ) : (
       <div className="wallet-btn-wrapper">
-        <Button onClick={connectWallet}>Connect wallet</Button>
+        <Button onClick={() => {connectWallet()}}>Connect wallet</Button>
       </div>
     );
 
@@ -77,7 +77,7 @@ function Wallet(props: Props) {
     <AccountInfo user={user} displayBalance={false} />
   ) : (
     <div className="wallet-btn-wrapper">
-      <Button variant="outlined" onClick={connectWallet}>
+      <Button variant="outlined" onClick={() => {connectWallet()}}>
         Connect wallet
       </Button>
     </div>
