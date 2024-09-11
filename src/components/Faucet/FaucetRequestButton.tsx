@@ -52,11 +52,12 @@ export default function FaucetRequestButton({
     setIsOpenErrorModal(false);
   };
 
-  const stopLoadingSuccess = (message: string) => {
+  const stopLoadingSuccess = async (message: string) => {
     status.setStatus(message);
     status.setStatusType("success");
     status.setLoading(false);
     setIsOpenSuccessModal(true);
+    await status.readBalances();
   };
 
   const stopLoadingError = (message: string) => {

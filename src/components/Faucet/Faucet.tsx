@@ -48,6 +48,15 @@ export default function Faucet({
     isAddressError: true,
   });
 
+  const readBalances = async (): Promise<void> => {
+    try {
+      const userBalance = await Tezos.tz.getBalance(user.userAddress);
+      user.setUserBalance(userBalance.toNumber());
+    } catch (error) {
+      //console.log(error);
+    }
+  };
+
   const statusContext: StatusContext = {
     isLoading,
     setLoading,
@@ -57,15 +66,7 @@ export default function Faucet({
     setStatusType,
     powWorker,
     setPowWorker,
-  };
-
-  const readBalances = async (): Promise<void> => {
-    try {
-      const userBalance = await Tezos.tz.getBalance(user.userAddress);
-      user.setUserBalance(userBalance.toNumber());
-    } catch (error) {
-      //console.log(error);
-    }
+    readBalances
   };
 
   const isDisabledButton = useMemo(() => {

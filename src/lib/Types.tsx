@@ -79,4 +79,5 @@ export type StatusContext = {
   setStatusType: Dispatch<SetStateAction<string>>;
   powWorker: Worker | null;
   setPowWorker: Dispatch<SetStateAction<Worker | null>>;
+  readBalances: () => Promise<void>
 };
