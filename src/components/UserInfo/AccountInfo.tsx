@@ -7,7 +7,7 @@ export function AccountInfo({ user }: { user: UserContext }) {
     <div className="account-info-wrapper">
       <div className="account-info-address">{user.userAddress}</div>
       <div className="account-info-balance">
-          {toBalance(user.userBalance)} MVRK
+        {toBalance(user.userBalance)} MVRK
       </div>
     </div>
   );

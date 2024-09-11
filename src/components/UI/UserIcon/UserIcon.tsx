@@ -1,12 +1,12 @@
-import React, { CSSProperties, FC, HTMLAttributes, useMemo } from 'react';
+import React, { CSSProperties, FC, HTMLAttributes, useMemo } from "react";
 
-import Avatars from '@dicebear/avatars';
-import botttsSprites from '@dicebear/avatars-bottts-sprites';
-import * as jdenticonSpirtes from 'jdenticon';
+import Avatars from "@dicebear/avatars";
+import botttsSprites from "@dicebear/avatars-bottts-sprites";
+import * as jdenticonSpirtes from "jdenticon";
 
 import initialsSprites from "../../../lib/avatars-initials-sprites";
 
-export type IdeniconType = 'jdenticon' | 'bottts' | 'initials';
+export type IdeniconType = "jdenticon" | "bottts" | "initials";
 
 type IdenticonProps = HTMLAttributes<HTMLDivElement> & {
   type?: IdeniconType;
@@ -21,7 +21,7 @@ const DEFAULT_FONT_SIZE = 50;
 const cache = new Map<string, string>();
 
 const UserIcon: FC<IdenticonProps> = ({
-  type = 'jdenticon',
+  type = "jdenticon",
   hash,
   size = 100,
   className,
@@ -29,10 +29,10 @@ const UserIcon: FC<IdenticonProps> = ({
   isToken = false,
   ...rest
 }) => {
-  const IS_WEB  = true;
+  const IS_WEB = true;
 
   const icons: Record<
-    NonNullable<IdenticonProps['type']>,
+    NonNullable<IdenticonProps["type"]>,
     Avatars<{}>
   > = useMemo(
     () =>
@@ -43,7 +43,7 @@ const UserIcon: FC<IdenticonProps> = ({
             initials: new Avatars(initialsSprites),
           }
         : {},
-    [IS_WEB]
+    [IS_WEB],
   );
 
   const backgroundImage = useMemo(() => {
@@ -60,18 +60,18 @@ const UserIcon: FC<IdenticonProps> = ({
       };
 
       const opts =
-        type === 'initials'
+        type === "initials"
           ? {
               ...basicOpts,
               chars: MAX_INITIALS_LENGTH,
               radius: 50,
 
               fontSize: estimateOptimalFontSize(
-                hash.slice(0, MAX_INITIALS_LENGTH).length
+                hash.slice(0, MAX_INITIALS_LENGTH).length,
               ),
             }
           : basicOpts;
-      const additionalOpts = isToken ? { background: 'transparent' } : {};
+      const additionalOpts = isToken ? { background: "transparent" } : {};
 
       const imgSrc = icons[type].create(hash, { ...opts, ...additionalOpts });
 
@@ -83,18 +83,18 @@ const UserIcon: FC<IdenticonProps> = ({
 
   const memoizedStyle = useMemo(
     () =>
-      isToken && type === 'initials'
+      isToken && type === "initials"
         ? {
             top: 0,
             left: 0,
           }
         : style,
-    [isToken, type, style]
+    [isToken, type, style],
   );
 
   return (
     <RenderIcon
-      addWrapper={isToken && type === 'initials'}
+      addWrapper={isToken && type === "initials"}
       style={{
         width: size,
         height: size,
@@ -113,10 +113,10 @@ const UserIcon: FC<IdenticonProps> = ({
         }}
         {...rest}
       />
-      {isToken && type === 'initials' && (
+      {isToken && type === "initials" && (
         <div className="absolute inset-0 rounded-full">
           <img
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: "contain" }}
             src="/assets/account.png"
             className=" w-full h-full"
             alt="no token"
@@ -131,13 +131,13 @@ export default UserIcon;
 
 export function estimateOptimalFontSize(
   length: number,
-  defaultFontSize = DEFAULT_FONT_SIZE
+  defaultFontSize = DEFAULT_FONT_SIZE,
 ) {
   const initialsLength = Math.min(length, MAX_INITIALS_LENGTH);
   if (initialsLength > 2) {
     const n = initialsLength;
     const multiplier = Math.sqrt(
-      10000 / ((32 * n + 4 * (n - 1)) ** 2 + 36 ** 2)
+      10000 / ((32 * n + 4 * (n - 1)) ** 2 + 36 ** 2),
     );
     return Math.floor(defaultFontSize * multiplier);
   }
@@ -150,11 +150,5 @@ const RenderIcon: FC<
     style: CSSProperties;
   }
 > = ({ addWrapper, children, style }) => {
-  return addWrapper ? (
-    <div style={style}>
-      {children}
-    </div>
-  ) : (
-    <>{children}</>
-  );
+  return addWrapper ? <div style={style}>{children}</div> : <>{children}</>;
 };
