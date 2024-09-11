@@ -1,4 +1,4 @@
-body {
+html body {
   position: relative;
   min-height: 100vh;
   background: var(--color-black-main);

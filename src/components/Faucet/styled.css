@@ -4,6 +4,7 @@
   gap: 24px;
   width: 90%;
   max-width: 664px;
+  margin: 20px 0;
   color: var(--color-white);
 }
 .faucet-info-block {
