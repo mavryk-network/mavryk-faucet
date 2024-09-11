@@ -1,14 +1,13 @@
 import "./styled.css";
-
 import { UserContext } from "../../lib/Types";
-import { formatNumber } from "../../utils/formaters";
+import { toBalance } from "../../lib/Utils";
 
 export function AccountInfo({ user }: { user: UserContext }) {
   return (
     <div className="account-info-wrapper">
       <div className="account-info-address">{user.userAddress}</div>
       <div className="account-info-balance">
-        {formatNumber({ number: user.userBalance })} MVRK
+          {toBalance(user.userBalance)} MVRK
       </div>
     </div>
   );
