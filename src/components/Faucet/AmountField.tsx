@@ -29,7 +29,7 @@ export function AmountField(props: Props) {
   const updateAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const numberValue = Number(value);
-    console.log(numberValue, value);
+
     if (numberValue === 0 || validateAmount(numberValue)) {
       setFormState((prevState) => ({
         ...prevState,
