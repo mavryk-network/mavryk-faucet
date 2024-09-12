@@ -4,7 +4,10 @@ import { autoSelectInputText } from "../../lib/Utils";
 import { Input } from "../UI/Input/Input";
 import Config from "../../Config";
 import { tokensLabels } from "./Faucet.const";
-import { formatNumber } from "../../utils/formaters";
+import {
+  formatInputToDecimalNumber,
+  formatNumber,
+} from "../../utils/formaters";
 import { FormState } from "./Faucet";
 
 const { minMav, maxMav } = Config.application;
@@ -24,10 +27,14 @@ export function AmountField(props: Props) {
     amount >= minMav && amount <= maxMav;
 
   const updateAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.slice(0, 16);
+    const value = e.target.value;
     const numberValue = Number(value);
+    console.log(numberValue, value);
     if (numberValue === 0 || validateAmount(numberValue)) {
-      setFormState((prevState) => ({ ...prevState, tokenAmount: value }));
+      setFormState((prevState) => ({
+        ...prevState,
+        tokenAmount: formatInputToDecimalNumber(value),
+      }));
     }
   };
 

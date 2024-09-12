@@ -1,3 +1,5 @@
+import BigNumber from "bignumber.js";
+
 export const formatNumber = ({
   number,
   decimalsToShow = 0,
@@ -19,4 +21,19 @@ export const shortenAddress = (str: string, startLength = 7, endLength = 4) => {
   var end = str.substring(str.length - endLength); // Extract the last part of the string
 
   return start + "..." + end;
+};
+
+export const formatInputToDecimalNumber = (
+  input: string,
+  maxDecimalPlaces: number = 6,
+): string => {
+  let [intPart, decimalPart] = input.split(".");
+
+  if (!decimalPart) return input;
+
+  if (decimalPart.length > maxDecimalPlaces) {
+    decimalPart = decimalPart.slice(0, maxDecimalPlaces);
+  }
+
+  return [intPart, decimalPart].join(".");
 };
