@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { CustomSelect } from "../UI/Select/select";
 import { transactionsLabels } from "./Faucet.const";
 import { FormState } from "./Faucet";
+import { TransactionType } from "../../lib/Types";
 
 type Props = {
   setFormState: (
@@ -18,7 +19,10 @@ export function TransactionTypeSelect(props: Props) {
   const currentValue = useMemo(
     () =>
       transactionType
-        ? { value: transactionType, label: transactionsLabels[transactionType] }
+        ? {
+            value: transactionType,
+            label: transactionsLabels[transactionType as TransactionType],
+          }
         : null,
     [transactionType],
   );
@@ -37,7 +41,7 @@ export function TransactionTypeSelect(props: Props) {
       onChange={(option) =>
         setFormState((prevState) => ({
           ...prevState,
-          transactionType: option.value,
+          transactionType: option?.value ?? null,
         }))
       }
       value={currentValue}

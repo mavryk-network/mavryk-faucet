@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { CustomSelect } from "../UI/Select/select";
 import { tokensImages, tokensLabels } from "./Faucet.const";
 import { FormState } from "./Faucet";
+import { TokenType } from "../../lib/Types";
 
 type Props = {
   setFormState: (
@@ -18,7 +19,10 @@ export function TokenSelect(props: Props) {
   const currentValue = useMemo(
     () =>
       selectedToken
-        ? { value: selectedToken, label: tokensLabels[selectedToken] }
+        ? {
+            value: selectedToken,
+            label: tokensLabels[selectedToken as TokenType],
+          }
         : null,
     [selectedToken],
   );
@@ -34,7 +38,7 @@ export function TokenSelect(props: Props) {
       <div className="select-token-option">
         <img
           alt={option.label}
-          src={tokensImages[option.value]}
+          src={tokensImages[option.value as TokenType]}
           className="select-token-image"
         />{" "}
         {option.label}
@@ -48,7 +52,7 @@ export function TokenSelect(props: Props) {
       onChange={(option) =>
         setFormState((prevState) => ({
           ...prevState,
-          selectedToken: option.value,
+          selectedToken: option?.value ?? null,
         }))
       }
       value={currentValue}

@@ -66,7 +66,7 @@ function Wallet(props: Props) {
 
   if (type === "userInfo")
     return user.userAddress ? (
-      <UserInfo user={user} displayBalance={false} />
+      <UserInfo user={user} />
     ) : (
       <div className="wallet-btn-wrapper">
         <Button
@@ -80,7 +80,7 @@ function Wallet(props: Props) {
     );
 
   return user.userAddress ? (
-    <AccountInfo user={user} displayBalance={false} />
+    <AccountInfo user={user} />
   ) : (
     <div className="wallet-btn-wrapper">
       <Button

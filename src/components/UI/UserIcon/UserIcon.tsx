@@ -31,6 +31,7 @@ const UserIcon: FC<IdenticonProps> = ({
 }) => {
   const IS_WEB = true;
 
+  // @ts-ignore
   const icons: Record<
     NonNullable<IdenticonProps["type"]>,
     Avatars<{}>
@@ -40,6 +41,7 @@ const UserIcon: FC<IdenticonProps> = ({
         ? {
             jdenticon: jdenticonSpirtes,
             bottts: new Avatars(botttsSprites),
+            // @ts-ignore
             initials: new Avatars(initialsSprites),
           }
         : {},
@@ -144,11 +146,14 @@ export function estimateOptimalFontSize(
   return defaultFontSize;
 }
 
-const RenderIcon: FC<
-  React.ReactNode & {
-    addWrapper: boolean;
-    style: CSSProperties;
-  }
-> = ({ addWrapper, children, style }) => {
+const RenderIcon = ({
+  addWrapper,
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  addWrapper: boolean;
+  style: CSSProperties;
+}) => {
   return addWrapper ? <div style={style}>{children}</div> : <>{children}</>;
 };

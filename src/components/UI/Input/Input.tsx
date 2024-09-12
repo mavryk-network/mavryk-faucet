@@ -7,7 +7,7 @@ type Props = {
   subLabel?: string;
   value: string | number;
   placeholder?: string;
-  onChange: ((event: ChangeEvent) => void) | undefined;
+  onChange: ((event: ChangeEvent<HTMLInputElement>) => void) | undefined;
   error?: string;
   disabled?: boolean;
   type?: string;

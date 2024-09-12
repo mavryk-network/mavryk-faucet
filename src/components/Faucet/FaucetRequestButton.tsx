@@ -10,6 +10,7 @@ import {
   ChallengeResponse,
   Network,
   StatusContext,
+  TokenType,
   VerifyResponse,
 } from "../../lib/Types";
 import { tokensLabels } from "./Faucet.const";
@@ -231,7 +232,7 @@ export default function FaucetRequestButton({
       />
 
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
-        Request {tokensLabels[formState.selectedToken] ?? "token"}
+        Request {tokensLabels[formState.selectedToken as TokenType] ?? "token"}
       </Button>
 
       <InfoModal

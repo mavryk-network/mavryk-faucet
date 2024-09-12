@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { StatusContext } from "../../lib/Types";
+import { StatusContext, TokenType } from "../../lib/Types";
 import { autoSelectInputText } from "../../lib/Utils";
 import { Input } from "../UI/Input/Input";
 import Config from "../../Config";
@@ -32,7 +32,7 @@ export function AmountField(props: Props) {
   };
 
   const tokenName = useMemo(
-    () => tokensLabels[formState.selectedToken] ?? "token",
+    () => tokensLabels[formState.selectedToken as TokenType] ?? "token",
     [formState.selectedToken],
   );
 

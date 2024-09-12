@@ -7,11 +7,12 @@ import Select, {
 
 type Props = {
   disabled?: boolean;
+  name?: string;
   label: string;
   placeholder?: string;
   noOptionsMessage?: string;
   value: { value: string; label: string } | null;
-  onChange: (option: { value: string; label: string }) => void;
+  onChange: (option: { value: string; label: string } | null) => void;
   options: { value: string; label: string }[];
   isSearchable?: boolean;
   formatOptionLabel?: (

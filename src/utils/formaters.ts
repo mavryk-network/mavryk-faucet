@@ -10,11 +10,7 @@ export const formatNumber = ({
   });
 };
 
-export const shortenAddress = (str, startLength = 7, endLength = 4) => {
-  if (!str || typeof str != "string") {
-    return "";
-  }
-
+export const shortenAddress = (str: string, startLength = 7, endLength = 4) => {
   if (str.length <= startLength + endLength) {
     return str; // If the string is already shorter than the desired length, return the original string
   }
