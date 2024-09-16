@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import "./select.css";
 import Select, {
   CSSObjectWithLabel,
@@ -38,6 +38,8 @@ export function CustomSelect(props: Props) {
     formatOptionLabel,
   } = props;
 
+  const selectRef = useRef<any>(null);
+
   const customStyles = {
     container: (provided: CSSObjectWithLabel) => ({
       ...provided,
@@ -48,8 +50,9 @@ export function CustomSelect(props: Props) {
     control: (provided: CSSObjectWithLabel, state: any) => ({
       display: "flex",
       width: "100%",
-      height: "43px",
+      minHeight: "43px",
       border: "1px solid var(--color-gray-border)",
+      borderColor: state.isFocused ? "#5F58FF80" : "var(--color-gray-border)",
       borderRadius: "8px",
       fontSize: "16px",
       background: "var(--color-black-main)",
@@ -69,11 +72,11 @@ export function CustomSelect(props: Props) {
       background: "var(--color-black-main)",
       fontWeight: 400,
       marginLeft: 0,
-      padding: "0",
+      padding: "8px 0",
     }),
     valueContainer: (provided: CSSObjectWithLabel) => ({
       ...provided,
-      padding: "2px 16px",
+      padding: "0 16px",
     }),
     placeholder: (provided: CSSObjectWithLabel) => ({
       ...provided,
@@ -104,12 +107,25 @@ export function CustomSelect(props: Props) {
       background: "#111111",
       cursor: "pointer",
     }),
+    dropdownIndicator: (provided: CSSObjectWithLabel, state) => ({
+      ...provided,
+      color: "#F4F4F4",
+      transform: state.isFocused ? "rotate(180deg)" : "rotate(0deg)",
+    }),
+  };
+
+  const handleChange = (selected: { value: string; label: string } | null) => {
+    if (selectRef.current) {
+      selectRef.current.blur(); // Потеря фокуса
+    }
+    onChange(selected);
   };
 
   return (
     <div className="custom-select-wrapper">
       {label && <span className="custom-select-label">{label}</span>}
       <Select
+        ref={selectRef}
         name={name}
         id={name}
         value={value}
@@ -121,7 +137,7 @@ export function CustomSelect(props: Props) {
         }
         isDisabled={disabled}
         styles={customStyles}
-        onChange={(selected) => onChange(selected ?? null)}
+        onChange={handleChange}
         placeholder={placeholder}
       ></Select>
     </div>
