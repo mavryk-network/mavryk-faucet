@@ -2,7 +2,7 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   border-radius: 8px;
   background: #313131;
   width: fit-content;
@@ -27,13 +27,12 @@
   line-height: 16px;
   letter-spacing: -0.02em;
 }
-.user-info-address {
-  font-size: 12px;
+.user-info-account-name {
+  font-size: 16px;
 }
 .user-info-account-name,
 .account-info-balance {
-  color: var(--color-white-text)
+  color: var(--color-white-text);
 }
 .user-info-wrapper {
-
 }

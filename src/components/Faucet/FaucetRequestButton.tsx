@@ -11,6 +11,7 @@ import {
   Network,
   StatusContext,
   TokenType,
+  TransactionType,
   VerifyResponse,
 } from "../../lib/Types";
 import { tokensLabels } from "./Faucet.const";
@@ -31,12 +32,14 @@ export default function FaucetRequestButton({
   status,
   formState,
   address,
+  transactionType,
 }: {
   formState: FormState;
   disabled: boolean;
   network: Network;
   status: StatusContext;
   address: string;
+  transactionType: string | null;
 }) {
   const recaptchaRef: RefObject<ReCAPTCHA> = useRef(null);
 
@@ -232,7 +235,7 @@ export default function FaucetRequestButton({
       />
 
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
-        Request {tokensLabels[formState.selectedToken as TokenType] ?? "token"}
+        Request {tokensLabels[formState.selectedToken as TokenType] ?? "Token"}
       </Button>
 
       <InfoModal
@@ -240,7 +243,7 @@ export default function FaucetRequestButton({
         onClick={() => setIsOpenSuccessModal(false)}
         onClose={() => setIsOpenSuccessModal(false)}
         btnText="OK"
-        message="Fund address request sent! Confirming..."
+        message={`Fund ${transactionType === TransactionType.address ? "address" : "wallet"} request sent! Confirming...`}
       />
       <InfoModal
         isOpen={isOpenErrorModal}

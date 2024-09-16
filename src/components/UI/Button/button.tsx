@@ -9,6 +9,7 @@ type Props = {
   type?: "button" | "submit" | "reset";
   variant?: "primary" | "outlined";
   disabled?: boolean;
+  className?: string;
 };
 
 export function Button(props: Props) {
@@ -18,6 +19,7 @@ export function Button(props: Props) {
     variant = "primary",
     children,
     type = "button",
+    className,
   } = props;
 
   const [isLoading, setLoading] = useState(false);
@@ -40,9 +42,13 @@ export function Button(props: Props) {
       type={type}
       disabled={isDisabled}
       onClick={onClickHandler}
-      className={classnames("custom-btn", {
-        ["custom-btn-outlined"]: variant === "outlined",
-      })}
+      className={classnames(
+        "custom-btn",
+        {
+          ["custom-btn-outlined"]: variant === "outlined",
+        },
+        className,
+      )}
     >
       {isLoading ? (
         <Spinner

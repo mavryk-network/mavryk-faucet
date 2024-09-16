@@ -88,9 +88,10 @@ export function CustomSelect(props: Props) {
       borderRadius: "8px",
       overflow: "hidden",
       fontSize: "16px",
-      background: "var(--color-black-main)",
+      background: "#111111",
       fontWeight: 400,
       padding: 0,
+      marginTop: "4px",
       color: "var(--color-white-text)",
     }),
     menuList: (provided: CSSObjectWithLabel) => ({
@@ -100,7 +101,7 @@ export function CustomSelect(props: Props) {
     option: (provided: CSSObjectWithLabel) => ({
       borderBottom: "1px solid var(--color-gray-border)",
       padding: "16px 12px",
-      background: "var(--color-black-main)",
+      background: "#111111",
       cursor: "pointer",
     }),
   };

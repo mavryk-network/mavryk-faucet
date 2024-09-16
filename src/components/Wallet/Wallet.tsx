@@ -12,10 +12,17 @@ type Props = {
   testnetContext: TestnetContext;
   network: Network;
   type?: "accountInfo" | "userInfo";
+  className?: string;
 };
 
 function Wallet(props: Props) {
-  const { user, testnetContext, network, type = "accountInfo" } = props;
+  const {
+    user,
+    testnetContext,
+    network,
+    type = "accountInfo",
+    className,
+  } = props;
 
   const setup = async (userAddress: string): Promise<void> => {
     user.setUserAddress(userAddress);
@@ -73,8 +80,9 @@ function Wallet(props: Props) {
           onClick={() => {
             connectWallet();
           }}
+          className={className}
         >
-          Connect wallet
+          Connect Wallet
         </Button>
       </div>
     );
@@ -88,8 +96,9 @@ function Wallet(props: Props) {
         onClick={() => {
           connectWallet();
         }}
+        className={className}
       >
-        Connect wallet
+        Connect Wallet
       </Button>
     </div>
   );

@@ -16,11 +16,12 @@ function Header(props: Props) {
       <a href="https://www.mavrykdynamics.com" target="_blank">
         <img
           src="/faucet-logo.png"
-          className="d-inline-block align-top"
+          className="d-inline-block align-top header-logo-image"
           alt="Mavryk Dynamics Logo"
         />
       </a>
       <Wallet
+        className="header-wallet"
         type="userInfo"
         user={user}
         network={network}

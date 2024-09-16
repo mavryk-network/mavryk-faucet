@@ -148,6 +148,7 @@ export default function Faucet({
           network={network}
           address={requestAddress}
           status={statusContext}
+          transactionType={formState.transactionType}
         />
       </div>
     </div>
