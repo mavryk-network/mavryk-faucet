@@ -13,11 +13,11 @@ import {
   TokenType,
   TransactionType,
   VerifyResponse,
-} from "../../lib/Types";
+} from "~/lib/Types";
 import { tokensLabels } from "./Faucet.const";
 import { InfoModal } from "../UI/InfoModal/infoModal";
 import { FormState } from "./Faucet";
-import {useUserContext} from "../../providers/UserProvider/user.provider";
+import {useUserContext} from "~/providers/UserProvider/user.provider";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,

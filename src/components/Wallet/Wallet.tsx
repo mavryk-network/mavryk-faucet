@@ -2,7 +2,7 @@ import { Button } from "../UI/Button/button";
 import UserInfo from "../UserInfo/UserInfo";
 import "./wallet.css";
 import { AccountInfo } from "../UserInfo/AccountInfo";
-import { useUserContext } from "../../providers/UserProvider/user.provider";
+import { useUserContext } from "~/providers/UserProvider/user.provider";
 
 type Props = {
   type?: "accountInfo" | "userInfo";

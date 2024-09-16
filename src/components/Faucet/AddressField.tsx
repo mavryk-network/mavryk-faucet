@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback } from "react";
 import { validateKeyHash } from "@mavrykdynamics/taquito-utils";
-import { StatusContext } from "../../lib/Types";
-import { autoSelectInputText } from "../../lib/Utils";
+import { StatusContext } from "~/lib/Types";
+import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";
 import { Alert } from "../UI/Alert/alert";
 import { FormState } from "./Faucet";

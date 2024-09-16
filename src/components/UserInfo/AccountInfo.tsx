@@ -1,6 +1,6 @@
 import "./styled.css";
-import { toBalance } from "../../lib/Utils";
-import { useUserContext } from "../../providers/UserProvider/user.provider";
+import { toBalance } from "~/lib/Utils";
+import { useUserContext } from "~/providers/UserProvider/user.provider";
 
 export function AccountInfo() {
   const { user } = useUserContext();

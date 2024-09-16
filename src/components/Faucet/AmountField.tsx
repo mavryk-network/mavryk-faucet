@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
-import { StatusContext, TokenType } from "../../lib/Types";
-import { autoSelectInputText } from "../../lib/Utils";
+import { StatusContext, TokenType } from "~/lib/Types";
+import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";
 import Config from "../../Config";
 import { tokensLabels } from "./Faucet.const";
 import {
   formatInputToDecimalNumber,
   formatNumber,
-} from "../../utils/formaters";
+} from "~/utils/formaters";
 import { FormState } from "./Faucet";
 
 const { minMav, maxMav } = Config.application;

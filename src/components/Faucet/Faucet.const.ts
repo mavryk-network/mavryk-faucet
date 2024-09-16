@@ -1,4 +1,4 @@
-import { TokenType, TransactionType } from "../../lib/Types";
+import { TokenType, TransactionType } from "~/lib/Types";
 
 export const tokensLabels = {
   [TokenType.mvrk]: "MVRK",

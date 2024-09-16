@@ -1,14 +1,14 @@
 import { useState, useMemo } from "react";
 import "./styled.css";
 
-import { Network, StatusContext, TransactionType } from "../../lib/Types";
+import { Network, StatusContext, TransactionType } from "~/lib/Types";
 import { AddressField } from "./AddressField";
 import { AmountField } from "./AmountField";
 import { TransactionTypeSelect } from "./TransactionTypeSelect";
 import { TokenSelect } from "./TokenSelect";
 import FaucetRequestButton from "./FaucetRequestButton";
 import { MyAddress } from "./MyAddress";
-import { useUserContext } from "../../providers/UserProvider/user.provider";
+import { useUserContext } from "~/providers/UserProvider/user.provider";
 
 export type FormState = {
   tokenAmount: string;

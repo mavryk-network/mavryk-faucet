@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { CustomSelect } from "../UI/Select/select";
 import { transactionsLabels } from "./Faucet.const";
 import { FormState } from "./Faucet";
-import { TransactionType } from "../../lib/Types";
+import { TransactionType } from "~/lib/Types";
 
 type Props = {
   setFormState: (

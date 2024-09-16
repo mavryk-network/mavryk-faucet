@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { dappClient } from "../../WalletProvider/WalletCore.client";
+import { dappClient } from "~/providers/WalletProvider/WalletCore.client";
 import { AccountInfo } from "@mavrykdynamics/beacon-dapp";
 
 type UseUserApiType = {

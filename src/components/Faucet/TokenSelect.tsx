@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { CustomSelect } from "../UI/Select/select";
 import { tokensImages, tokensLabels } from "./Faucet.const";
 import { FormState } from "./Faucet";
-import { TokenType } from "../../lib/Types";
+import { TokenType } from "~/lib/Types";
 
 type Props = {
   setFormState: (

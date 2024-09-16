@@ -1,7 +1,7 @@
-import { shortenAddress } from "../../utils/formaters";
+import { shortenAddress } from "~/utils/formaters";
 import "./styled.css";
 import UserIcon from "../UI/UserIcon/UserIcon";
-import { useUserContext } from "../../providers/UserProvider/user.provider";
+import { useUserContext } from "~/providers/UserProvider/user.provider";
 import { NavDropdown } from "react-bootstrap";
 
 function UserInfo() {
