@@ -17,6 +17,7 @@ import {
 import { tokensLabels } from "./Faucet.const";
 import { InfoModal } from "../UI/InfoModal/infoModal";
 import { FormState } from "./Faucet";
+import {useUserContext} from "../../providers/UserProvider/user.provider";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
@@ -41,6 +42,7 @@ export default function FaucetRequestButton({
   address: string;
   transactionType: string | null;
 }) {
+  const { readBalances } = useUserContext();
   const recaptchaRef: RefObject<ReCAPTCHA> = useRef(null);
 
   const [isOpenSuccessModal, setIsOpenSuccessModal] = useState(false);
@@ -61,7 +63,7 @@ export default function FaucetRequestButton({
     status.setStatusType("success");
     status.setLoading(false);
     setIsOpenSuccessModal(true);
-    await status.readBalances();
+    await readBalances();
   };
 
   const stopLoadingError = (message: string) => {

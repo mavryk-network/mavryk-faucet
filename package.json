@@ -10,6 +10,7 @@
     "@mavrykdynamics/taquito": "^19.2.2",
     "@mavrykdynamics/taquito-beacon-wallet": "^19.2.2",
     "@mavrykdynamics/taquito-signer": "^19.2.2",
+    "@microsoft/signalr": "^8.0.7",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "html-react-parser": "^5.0.7",
@@ -20,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^3.1.0",
     "react-select": "^5.8.0",
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",

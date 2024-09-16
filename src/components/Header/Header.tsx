@@ -1,16 +1,7 @@
 import "./styled.css";
 import Wallet from "../Wallet/Wallet";
-import { Network, TestnetContext, UserContext } from "../../lib/Types";
 
-type Props = {
-  user: UserContext;
-  testnet: TestnetContext;
-  network: Network;
-};
-
-function Header(props: Props) {
-  const { user, testnet, network } = props;
-
+function Header() {
   return (
     <div className="header-wrapper">
       <a href="https://www.mavrykdynamics.com" target="_blank">
@@ -23,9 +14,6 @@ function Header(props: Props) {
       <Wallet
         className="header-wallet"
         type="userInfo"
-        user={user}
-        network={network}
-        testnetContext={testnet}
       />
     </div>
   );

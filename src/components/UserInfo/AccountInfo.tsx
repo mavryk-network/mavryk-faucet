@@ -1,14 +1,19 @@
 import "./styled.css";
-import { UserContext } from "../../lib/Types";
 import { toBalance } from "../../lib/Utils";
+import { useUserContext } from "../../providers/UserProvider/user.provider";
+import {NavDropdown} from "react-bootstrap";
 
-export function AccountInfo({ user }: { user: UserContext }) {
+export function AccountInfo() {
+  const { user } = useUserContext();
+
+  if (!user.address) return null;
   return (
-    <div className="account-info-wrapper">
-      <div className="account-info-address">{user.userAddress}</div>
-      <div className="account-info-balance">
-        {toBalance(user.userBalance)} MVRK
+
+      <div className="account-info-wrapper">
+        <div className="account-info-address">{user.address}</div>
+        <div className="account-info-balance">
+          {toBalance(user.balance)} MVRK
+        </div>
       </div>
-    </div>
   );
 }

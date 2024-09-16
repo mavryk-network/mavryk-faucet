@@ -1,20 +1,14 @@
-import { useState, useEffect, useMemo } from "react";
-import { TezosToolkit } from "@mavrykdynamics/taquito";
+import { useState, useMemo } from "react";
 import "./styled.css";
 
-import {
-  Network,
-  UserContext,
-  StatusContext,
-  TransactionType,
-  TestnetContext,
-} from "../../lib/Types";
+import { Network, StatusContext, TransactionType } from "../../lib/Types";
 import { AddressField } from "./AddressField";
 import { AmountField } from "./AmountField";
 import { TransactionTypeSelect } from "./TransactionTypeSelect";
 import { TokenSelect } from "./TokenSelect";
 import FaucetRequestButton from "./FaucetRequestButton";
 import { MyAddress } from "./MyAddress";
+import { useUserContext } from "../../providers/UserProvider/user.provider";
 
 export type FormState = {
   tokenAmount: string;
@@ -24,17 +18,8 @@ export type FormState = {
   isAddressError: boolean;
 };
 
-export default function Faucet({
-  network,
-  user,
-  Tezos,
-  testnet,
-}: {
-  network: Network;
-  user: UserContext;
-  Tezos: TezosToolkit;
-  testnet: TestnetContext;
-}) {
+export default function Faucet({ network }: { network: Network }) {
+  const { user } = useUserContext();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("");
   const [statusType, setStatusType] = useState<string>("");
@@ -48,15 +33,6 @@ export default function Faucet({
     isAddressError: true,
   });
 
-  const readBalances = async (): Promise<void> => {
-    try {
-      const userBalance = await Tezos.tz.getBalance(user.userAddress);
-      user.setUserBalance(userBalance.toNumber());
-    } catch (error) {
-      //console.log(error);
-    }
-  };
-
   const statusContext: StatusContext = {
     isLoading,
     setLoading,
@@ -66,7 +42,6 @@ export default function Faucet({
     setStatusType,
     powWorker,
     setPowWorker,
-    readBalances
   };
 
   const isDisabledButton = useMemo(() => {
@@ -87,7 +62,7 @@ export default function Faucet({
       );
     if (transactionType === TransactionType.wallet)
       return (
-        !user.userAddress ||
+        !user.address ||
         statusContext.isLoading ||
         !tokenAmount ||
         !selectedToken
@@ -99,13 +74,9 @@ export default function Faucet({
     () =>
       formState.transactionType === TransactionType.address
         ? formState.address
-        : user.userAddress,
+        : (user.address ?? ""),
     [formState, user],
   );
-
-  useEffect(() => {
-    readBalances();
-  }, [isLoading]);
 
   return (
     <div className="faucet-main-wrapper">
@@ -130,9 +101,7 @@ export default function Faucet({
           />
         )}
 
-        {formState.transactionType === TransactionType.wallet && (
-          <MyAddress network={network} user={user} testnet={testnet} />
-        )}
+        {formState.transactionType === TransactionType.wallet && <MyAddress />}
 
         <TokenSelect formState={formState} setFormState={setFormState} />
 
