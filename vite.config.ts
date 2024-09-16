@@ -43,6 +43,7 @@ export default defineConfig(async ({ mode }) => ({
   },
   resolve: {
     alias: {
+      "~": "/src",
       http: "rollup-plugin-node-polyfills/polyfills/http",
       https: "rollup-plugin-node-polyfills/polyfills/http",
       stream: "rollup-plugin-node-polyfills/polyfills/stream",

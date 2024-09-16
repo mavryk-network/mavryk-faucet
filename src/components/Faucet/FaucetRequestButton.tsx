@@ -21,7 +21,7 @@ import {useUserContext} from "~/providers/UserProvider/user.provider";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
-  timeout: 10_000,
+  timeout: 50_000,
   timeoutErrorMessage: "Connection timeout exceeded. Please try again.",
 });
 
