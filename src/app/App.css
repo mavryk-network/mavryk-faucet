@@ -1,0 +1,52 @@
+@import "vars.css";
+@import "font.css";
+
+html {
+  box-sizing: border-box;
+  font-family: var(--font-main);
+  color: var(--color-white);
+  height: 100%;
+  min-height: -webkit-fill-available;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html h1,
+html h2,
+html h3,
+html h4,
+html h5,
+html h6 {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-white);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.main-wrapper {
+  background: var(--color-black-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

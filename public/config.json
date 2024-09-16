@@ -2,15 +2,15 @@
     "application": {
       "name": "Mavryk Basenet Faucet",
       "googleCaptchaSiteKey": "6LefC8QmAAAAAIXuoOhyI-FtALkYXZm4JK0GBYfb",
-      "backendUrl": "http://localhost:3000",
+      "backendUrl": "https://atlasnet.faucet.mavryk.network",
       "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
-      "disableChallenges": false,
+      "disableChallenges": true,
       "minMav": 1,
       "maxMav": 6000
     },
     "network": {
       "name": "Basenet",
-      "rpcUrl": "http://localhost:8732",
+      "rpcUrl": "https://atlasnet.rpc.mavryk.network",
       "faucetAddress": "mv1V4h45W3p4e1sjSBvRkK2uYbvkTnSuHg8g",
       "viewer": "https://basenet.tzstats.com"
     }

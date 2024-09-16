@@ -1,35 +1,17 @@
-body {
+html body {
   position: relative;
   min-height: 100vh;
-  padding-top: 70px; /* Increased height of the header */
-  padding-bottom: 70px; /* Increased height of the footer */
+  background: var(--color-black-main);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Aeonik', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-footer {
-  position: fixed;
-  margin-top: 30px;
-  text-align: center;
-  width: 100%;
-  bottom: 0;
-}
-
-.faucet-part-title {
-  text-align: left;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
 .grecaptcha-badge {
   z-index: 99999
 }
+
+
