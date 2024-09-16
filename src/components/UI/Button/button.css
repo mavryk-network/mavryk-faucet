@@ -1,0 +1,28 @@
+.custom-btn {
+  width: 100%;
+  height: 47px;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  background: var(--color-blue-main);
+  color: var(--color-white-text);
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+.custom-btn-outlined {
+  background: transparent;
+  border: 2px solid var(--color-blue-main);
+  font-size: 14px;
+  height: 33px;
+}
+.custom-btn:disabled {
+  opacity: 0.5;
+}

@@ -1,0 +1,17 @@
+:root {
+  --font-main: "Aeonik", sans-serif;
+
+  --color-black-main: #010101;
+  --color-black-secondary: #131313;
+  --color-gray-main: #202020;
+  --color-gray-light: #f4f4f480;
+  --color-gray-border: #585858;
+  --color-white: #ffffff;
+  --color-white-text: #f4f4f4;
+  --color-white-secondary: #b5b5b5;
+  --color-gray-border-secondary: #333333;
+  --color-braun: #e6822640;
+  --color-blue-main: #5f58ff;
+  --color-red-main: #ff3e3e;
+  --color-green-main: #00b71d;
+}
