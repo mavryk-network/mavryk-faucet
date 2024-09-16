@@ -107,7 +107,7 @@ export function CustomSelect(props: Props) {
       background: "#111111",
       cursor: "pointer",
     }),
-    dropdownIndicator: (provided: CSSObjectWithLabel, state) => ({
+    dropdownIndicator: (provided: CSSObjectWithLabel, state: any) => ({
       ...provided,
       color: "#F4F4F4",
       transform: state.isFocused ? "rotate(180deg)" : "rotate(0deg)",

@@ -1,12 +1,21 @@
 import { useCallback, useMemo } from "react";
 import { dappClient } from "../../WalletProvider/WalletCore.client";
+import { AccountInfo } from "@mavrykdynamics/beacon-dapp";
 
 type UseUserApiType = {
   DAPP_INSTANCE: ReturnType<typeof dappClient> | null;
   // setters for loadings in user provider
   setUserLoading: (newLoading: boolean) => void;
   setUserBalance: (value: ((prevState: number) => number) | number) => void;
-  setAccount: (value: ((prevState: number) => number) | number) => void;
+  setAccount: (
+    value:
+      | ((
+          prevState: AccountInfo | null | undefined,
+        ) => AccountInfo | null | undefined)
+      | AccountInfo
+      | null
+      | undefined,
+  ) => void;
 };
 
 /**
