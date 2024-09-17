@@ -59,4 +59,7 @@
   letter-spacing: -0.02em;
   color: var(--color-white-text);
 }
+.select-token-image {
+  width: 32px;
+}
 
