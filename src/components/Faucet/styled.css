@@ -14,7 +14,7 @@
 }
 .faucet-main-title {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 28px;
   letter-spacing: -0.02em;
 }
@@ -31,16 +31,40 @@
   flex-direction: column;
   gap: 24px;
   border-radius: 16px;
-  background: var(--color-gray-main);
+  background: radial-gradient(
+      98.05% 261.61% at 1.95% 3.59%,
+      rgba(38, 38, 38, 0.4) 0%,
+      rgba(83, 83, 83, 0) 100%
+    )
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
   border: 1px solid var(--color-gray-border);
 }
 .address-field-wrapper {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+}
+.address-field-wallet {
+  border-radius: 50%;
+  right: 16px;
+  bottom: 10px;
+  cursor: pointer;
+  position: absolute;
+  background: #343434;
+  border: 1px solid #343434;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+}
+.address-field-wallet:hover {
+  border: 1px solid #5f58ff;
 }
 .faucet-btn-wrapper {
-  max-width: 195px;
+  max-width: 100%;
+  margin-top: 8px;
 }
 .select-token-option {
   display: flex;
@@ -62,4 +86,14 @@
 .select-token-image {
   width: 32px;
 }
-
+.faucet-amount-container {
+  display: flex;
+  gap: 16px;
+}
+.amount-field-wrapper {
+  width: 100%;
+}
+.token-field-wrapper {
+  width: 168px;
+  min-width: 168px;
+}

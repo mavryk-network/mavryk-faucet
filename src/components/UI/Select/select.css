@@ -14,8 +14,8 @@
 .custom-select {
   outline: none;
   border: 1px solid var(--color-gray-border);
-  height: 43px;
-  background: var(--color-black-main);
+  height: 52px;
+  background: var(--color-black-secondary);
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 16px;

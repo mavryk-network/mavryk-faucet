@@ -48,18 +48,20 @@ export function TokenSelect(props: Props) {
   );
 
   return (
-    <CustomSelect
-      onChange={(option) =>
-        setFormState((prevState) => ({
-          ...prevState,
-          selectedToken: option?.value ?? null,
-        }))
-      }
-      value={currentValue}
-      placeholder="Select token"
-      label="Select token"
-      formatOptionLabel={formatTokenOptionLabel}
-      options={options}
-    />
+    <div className="token-field-wrapper">
+      <CustomSelect
+        onChange={(option) =>
+          setFormState((prevState) => ({
+            ...prevState,
+            selectedToken: option?.value ?? null,
+          }))
+        }
+        value={currentValue}
+        placeholder="Select"
+        label="Token"
+        formatOptionLabel={formatTokenOptionLabel}
+        options={options}
+      />
+    </div>
   );
 }

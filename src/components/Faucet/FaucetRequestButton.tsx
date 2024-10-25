@@ -10,14 +10,11 @@ import {
   ChallengeResponse,
   Network,
   StatusContext,
-  TokenType,
-  TransactionType,
   VerifyResponse,
 } from "~/lib/Types";
-import { tokensLabels } from "./Faucet.const";
 import { InfoModal } from "../UI/InfoModal/infoModal";
 import { FormState } from "./Faucet";
-import {useUserContext} from "~/providers/UserProvider/user.provider";
+import { useUserContext } from "~/providers/UserProvider/user.provider";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
@@ -32,15 +29,11 @@ export default function FaucetRequestButton({
   network,
   status,
   formState,
-  address,
-  transactionType,
 }: {
   formState: FormState;
   disabled: boolean;
   network: Network;
   status: StatusContext;
-  address: string;
-  transactionType: string | null;
 }) {
   const { readBalances } = useUserContext();
   const recaptchaRef: RefObject<ReCAPTCHA> = useRef(null);
@@ -157,7 +150,7 @@ export default function FaucetRequestButton({
       startLoading();
 
       const input = {
-        address,
+        address: formState.address,
         amount,
         captchaToken,
       };
@@ -190,7 +183,7 @@ export default function FaucetRequestButton({
     nonce: number;
   }): Promise<Partial<Challenge>> => {
     const input = {
-      address,
+      address: formState.address,
       amount,
       nonce,
       solution,
@@ -237,7 +230,7 @@ export default function FaucetRequestButton({
       />
 
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
-        Request {tokensLabels[formState.selectedToken as TokenType] ?? "Token"}
+        Request Token
       </Button>
 
       <InfoModal
@@ -245,7 +238,7 @@ export default function FaucetRequestButton({
         onClick={() => setIsOpenSuccessModal(false)}
         onClose={() => setIsOpenSuccessModal(false)}
         btnText="OK"
-        message={`Fund ${transactionType === TransactionType.address ? "address" : "wallet"} request sent! Confirming...`}
+        message={`Fund wallet request sent! Confirming...`}
       />
       <InfoModal
         isOpen={isOpenErrorModal}

@@ -1,13 +1,9 @@
-import React, { useMemo } from "react";
-import { StatusContext, TokenType } from "~/lib/Types";
+import React from "react";
+import { StatusContext } from "~/lib/Types";
 import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";
 import Config from "../../Config";
-import { tokensLabels } from "./Faucet.const";
-import {
-  formatInputToDecimalNumber,
-  formatNumber,
-} from "~/utils/formaters";
+import { formatInputToDecimalNumber } from "~/utils/formaters";
 import { FormState } from "./Faucet";
 
 const { minMav, maxMav } = Config.application;
@@ -38,27 +34,20 @@ export function AmountField(props: Props) {
     }
   };
 
-  const tokenName = useMemo(
-    () => tokensLabels[formState.selectedToken as TokenType] ?? "token",
-    [formState.selectedToken],
-  );
-
   return (
-    <Input
-      type="number"
-      min={minMav}
-      max={maxMav}
-      value={formState.tokenAmount}
-      label={`Enter ${tokenName} amount`}
-      subLabel={
-        formState.selectedToken
-          ? `Please note that you can request a maximum of ${formatNumber({ number: maxMav })} ${tokenName} tokens`
-          : ""
-      }
-      placeholder={`Enter ${tokenName} amount`}
-      disabled={status.isLoading}
-      onChange={updateAmount}
-      onClick={autoSelectInputText}
-    />
+    <div className="amount-field-wrapper">
+      <Input
+        isClearable
+        type="number"
+        min={minMav}
+        max={maxMav}
+        value={formState.tokenAmount}
+        label={`Token Amount`}
+        placeholder={`Enter Amount`}
+        disabled={status.isLoading}
+        onChange={updateAmount}
+        onClick={autoSelectInputText}
+      />
+    </div>
   );
 }

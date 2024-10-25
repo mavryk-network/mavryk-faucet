@@ -50,12 +50,12 @@ export function CustomSelect(props: Props) {
     control: (provided: CSSObjectWithLabel, state: any) => ({
       display: "flex",
       width: "100%",
-      minHeight: "43px",
+      minHeight: "52px",
       border: "1px solid var(--color-gray-border)",
       borderColor: state.isFocused ? "#5F58FF80" : "var(--color-gray-border)",
       borderRadius: "8px",
       fontSize: "16px",
-      background: "var(--color-black-main)",
+      background: "var(--color-black-secondary)",
       fontWeight: 400,
       color: "var(--color-white-text)",
       outline: "none",
@@ -69,7 +69,7 @@ export function CustomSelect(props: Props) {
       ...provided,
       color: "var(--color-white-text)",
       fontSize: "16px",
-      background: "var(--color-black-main)",
+      background: "var(--color-black-secondary)",
       fontWeight: 400,
       marginLeft: 0,
       padding: "8px 0",
@@ -91,7 +91,7 @@ export function CustomSelect(props: Props) {
       borderRadius: "8px",
       overflow: "hidden",
       fontSize: "16px",
-      background: "#111111",
+      background: "var(--color-black-secondary)",
       fontWeight: 400,
       padding: 0,
       marginTop: "4px",
@@ -102,9 +102,9 @@ export function CustomSelect(props: Props) {
       padding: 0,
     }),
     option: (provided: CSSObjectWithLabel) => ({
-      borderBottom: "1px solid var(--color-gray-border)",
-      padding: "16px 12px",
-      background: "#111111",
+      // borderBottom: "1px solid var(--color-gray-border)",
+      padding: "12px 14px",
+      background: "var(--color-black-secondary)",
       cursor: "pointer",
     }),
     dropdownIndicator: (provided: CSSObjectWithLabel, state: any) => ({
@@ -116,7 +116,7 @@ export function CustomSelect(props: Props) {
 
   const handleChange = (selected: { value: string; label: string } | null) => {
     if (selectRef.current) {
-      selectRef.current.blur(); // Потеря фокуса
+      selectRef.current.blur();
     }
     onChange(selected);
   };
