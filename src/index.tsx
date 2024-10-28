@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Buffer as BufferPolyfill } from "buffer";
 import { WalletProvider } from "./providers/WalletProvider/wallet.provider";
 import UserProvider from "./providers/UserProvider/user.provider";
+import ToasterProvider from "~/providers/ToasterProvider/toaster.provider";
 declare var Buffer: typeof BufferPolyfill;
 globalThis.Buffer = BufferPolyfill;
 
@@ -26,10 +27,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <WalletProvider>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </WalletProvider>
+    <ToasterProvider>
+      <WalletProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </WalletProvider>
+    </ToasterProvider>
   </React.StrictMode>,
 );

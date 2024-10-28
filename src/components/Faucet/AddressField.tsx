@@ -6,7 +6,7 @@ import { Input } from "../UI/Input/Input";
 import { FormState } from "./Faucet";
 import WalletIcon from "~/icons/glyphs/WalletIcon";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import Tooltip from "~/components/UI/Tooltip/tooltip";
 
 type Props = {
   status: StatusContext;
@@ -15,8 +15,6 @@ type Props = {
   ) => void;
   formState: FormState;
 };
-
-const CustomTooltip = <Tooltip id="tooltip">Fill in my wallet address</Tooltip>;
 
 export function AddressField(props: Props) {
   const { setFormState, formState, status } = props;
@@ -56,9 +54,7 @@ export function AddressField(props: Props) {
       />
       {user?.address && !formState.address && (
         <div className="address-field-wallet" onClick={setWalletAddress}>
-          <OverlayTrigger placement="top" overlay={CustomTooltip}>
-            <WalletIcon />
-          </OverlayTrigger>
+          <Tooltip element={<WalletIcon />}>Fill in my wallet address</Tooltip>
         </div>
       )}
     </div>

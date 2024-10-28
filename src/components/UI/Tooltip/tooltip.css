@@ -1,0 +1,30 @@
+.tooltipWrapper {
+  position: relative;
+}
+
+.tooltipMessage {
+  position: absolute;
+  top: -152%;
+  left: 50%;
+  z-index: 999;
+
+  padding: 6px 10px;
+  font-size: 12px;
+
+  color: var(--color-white-text);
+  white-space: nowrap;
+
+  background: #373479;
+  border-radius: 4px;
+  transform: translateX(-50%);
+}
+.tooltipMessage::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #373479 transparent transparent transparent;
+}

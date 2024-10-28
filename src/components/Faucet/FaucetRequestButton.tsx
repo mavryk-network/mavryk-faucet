@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useRef } from "react";
 import { Button } from "../UI/Button/button";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -12,9 +12,9 @@ import {
   StatusContext,
   VerifyResponse,
 } from "~/lib/Types";
-import { InfoModal } from "../UI/InfoModal/infoModal";
 import { FormState } from "./Faucet";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
+import { useToasterContext } from "~/providers/ToasterProvider/toaster.provider";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
@@ -37,9 +37,7 @@ export default function FaucetRequestButton({
 }) {
   const { readBalances } = useUserContext();
   const recaptchaRef: RefObject<ReCAPTCHA> = useRef(null);
-
-  const [isOpenSuccessModal, setIsOpenSuccessModal] = useState(false);
-  const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
+  const { bug, success } = useToasterContext();
 
   const amount = Number(formState.tokenAmount);
 
@@ -47,15 +45,13 @@ export default function FaucetRequestButton({
     status.setLoading(true);
     status.setStatus("");
     status.setStatusType("");
-    setIsOpenSuccessModal(false);
-    setIsOpenErrorModal(false);
   };
 
   const stopLoadingSuccess = async (message: string) => {
     status.setStatus(message);
     status.setStatusType("success");
     status.setLoading(false);
-    setIsOpenSuccessModal(true);
+    success("Fund wallet request sent! Confirming...");
     await readBalances();
   };
 
@@ -63,7 +59,7 @@ export default function FaucetRequestButton({
     status.setStatus(message);
     status.setStatusType("danger");
     status.setLoading(false);
-    setIsOpenErrorModal(true);
+    bug("Something went wrong. Please try again");
   };
 
   const validateAmount = (amount: number) =>
@@ -232,24 +228,6 @@ export default function FaucetRequestButton({
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
         Request Token
       </Button>
-
-      <InfoModal
-        isOpen={isOpenSuccessModal}
-        onClick={() => setIsOpenSuccessModal(false)}
-        onClose={() => setIsOpenSuccessModal(false)}
-        btnText="OK"
-        message={`Fund wallet request sent! Confirming...`}
-      />
-      <InfoModal
-        isOpen={isOpenErrorModal}
-        onClick={async () => {
-          await getMav();
-        }}
-        onClose={() => setIsOpenErrorModal(false)}
-        btnText="Try again"
-        type="error"
-        message="Something went wrong. Please try again"
-      />
     </div>
   );
 }

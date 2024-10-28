@@ -44,9 +44,7 @@ export default function Faucet({ network }: { network: Network }) {
     setPowWorker,
   };
 
-  //TODO add toast messages
   //TODO fix gradient
-  //TODO add tooltip
 
   const isDisabledButton = useMemo(() => {
     const { tokenAmount, selectedToken, address, isAddressError } = formState;
