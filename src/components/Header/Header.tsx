@@ -11,10 +11,7 @@ function Header() {
           alt="Mavryk Dynamics Logo"
         />
       </a>
-      <Wallet
-        className="header-wallet"
-        type="userInfo"
-      />
+      <Wallet />
     </div>
   );
 }

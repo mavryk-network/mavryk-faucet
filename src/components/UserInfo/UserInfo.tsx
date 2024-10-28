@@ -12,7 +12,7 @@ function UserInfo() {
 
   if (!user.address) return null;
 
-  const handleToggle = (isOpen) => {
+  const handleToggle = (isOpen: boolean) => {
     setIsOpen(isOpen);
   };
 
@@ -25,7 +25,9 @@ function UserInfo() {
             <UserIcon type="bottts" size={32} hash={user.address} />
             <div className="user-info-content">
               <span>{shortenAddress(user.address) || "Not connected"}</span>
-              <SelectArrowIcon className={isOpen ? "user-info-rotate-icon" : "user-info-icon"} />
+              <SelectArrowIcon
+                className={isOpen ? "user-info-rotate-icon" : "user-info-icon"}
+              />
             </div>
           </div>
         }
