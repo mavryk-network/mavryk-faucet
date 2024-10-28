@@ -20,8 +20,12 @@ function App() {
 
       <Footer />
 
-      <div className="orangeShadow" />
-      <div className="blueShadow" />
+      <div className="orangeShadow">
+        <img src="/assets/bg-orange.png" />
+      </div>
+      <div className="orangeShadow">
+        <img src="/assets/bg-blue.png" />
+      </div>
     </div>
   );
 }

@@ -58,38 +58,12 @@ img {
   backdrop-filter: blur(42px);
 }
 .main-wrapper .orangeShadow {
-  content: "";
-  right: -2200px;
-  left: 0;
-  bottom: 0;
-  top: -500px;
-  display: block;
+  right: 0;
   position: absolute;
-  backdrop-filter: blur(700px);
-  background: rgb(255, 125, 53);
-  background: radial-gradient(
-    circle,
-    rgba(255, 125, 53, 0.2847732843137255) 0%,
-    rgba(255, 125, 53, 0.1951374299719888) 24%,
-    rgba(255, 255, 255, 0) 43%
-  );
   z-index: -1;
 }
 .main-wrapper .blueShadow {
-  content: "";
-  left: 0;
-  right: -400px;
-  top: -1000px;
-  bottom: 0;
-  display: block;
+  top: 0;
   position: absolute;
-  backdrop-filter: blur(700px);
-  background: rgb(95, 88, 255);
-  background: radial-gradient(
-    circle,
-    rgba(95, 88, 255, 0.321187850140056) 0%,
-    rgba(95, 88, 255, 0.1419161414565826) 24%,
-    rgba(255, 255, 255, 0) 43%
-  );
   z-index: -1;
 }

@@ -44,8 +44,6 @@ export default function Faucet({ network }: { network: Network }) {
     setPowWorker,
   };
 
-  //TODO fix gradient
-
   const isDisabledButton = useMemo(() => {
     const { tokenAmount, selectedToken, address, isAddressError } = formState;
 
