@@ -4,7 +4,7 @@ import Wallet from "../Wallet/Wallet";
 function Header() {
   return (
     <div className="header-wrapper">
-      <a href="https://www.mavrykdynamics.com" target="_blank">
+      <a href="https://mavrykdynamics.com" target="_blank">
         <img
           src="/faucet-logo.png"
           className="d-inline-block align-top header-logo-image"
