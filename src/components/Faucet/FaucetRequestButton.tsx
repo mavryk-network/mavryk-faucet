@@ -218,12 +218,12 @@ export default function FaucetRequestButton({
 
   return (
     <div className="faucet-btn-wrapper">
-      <ReCAPTCHA
-        ref={recaptchaRef}
-        size="invisible"
-        badge="bottomleft"
-        sitekey={Config.application.googleCaptchaSiteKey}
-      />
+      {/*<ReCAPTCHA*/}
+      {/*  ref={recaptchaRef}*/}
+      {/*  size="invisible"*/}
+      {/*  badge="bottomleft"*/}
+      {/*  sitekey={Config.application.googleCaptchaSiteKey}*/}
+      {/*/>*/}
 
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
         Request Token
