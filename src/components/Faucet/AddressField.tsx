@@ -7,6 +7,7 @@ import { FormState } from "./Faucet";
 import WalletIcon from "~/icons/glyphs/WalletIcon";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
 import Tooltip from "~/components/UI/Tooltip/tooltip";
+import Icon from "~/components/UI/Icon/Icon";
 
 type Props = {
   status: StatusContext;
@@ -54,7 +55,16 @@ export function AddressField(props: Props) {
       />
       {user?.address && !formState.address && (
         <div className="address-field-wallet" onClick={setWalletAddress}>
-          <Tooltip className="walletTooltip" element={<WalletIcon />}>Fill in my wallet address</Tooltip>
+          <Tooltip
+            className="walletTooltip"
+            element={
+              <div className="address-field-wallet-content">
+                <Icon icon="wallet" className="address-field-wallet-icon" />
+              </div>
+            }
+          >
+            Fill in my wallet address
+          </Tooltip>
         </div>
       )}
     </div>

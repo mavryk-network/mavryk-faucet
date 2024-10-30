@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import "./select.css";
 import Select, {
   CSSObjectWithLabel,
@@ -39,6 +39,7 @@ export function CustomSelect(props: Props) {
   } = props;
 
   const selectRef = useRef<any>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const customStyles = {
     container: (provided: CSSObjectWithLabel) => ({
@@ -112,7 +113,7 @@ export function CustomSelect(props: Props) {
     dropdownIndicator: (provided: CSSObjectWithLabel, state: any) => ({
       ...provided,
       color: "#F4F4F4",
-      transform: state.isFocused ? "rotate(180deg)" : "rotate(0deg)",
+      transform: isMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
     }),
   };
 
@@ -127,6 +128,8 @@ export function CustomSelect(props: Props) {
     <div className="custom-select-wrapper">
       {label && <span className="custom-select-label">{label}</span>}
       <Select
+        onMenuOpen={() => setIsMenuOpen(true)}
+        onMenuClose={() => setIsMenuOpen(false)}
         ref={selectRef}
         name={name}
         id={name}

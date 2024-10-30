@@ -46,11 +46,13 @@
   position: relative;
 }
 .address-field-wallet {
-  border-radius: 50%;
+  position: absolute;
   right: 16px;
   bottom: 10px;
+}
+.address-field-wallet-content {
+  border-radius: 50%;
   cursor: pointer;
-  position: absolute;
   background: #343434;
   border: 1px solid #343434;
   display: flex;
@@ -59,7 +61,7 @@
   width: 32px;
   height: 32px;
 }
-.address-field-wallet:hover {
+.address-field-wallet-content:hover {
   border: 1px solid #5f58ff;
 }
 .faucet-btn-wrapper {
