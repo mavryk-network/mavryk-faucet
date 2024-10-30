@@ -19,11 +19,6 @@ export type ConfigType = {
   network: Network;
 };
 
-export enum TransactionType {
-  wallet = "wallet",
-  address = "address",
-}
-
 export enum TokenType {
   mvrk = "mvrk",
 }

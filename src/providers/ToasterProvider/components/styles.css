@@ -1,0 +1,148 @@
+.toasterContainer {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  z-index: 1000; /* to show toasts on the front side when modal is opened*/
+  width: 343px;
+  background: transparent;
+}
+
+@keyframes revealFromRight {
+  0% {
+    transform: translateX(343px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hideToRight {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(343px);
+  }
+}
+
+.toaster {
+  width: 100%;
+  position: relative;
+  padding: 0 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 10px 0 #00000033,
+    0 6px 30px 0 #0000001f,
+    0 16px 24px 0 #00000024;
+
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  min-height: 64px;
+
+  background-color: #1a1a1a;
+  border: 1px solid transparent;
+  transition: transform 1s ease-in-out;
+}
+.toaster:before {
+  position: absolute;
+  display: block;
+  left: -50px;
+  top: -90px;
+  content: "";
+  width: 212px;
+  height: 212px;
+}
+.success.toaster:before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(0, 237, 81, 0.12) 0%,
+    rgba(0, 237, 123, 0) 100%
+  );
+}
+.warning.toaster:before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 212, 38, 0.11) 0%,
+    rgba(255, 212, 38, 0) 100%
+  );
+}
+.error.toaster:before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(240, 66, 72, 0.13) 0%,
+    rgba(240, 66, 72, 0) 100%
+  );
+}
+.info.toaster:before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(185, 238, 254, 0.11) 0%,
+    rgba(255, 212, 38, 0) 100%
+  );
+}
+
+.hide {
+  animation-name: hideToRight;
+  animation-duration: 450ms;
+  animation-timing-function: ease-in-out;
+}
+.reveal {
+  animation-name: revealFromRight;
+  animation-duration: 450ms;
+  animation-timing-function: ease-in-out;
+}
+
+.toasterTitle {
+  font-weight: 700;
+  font-size: 16px;
+  max-width: 235px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.toasterMessage {
+  font-weight: 400;
+  max-width: 245px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #c8c5c5;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff1a;
+}
+
+.toasterCloseIcon,
+.toasterIcon {
+  color: white;
+}
+
+.closeIconWrapper {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.toasterContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

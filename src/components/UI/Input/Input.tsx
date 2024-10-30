@@ -1,6 +1,7 @@
 import React, { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import "./input.css";
 import classnames from "classnames";
+import CloseIcon from "~/icons/glyphs/CloseIcon";
 
 type Props = {
   label?: string;
@@ -10,6 +11,7 @@ type Props = {
   onChange: ((event: ChangeEvent<HTMLInputElement>) => void) | undefined;
   error?: string;
   disabled?: boolean;
+  isClearable?: boolean;
   type?: string;
   min?: number | string;
   max?: number | string;
@@ -30,6 +32,7 @@ export function Input(props: Props) {
     subLabel,
     min,
     max,
+    isClearable,
     onClick,
   } = props;
 
@@ -63,6 +66,19 @@ export function Input(props: Props) {
         onChange={onChange}
         placeholder={placeholder}
       />
+      {isClearable && value && (
+        <span
+          className="custom-input-clear-icon"
+          onClick={() => {
+            if (onChange)
+              onChange({
+                target: { value: "" },
+              } as ChangeEvent<HTMLInputElement>);
+          }}
+        >
+          <CloseIcon />
+        </span>
+      )}
       {isError && <span className="custom-input-error-text">{error}</span>}
     </div>
   );
