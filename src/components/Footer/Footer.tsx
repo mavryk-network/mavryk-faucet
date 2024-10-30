@@ -1,6 +1,6 @@
-import { Github } from "react-bootstrap-icons";
 import "./styled.css";
 import TwitterIcon from "../../icons/glyphs/TwitterIcon";
+import GitHubIcon from "~/icons/glyphs/GitHubIcon";
 
 function Footer() {
   return (
@@ -19,7 +19,7 @@ function Footer() {
         rel="noopener noreferrer"
         className="footer-link"
       >
-        <Github size={15} />
+        <GitHubIcon />
       </a>
     </footer>
   );

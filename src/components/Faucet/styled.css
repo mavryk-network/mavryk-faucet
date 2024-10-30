@@ -26,7 +26,7 @@
   color: var(--color-white-secondary);
 }
 .faucet-container {
-  padding: 32px 32px 44px 32px;
+  padding: 32px 32px 38px 32px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -68,8 +68,21 @@
 }
 .select-token-option {
   display: flex;
+  flex-wrap: wrap;
+  height: 32px;
+  overflow: hidden;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.select-token-option-content {
+  display: flex;
   align-items: center;
   gap: 12px;
+}
+.token-selected-icon {
+  width: 24px;
+  height: 24px;
 }
 .my-address-wrapper {
   display: flex;
@@ -96,4 +109,12 @@
 .token-field-wrapper {
   width: 168px;
   min-width: 168px;
+}
+.requestBtnText {
+  font-weight: 700;
+}
+.walletTooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

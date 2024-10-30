@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import React, { useState } from "react";
-import { Spinner } from "react-bootstrap";
 import "./button.css";
+import { CustomSpinner } from "~/components/UI/CustomSpinner/customSpinner";
 
 type Props = {
   children: React.ReactNode;
@@ -50,17 +50,7 @@ export function Button(props: Props) {
         className,
       )}
     >
-      {isLoading ? (
-        <Spinner
-          as="span"
-          animation="border"
-          size="sm"
-          role="status"
-          aria-hidden="true"
-        />
-      ) : (
-        children
-      )}
+      {isLoading ? <CustomSpinner /> : children}
     </button>
   );
 }

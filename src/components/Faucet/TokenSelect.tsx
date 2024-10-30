@@ -3,6 +3,8 @@ import { CustomSelect } from "../UI/Select/select";
 import { tokensImages, tokensLabels } from "./Faucet.const";
 import { FormState } from "./Faucet";
 import { TokenType } from "~/lib/Types";
+import { FormatOptionLabelMeta } from "react-select";
+import Icon from "~/components/UI/Icon/Icon";
 
 type Props = {
   setFormState: (
@@ -34,14 +36,27 @@ export function TokenSelect(props: Props) {
   );
 
   const formatTokenOptionLabel = useCallback(
-    (option: { value: string; label: string }) => (
+    (
+      option: { value: string; label: string },
+      formatOptionLabelMeta: FormatOptionLabelMeta<{
+        value: string;
+        label: string;
+      }>,
+    ) => (
       <div className="select-token-option">
-        <img
-          alt={option.label}
-          src={tokensImages[option.value as TokenType]}
-          className="select-token-image"
-        />{" "}
-        {option.label}
+        <div className="select-token-option-content">
+          <img
+            alt={option.label}
+            src={tokensImages[option.value as TokenType]}
+            className="select-token-image"
+          />{" "}
+          {option.label}
+        </div>
+        {formatOptionLabelMeta.selectValue?.[0].value === option.value ? (
+          <Icon icon="check" className="token-selected-icon" />
+        ) : (
+          ""
+        )}
       </div>
     ),
     [],

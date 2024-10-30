@@ -54,7 +54,7 @@ export function AddressField(props: Props) {
       />
       {user?.address && !formState.address && (
         <div className="address-field-wallet" onClick={setWalletAddress}>
-          <Tooltip element={<WalletIcon />}>Fill in my wallet address</Tooltip>
+          <Tooltip className="walletTooltip" element={<WalletIcon />}>Fill in my wallet address</Tooltip>
         </div>
       )}
     </div>

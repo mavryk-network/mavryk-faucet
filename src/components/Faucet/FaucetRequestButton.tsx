@@ -226,7 +226,7 @@ export default function FaucetRequestButton({
       {/*/>*/}
 
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
-        Request Token
+        <span className="requestBtnText">Request Token</span>
       </Button>
     </div>
   );

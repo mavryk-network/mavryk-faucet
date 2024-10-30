@@ -52,7 +52,9 @@ export function CustomSelect(props: Props) {
       width: "100%",
       minHeight: "52px",
       border: "1px solid var(--color-gray-border)",
-      borderColor: state.isFocused ? "#5F58FF80" : "var(--color-gray-border)",
+      borderColor: state.isFocused
+        ? "var(--color-gray-border-light)"
+        : "var(--color-gray-border-secondary)",
       borderRadius: "8px",
       fontSize: "16px",
       background: "var(--color-black-secondary)",
@@ -87,7 +89,7 @@ export function CustomSelect(props: Props) {
     }),
     menu: (provided: CSSObjectWithLabel) => ({
       ...provided,
-      border: "1px solid var(--color-gray-border)",
+      border: "1px solid var(--color-gray-border-light)",
       borderRadius: "8px",
       overflow: "hidden",
       fontSize: "16px",
