@@ -23,7 +23,7 @@
   letter-spacing: -0.02em;
   color: var(--color-white-text);
 }
-.custom-input:focus {
+.custom-input:focus:not(.custom-input-error) {
   border: 1px solid var(--color-gray-border-light);
 }
 .custom-input-error {
