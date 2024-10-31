@@ -41,7 +41,11 @@ export function AmountField(props: Props) {
         min={minMav}
         max={maxMav}
         value={formState.tokenAmount}
-        error={formState.isAmountError ? "Invalid amount" : ""}
+        error={
+          formState.isAmountError && formState.tokenAmount
+            ? "Invalid amount"
+            : ""
+        }
         label={`Token Amount`}
         placeholder={`Enter Amount`}
         disabled={status.isLoading}
