@@ -10,11 +10,13 @@ import {
   ChallengeResponse,
   Network,
   StatusContext,
+  TokenType,
   VerifyResponse,
 } from "~/lib/Types";
 import { FormState } from "./Faucet";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
 import { useToasterContext } from "~/providers/ToasterProvider/toaster.provider";
+import { tokensLabels } from "~/components/Faucet/Faucet.const";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
@@ -226,7 +228,12 @@ export default function FaucetRequestButton({
       {/*/>*/}
 
       <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
-        <span className="requestBtnText">Request Token</span>
+        <span className="requestBtnText">
+          Request{" "}
+          {formState.selectedToken
+            ? tokensLabels[formState.selectedToken as TokenType]
+            : "Token"}
+        </span>
       </Button>
     </div>
   );

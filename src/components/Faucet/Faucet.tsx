@@ -1,11 +1,7 @@
 import { useState, useMemo } from "react";
 import "./styled.css";
 
-import {
-  Network,
-  StatusContext,
-  TokenType,
-} from "~/lib/Types";
+import { Network, StatusContext, TokenType } from "~/lib/Types";
 import { AddressField } from "./AddressField";
 import { AmountField } from "./AmountField";
 import { TokenSelect } from "./TokenSelect";
@@ -17,6 +13,7 @@ export type FormState = {
   address: string;
   selectedToken: string | null;
   isAddressError: boolean;
+  isAmountError: boolean;
 };
 
 export default function Faucet({ network }: { network: Network }) {
@@ -31,6 +28,7 @@ export default function Faucet({ network }: { network: Network }) {
     address: "",
     selectedToken: TokenType.mvrk,
     isAddressError: true,
+    isAmountError: true,
   });
 
   const statusContext: StatusContext = {
@@ -45,14 +43,15 @@ export default function Faucet({ network }: { network: Network }) {
   };
 
   const isDisabledButton = useMemo(() => {
-    const { tokenAmount, selectedToken, address, isAddressError } = formState;
+    const { tokenAmount, selectedToken, address, isAddressError, isAmountError } = formState;
 
     return (
       !address ||
       statusContext.isLoading ||
       !tokenAmount ||
       !selectedToken ||
-      isAddressError
+      isAddressError ||
+      isAmountError
     );
   }, [formState, statusContext, user]);
 

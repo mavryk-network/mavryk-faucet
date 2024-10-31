@@ -26,12 +26,11 @@ export function AmountField(props: Props) {
     const value = e.target.value;
     const numberValue = Number(value);
 
-    if (numberValue === 0 || validateAmount(numberValue)) {
-      setFormState((prevState) => ({
-        ...prevState,
-        tokenAmount: formatInputToDecimalNumber(value),
-      }));
-    }
+    setFormState((prevState) => ({
+      ...prevState,
+      isAmountError: !validateAmount(numberValue),
+      tokenAmount: formatInputToDecimalNumber(value),
+    }));
   };
 
   return (
@@ -42,6 +41,11 @@ export function AmountField(props: Props) {
         min={minMav}
         max={maxMav}
         value={formState.tokenAmount}
+        error={
+          formState.isAmountError && formState.tokenAmount
+            ? "Invalid amount"
+            : ""
+        }
         label={`Token Amount`}
         placeholder={`Enter Amount`}
         disabled={status.isLoading}
