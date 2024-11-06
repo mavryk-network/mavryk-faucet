@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import "./select.css";
 import Select, {
   CSSObjectWithLabel,
@@ -39,6 +39,7 @@ export function CustomSelect(props: Props) {
   } = props;
 
   const selectRef = useRef<any>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const customStyles = {
     container: (provided: CSSObjectWithLabel) => ({
@@ -50,12 +51,14 @@ export function CustomSelect(props: Props) {
     control: (provided: CSSObjectWithLabel, state: any) => ({
       display: "flex",
       width: "100%",
-      minHeight: "43px",
+      minHeight: "52px",
       border: "1px solid var(--color-gray-border)",
-      borderColor: state.isFocused ? "#5F58FF80" : "var(--color-gray-border)",
+      borderColor: state.isFocused
+        ? "var(--color-gray-border-light)"
+        : "var(--color-gray-border-secondary)",
       borderRadius: "8px",
       fontSize: "16px",
-      background: "var(--color-black-main)",
+      background: "var(--color-black-secondary)",
       fontWeight: 400,
       color: "var(--color-white-text)",
       outline: "none",
@@ -69,7 +72,7 @@ export function CustomSelect(props: Props) {
       ...provided,
       color: "var(--color-white-text)",
       fontSize: "16px",
-      background: "var(--color-black-main)",
+      background: "var(--color-black-secondary)",
       fontWeight: 400,
       marginLeft: 0,
       padding: "8px 0",
@@ -87,11 +90,11 @@ export function CustomSelect(props: Props) {
     }),
     menu: (provided: CSSObjectWithLabel) => ({
       ...provided,
-      border: "1px solid var(--color-gray-border)",
+      border: "1px solid var(--color-gray-border-light)",
       borderRadius: "8px",
       overflow: "hidden",
       fontSize: "16px",
-      background: "#111111",
+      background: "var(--color-black-secondary)",
       fontWeight: 400,
       padding: 0,
       marginTop: "4px",
@@ -102,21 +105,21 @@ export function CustomSelect(props: Props) {
       padding: 0,
     }),
     option: (provided: CSSObjectWithLabel) => ({
-      borderBottom: "1px solid var(--color-gray-border)",
-      padding: "16px 12px",
-      background: "#111111",
+      // borderBottom: "1px solid var(--color-gray-border)",
+      padding: "12px 14px",
+      background: "var(--color-black-secondary)",
       cursor: "pointer",
     }),
     dropdownIndicator: (provided: CSSObjectWithLabel, state: any) => ({
       ...provided,
       color: "#F4F4F4",
-      transform: state.isFocused ? "rotate(180deg)" : "rotate(0deg)",
+      transform: isMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
     }),
   };
 
   const handleChange = (selected: { value: string; label: string } | null) => {
     if (selectRef.current) {
-      selectRef.current.blur(); // Потеря фокуса
+      selectRef.current.blur();
     }
     onChange(selected);
   };
@@ -125,6 +128,8 @@ export function CustomSelect(props: Props) {
     <div className="custom-select-wrapper">
       {label && <span className="custom-select-label">{label}</span>}
       <Select
+        onMenuOpen={() => setIsMenuOpen(true)}
+        onMenuClose={() => setIsMenuOpen(false)}
         ref={selectRef}
         name={name}
         id={name}

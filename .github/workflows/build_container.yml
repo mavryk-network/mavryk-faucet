@@ -46,6 +46,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=match,pattern=([0-9]+\.[0-9]+\.[0-9]+),group=1
+            type=sha
 
       - name: Push container to GHCR
         uses: docker/build-push-action@v4

@@ -1,7 +1,7 @@
 .custom-btn {
   width: 100%;
-  height: 47px;
-  padding: 12px 32px;
+  height: 43px;
+  padding: 12px 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,5 +24,6 @@
   height: 33px;
 }
 .custom-btn:disabled {
-  opacity: 0.5;
+  background: rgba(95, 88, 255, 0.5);
+  color: rgba(244, 244, 244, 0.5);
 }

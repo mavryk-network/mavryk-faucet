@@ -43,10 +43,27 @@ img {
 }
 
 .main-wrapper {
-  background: var(--color-black-main);
   min-height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  background: radial-gradient(
+    98.05% 261.61% at 1.95% 3.59%,
+    rgba(38, 38, 38, 0.4) 0%,
+    rgba(83, 83, 83, 0) 100%
+  );
+  backdrop-filter: blur(42px);
+}
+.main-wrapper .orangeShadow {
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+.main-wrapper .blueShadow {
+  top: 0;
+  position: absolute;
+  z-index: -1;
 }

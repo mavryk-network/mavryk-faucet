@@ -1,3 +1,9 @@
 .wallet-btn-wrapper {
-    width: 170px;
+    width: 175px;
+    height: 43px;
+}
+.wallet-btn-wrapper button {
+    height: 100%;
+    font-weight: 700;
+    font-size: 16px;
 }

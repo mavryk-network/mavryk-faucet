@@ -1,21 +1,19 @@
 import { useState, useMemo } from "react";
 import "./styled.css";
 
-import { Network, StatusContext, TransactionType } from "~/lib/Types";
+import { Network, StatusContext, TokenType } from "~/lib/Types";
 import { AddressField } from "./AddressField";
 import { AmountField } from "./AmountField";
-import { TransactionTypeSelect } from "./TransactionTypeSelect";
 import { TokenSelect } from "./TokenSelect";
 import FaucetRequestButton from "./FaucetRequestButton";
-import { MyAddress } from "./MyAddress";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
 
 export type FormState = {
   tokenAmount: string;
   address: string;
-  transactionType: string | null;
   selectedToken: string | null;
   isAddressError: boolean;
+  isAmountError: boolean;
 };
 
 export default function Faucet({ network }: { network: Network }) {
@@ -28,9 +26,9 @@ export default function Faucet({ network }: { network: Network }) {
   const [formState, setFormState] = useState<FormState>({
     tokenAmount: "",
     address: "",
-    transactionType: null,
-    selectedToken: null,
+    selectedToken: TokenType.mvrk,
     isAddressError: true,
+    isAmountError: true,
   });
 
   const statusContext: StatusContext = {
@@ -45,38 +43,17 @@ export default function Faucet({ network }: { network: Network }) {
   };
 
   const isDisabledButton = useMemo(() => {
-    const {
-      transactionType,
-      tokenAmount,
-      selectedToken,
-      address,
-      isAddressError,
-    } = formState;
-    if (transactionType === TransactionType.address)
-      return (
-        !address ||
-        statusContext.isLoading ||
-        !tokenAmount ||
-        !selectedToken ||
-        isAddressError
-      );
-    if (transactionType === TransactionType.wallet)
-      return (
-        !user.address ||
-        statusContext.isLoading ||
-        !tokenAmount ||
-        !selectedToken
-      );
-    return true;
-  }, [formState, statusContext, user]);
+    const { tokenAmount, selectedToken, address, isAddressError, isAmountError } = formState;
 
-  const requestAddress = useMemo(
-    () =>
-      formState.transactionType === TransactionType.address
-        ? formState.address
-        : (user.address ?? ""),
-    [formState, user],
-  );
+    return (
+      !address ||
+      statusContext.isLoading ||
+      !tokenAmount ||
+      !selectedToken ||
+      isAddressError ||
+      isAmountError
+    );
+  }, [formState, statusContext, user]);
 
   return (
     <div className="faucet-main-wrapper">
@@ -84,40 +61,33 @@ export default function Faucet({ network }: { network: Network }) {
         <h1 className="faucet-main-title">{network.name} Faucet</h1>
         <div className="faucet-info-text">
           Please note, the tokens from the Faucet are testnet tokens only.
+          <br />
+          You can request a maximum of 6,000 MVRK tokens
         </div>
       </div>
 
       <div className="faucet-container">
-        <TransactionTypeSelect
+        <AddressField
+          status={statusContext}
           formState={formState}
           setFormState={setFormState}
         />
 
-        {formState.transactionType === TransactionType.address && (
-          <AddressField
-            status={statusContext}
+        <div className={"faucet-amount-container"}>
+          <TokenSelect formState={formState} setFormState={setFormState} />
+
+          <AmountField
             formState={formState}
             setFormState={setFormState}
+            status={statusContext}
           />
-        )}
-
-        {formState.transactionType === TransactionType.wallet && <MyAddress />}
-
-        <TokenSelect formState={formState} setFormState={setFormState} />
-
-        <AmountField
-          formState={formState}
-          setFormState={setFormState}
-          status={statusContext}
-        />
+        </div>
 
         <FaucetRequestButton
           formState={formState}
           disabled={isDisabledButton}
           network={network}
-          address={requestAddress}
           status={statusContext}
-          transactionType={formState.transactionType}
         />
       </div>
     </div>
