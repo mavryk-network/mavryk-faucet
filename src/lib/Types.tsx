@@ -21,6 +21,8 @@ export type ConfigType = {
 
 export enum TokenType {
   mvrk = "mvrk",
+  usdt = 'usdt',
+  mvn = 'mvn'
 }
 
 export type Challenge = {
