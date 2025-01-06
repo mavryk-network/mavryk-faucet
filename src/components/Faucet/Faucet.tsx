@@ -65,7 +65,9 @@ export default function Faucet({ network }: { network: Network }) {
     );
   }, [formState, statusContext, user]);
 
-  const tokenLabel = tokensLabels[TokenType[formState.selectedToken]];
+  const tokenLabel =
+    tokensLabels[TokenType[formState.selectedToken as TokenType]];
+
   const maxTokenAmount = useMemo(() => {
     if (formState.selectedToken === TokenType.mvrk) return maxMav;
 
