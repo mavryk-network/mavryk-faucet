@@ -6,7 +6,11 @@
       "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
       "disableChallenges": true,
       "minMav": 1,
-      "maxMav": 6000
+      "maxMav": 6000,
+      "minMvn": 1,
+      "maxMvn": 1000,
+      "minUsdt": 1,
+      "maxUsdt": 1000
     },
     "network": {
       "name": "Basenet",
