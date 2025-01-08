@@ -182,6 +182,7 @@ export default function FaucetRequestButton({
   }): Promise<Partial<Challenge>> => {
     const input = {
       address: formState.address,
+      token: formState.selectedToken,
       amount,
       nonce,
       solution,

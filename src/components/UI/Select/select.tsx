@@ -104,8 +104,11 @@ export function CustomSelect(props: Props) {
       ...provided,
       padding: 0,
     }),
-    option: (provided: CSSObjectWithLabel) => ({
-      // borderBottom: "1px solid var(--color-gray-border)",
+    option: (provided: CSSObjectWithLabel, state: any) => ({
+      borderBottom:
+        state?.data?.value === state.options[state.options.length - 1]?.value
+          ? "none"
+          : "1px solid var(--color-gray-border)",
       padding: "12px 14px",
       background: "var(--color-black-secondary)",
       cursor: "pointer",

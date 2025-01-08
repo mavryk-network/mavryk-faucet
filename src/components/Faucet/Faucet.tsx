@@ -7,6 +7,8 @@ import { AmountField } from "./AmountField";
 import { TokenSelect } from "./TokenSelect";
 import FaucetRequestButton from "./FaucetRequestButton";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
+import { tokensLabels } from "~/components/Faucet/Faucet.const";
+import Config from "~/Config";
 
 export type FormState = {
   tokenAmount: string;
@@ -15,6 +17,8 @@ export type FormState = {
   isAddressError: boolean;
   isAmountError: boolean;
 };
+
+const { maxMav, maxMvn, maxUsdt } = Config.application;
 
 export default function Faucet({ network }: { network: Network }) {
   const { user } = useUserContext();
@@ -43,7 +47,13 @@ export default function Faucet({ network }: { network: Network }) {
   };
 
   const isDisabledButton = useMemo(() => {
-    const { tokenAmount, selectedToken, address, isAddressError, isAmountError } = formState;
+    const {
+      tokenAmount,
+      selectedToken,
+      address,
+      isAddressError,
+      isAmountError,
+    } = formState;
 
     return (
       !address ||
@@ -55,6 +65,19 @@ export default function Faucet({ network }: { network: Network }) {
     );
   }, [formState, statusContext, user]);
 
+  const tokenLabel =
+    tokensLabels[TokenType[formState.selectedToken as TokenType]];
+
+  const maxTokenAmount = useMemo(() => {
+    if (formState.selectedToken === TokenType.mvrk) return maxMav;
+
+    if (formState.selectedToken === TokenType.usdt) return maxUsdt;
+
+    if (formState.selectedToken === TokenType.mvn) return maxMvn;
+
+    return 100;
+  }, [formState.selectedToken]);
+
   return (
     <div className="faucet-main-wrapper">
       <div className="faucet-info-block">
@@ -62,7 +85,7 @@ export default function Faucet({ network }: { network: Network }) {
         <div className="faucet-info-text">
           Please note, the tokens from the Faucet are testnet tokens only.
           <br />
-          You can request a maximum of 6,000 MVRK tokens
+          You can request a maximum of {maxTokenAmount} {tokenLabel} tokens
         </div>
       </div>
 

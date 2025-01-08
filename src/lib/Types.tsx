@@ -12,6 +12,10 @@ type ApplicationConfig = {
   disableChallenges?: boolean;
   minMav: number;
   maxMav: number;
+  minMvn: number;
+  maxMvn: number;
+  minUsdt: number;
+  maxUsdt: number;
 };
 
 export type ConfigType = {
@@ -21,6 +25,8 @@ export type ConfigType = {
 
 export enum TokenType {
   mvrk = "mvrk",
+  usdt = 'usdt',
+  mvn = 'mvn'
 }
 
 export type Challenge = {
