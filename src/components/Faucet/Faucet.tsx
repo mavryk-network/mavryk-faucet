@@ -23,7 +23,7 @@ export type FormState = {
   isAmountError: boolean;
 };
 
-const { maxMav, nexusBackendUrl } = Config.application;
+const { maxMav, apiMavrykUrl } = Config.application;
 
 const DEFAULT_MAX_USDT = 1000;
 const DEFAULT_MAX_MVN = 1000;
@@ -57,7 +57,7 @@ export default function Faucet({ network }: { network: Network }) {
   const getContractBigmap = useCallback(async () => {
     const { data }: { data: { key?: { address: string }; value: number }[] } =
       await api.get(
-        `${nexusBackendUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
+        `${apiMavrykUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
       );
 
     const usdt = data.find(
@@ -71,7 +71,7 @@ export default function Faucet({ network }: { network: Network }) {
     const maxMvn = mvn ? fromMvn(mvn) : DEFAULT_MAX_MVN;
 
     setTokenState((prevState) => ({ ...prevState, maxUsdt, maxMvn }));
-  }, [nexusBackendUrl]);
+  }, [apiMavrykUrl]);
 
   useEffect(() => {
     getContractBigmap();
