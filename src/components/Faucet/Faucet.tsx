@@ -1,7 +1,12 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import "./styled.css";
 
-import { Network, StatusContext, TokenType } from "~/lib/Types";
+import {
+  ChallengeResponse,
+  Network,
+  StatusContext,
+  TokenType,
+} from "~/lib/Types";
 import { AddressField } from "./AddressField";
 import { AmountField } from "./AmountField";
 import { TokenSelect } from "./TokenSelect";
@@ -50,9 +55,10 @@ export default function Faucet({ network }: { network: Network }) {
   });
 
   const getContractBigmap = useCallback(async () => {
-    const { data } = await api.get(
-      `${nexusBackendUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
-    );
+    const { data }: { data: { key?: { address: string }; value: number }[] } =
+      await api.get(
+        `${nexusBackendUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
+      );
 
     const usdt = data.find(
       (item) => item.key?.address === usdtTokenAddress,
