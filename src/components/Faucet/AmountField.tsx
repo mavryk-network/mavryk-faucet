@@ -6,7 +6,7 @@ import Config from "../../Config";
 import { formatInputToDecimalNumber } from "~/utils/formaters";
 import { FormState } from "./Faucet";
 
-const { minMav, maxMav, minMvn, maxMvn, minUsdt, maxUsdt } = Config.application;
+const { minMav, maxMav } = Config.application;
 
 type Props = {
   status: StatusContext;
@@ -14,20 +14,26 @@ type Props = {
     value: ((prevState: FormState) => FormState) | FormState,
   ) => void;
   formState: FormState;
+  tokenState: {
+    minUsdt: number;
+    maxUsdt: number;
+    minMvn: number;
+    maxMvn: number;
+  };
 };
 
 export function AmountField(props: Props) {
-  const { status, setFormState, formState } = props;
+  const { status, setFormState, formState, tokenState } = props;
 
   const validateAmount = (amount: number) => {
     if (formState.selectedToken === TokenType.mvrk)
       return amount >= minMav && amount <= maxMav;
 
     if (formState.selectedToken === TokenType.usdt)
-      return amount >= minUsdt && amount <= maxUsdt;
+      return amount >= tokenState.minUsdt && amount <= tokenState.maxUsdt;
 
     if (formState.selectedToken === TokenType.mvn)
-      return amount >= minMvn && amount <= maxMvn;
+      return amount >= tokenState.minMvn && amount <= tokenState.maxMvn;
 
     return false;
   };
