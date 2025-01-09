@@ -9,7 +9,7 @@ type ApplicationConfig = {
   isBeaconWallet?: boolean;
   backendUrl: string;
   githubRepo: string;
-  nexusBackendUrl: string;
+  apiMavrykUrl: string;
   disableChallenges?: boolean;
   minMav: number;
   maxMav: number;

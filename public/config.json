@@ -3,7 +3,7 @@
     "name": "Mavryk Basenet Faucet",
     "googleCaptchaSiteKey": "6LefC8QmAAAAAIXuoOhyI-FtALkYXZm4JK0GBYfb",
     "backendUrl": "https://atlasnet.faucet.mavryk.network",
-    "nexusBackendUrl": "https://atlasnet.api.mavryk.network/v1",
+    "apiMavrykUrl": "https://atlasnet.api.mavryk.network/v1",
     "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
     "disableChallenges": true,
     "minMav": 1,
