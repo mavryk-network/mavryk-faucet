@@ -61,7 +61,7 @@ export default function FaucetRequestButton({
     status.setStatus(message);
     status.setStatusType("danger");
     status.setLoading(false);
-    bug("Something went wrong. Please try again");
+    bug(message || "Something went wrong. Please try again");
   };
 
   const validateAmount = (amount: number) =>
