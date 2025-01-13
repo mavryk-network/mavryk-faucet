@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusContext } from "~/lib/Types";
+import { StatusContext, TokenType } from "~/lib/Types";
 import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";
 import Config from "../../Config";
@@ -14,13 +14,29 @@ type Props = {
     value: ((prevState: FormState) => FormState) | FormState,
   ) => void;
   formState: FormState;
+  tokenState: {
+    minUsdt: number;
+    maxUsdt: number;
+    minMvn: number;
+    maxMvn: number;
+  };
 };
 
 export function AmountField(props: Props) {
-  const { status, setFormState, formState } = props;
+  const { status, setFormState, formState, tokenState } = props;
 
-  const validateAmount = (amount: number) =>
-    amount >= minMav && amount <= maxMav;
+  const validateAmount = (amount: number) => {
+    if (formState.selectedToken === TokenType.mvrk)
+      return amount >= minMav && amount <= maxMav;
+
+    if (formState.selectedToken === TokenType.usdt)
+      return amount >= tokenState.minUsdt && amount <= tokenState.maxUsdt;
+
+    if (formState.selectedToken === TokenType.mvn)
+      return amount >= tokenState.minMvn && amount <= tokenState.maxMvn;
+
+    return false;
+  };
 
   const updateAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

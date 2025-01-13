@@ -33,7 +33,7 @@
 .toaster {
   width: 100%;
   position: relative;
-  padding: 0 16px;
+  padding: 8px 16px 10px 16px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow:
@@ -113,8 +113,6 @@
   font-weight: 400;
   max-width: 245px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 14px;
   color: #c8c5c5;
 }

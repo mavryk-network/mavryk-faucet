@@ -9,6 +9,7 @@ type ApplicationConfig = {
   isBeaconWallet?: boolean;
   backendUrl: string;
   githubRepo: string;
+  apiMavrykUrl: string;
   disableChallenges?: boolean;
   minMav: number;
   maxMav: number;
@@ -21,6 +22,8 @@ export type ConfigType = {
 
 export enum TokenType {
   mvrk = "mvrk",
+  usdt = "usdt",
+  mvn = "mvn",
 }
 
 export type Challenge = {

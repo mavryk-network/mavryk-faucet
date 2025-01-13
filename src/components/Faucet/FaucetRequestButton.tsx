@@ -61,7 +61,7 @@ export default function FaucetRequestButton({
     status.setStatus(message);
     status.setStatusType("danger");
     status.setLoading(false);
-    bug("Something went wrong. Please try again");
+    bug(message || "Something went wrong. Please try again");
   };
 
   const validateAmount = (amount: number) =>
@@ -182,6 +182,7 @@ export default function FaucetRequestButton({
   }): Promise<Partial<Challenge>> => {
     const input = {
       address: formState.address,
+      token: formState.selectedToken,
       amount,
       nonce,
       solution,
