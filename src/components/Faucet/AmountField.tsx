@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusContext, TokenType } from "~/lib/Types";
 import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";
@@ -37,6 +37,13 @@ export function AmountField(props: Props) {
 
     return false;
   };
+
+  useEffect(() => {
+    setFormState((prevState) => ({
+      ...prevState,
+      isAmountError: !validateAmount(Number(formState.tokenAmount)),
+    }));
+  }, [formState.selectedToken]);
 
   const updateAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
