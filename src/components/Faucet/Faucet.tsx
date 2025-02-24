@@ -54,21 +54,28 @@ export default function Faucet({ network }: { network: Network }) {
     isAmountError: true,
   });
 
+  // const getContractBigmap = useCallback(async () => {
+  //   const { data }: { data: { key?: { address: string }; value: number }[] } =
+  //     await api.get(
+  //       `${apiMavrykUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
+  //     );
+  //
+  //   const usdt = data.find(
+  //     (item) => item.key?.address === usdtTokenAddress,
+  //   )?.value;
+  //   const mvn = data.find(
+  //     (item) => item.key?.address === mvnTokenAddress,
+  //   )?.value;
+  //
+  //   const maxUsdt = usdt ? fromUsdt(usdt) : DEFAULT_MAX_USDT;
+  //   const maxMvn = mvn ? fromMvn(mvn) : DEFAULT_MAX_MVN;
+  //
+  //   setTokenState((prevState) => ({ ...prevState, maxUsdt, maxMvn }));
+  // }, [apiMavrykUrl]);
+
   const getContractBigmap = useCallback(async () => {
-    const { data }: { data: { key?: { address: string }; value: number }[] } =
-      await api.get(
-        `${apiMavrykUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
-      );
-
-    const usdt = data.find(
-      (item) => item.key?.address === usdtTokenAddress,
-    )?.value;
-    const mvn = data.find(
-      (item) => item.key?.address === mvnTokenAddress,
-    )?.value;
-
-    const maxUsdt = usdt ? fromUsdt(usdt) : DEFAULT_MAX_USDT;
-    const maxMvn = mvn ? fromMvn(mvn) : DEFAULT_MAX_MVN;
+    const maxUsdt = DEFAULT_MAX_USDT;
+    const maxMvn = DEFAULT_MAX_MVN;
 
     setTokenState((prevState) => ({ ...prevState, maxUsdt, maxMvn }));
   }, [apiMavrykUrl]);
