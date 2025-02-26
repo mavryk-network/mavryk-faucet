@@ -27,11 +27,14 @@ const { maxMav, apiMavrykUrl } = Config.application;
 
 const DEFAULT_MAX_USDT = 1000;
 const DEFAULT_MAX_MVN = 1000;
+const DEFAULT_MAX_MVRK = 1000;
 const mvnTokenAddress = "KT1WdbBw5DXF9fXN378v8VgrPqTsCKu2BPgD";
 const usdtTokenAddress = "KT1StUZzJ34MhSNjkQMSyvZVrR9ppkHMFdFf";
+const mvrkTokenAddress = "mv2ZZZZZZZZZZZZZZZZZZZZZZZZZZZDXMF2d";
 
 const fromMvn = (amount: number) => amount / 10 ** 9;
 const fromUsdt = (amount: number) => amount / 10 ** 6;
+const fromMvrk = (amount: number) => amount / 10 ** 6;
 
 export default function Faucet({ network }: { network: Network }) {
   const { user } = useUserContext();
@@ -44,6 +47,8 @@ export default function Faucet({ network }: { network: Network }) {
     maxUsdt: DEFAULT_MAX_USDT,
     minMvn: 1,
     maxMvn: DEFAULT_MAX_MVN,
+    minMvrk: 1,
+    maxMvrk: DEFAULT_MAX_MVRK,
   });
 
   const [formState, setFormState] = useState<FormState>({
@@ -54,30 +59,27 @@ export default function Faucet({ network }: { network: Network }) {
     isAmountError: true,
   });
 
-  // const getContractBigmap = useCallback(async () => {
-  //   const { data }: { data: { key?: { address: string }; value: number }[] } =
-  //     await api.get(
-  //       `${apiMavrykUrl}/bigmaps/keys?bigmap=5169&sort.desc=lastLevel`,
-  //     );
-  //
-  //   const usdt = data.find(
-  //     (item) => item.key?.address === usdtTokenAddress,
-  //   )?.value;
-  //   const mvn = data.find(
-  //     (item) => item.key?.address === mvnTokenAddress,
-  //   )?.value;
-  //
-  //   const maxUsdt = usdt ? fromUsdt(usdt) : DEFAULT_MAX_USDT;
-  //   const maxMvn = mvn ? fromMvn(mvn) : DEFAULT_MAX_MVN;
-  //
-  //   setTokenState((prevState) => ({ ...prevState, maxUsdt, maxMvn }));
-  // }, [apiMavrykUrl]);
-
   const getContractBigmap = useCallback(async () => {
-    const maxUsdt = DEFAULT_MAX_USDT;
-    const maxMvn = DEFAULT_MAX_MVN;
+    const { data }: { data: { key?: { address: string }; value: number }[] } =
+      await api.get(
+        `${apiMavrykUrl}/bigmaps/keys?bigmap=5339&sort.desc=lastLevel`,
+      );
 
-    setTokenState((prevState) => ({ ...prevState, maxUsdt, maxMvn }));
+    const usdt = data.find(
+      (item) => item.key?.address === usdtTokenAddress,
+    )?.value;
+    const mvn = data.find(
+      (item) => item.key?.address === mvnTokenAddress,
+    )?.value;
+    const mvrk = data.find(
+      (item) => item.key?.address === mvrkTokenAddress,
+    )?.value;
+
+    const maxUsdt = usdt ? fromUsdt(usdt) : DEFAULT_MAX_USDT;
+    const maxMvn = mvn ? fromMvn(mvn) : DEFAULT_MAX_MVN;
+    const maxMvrk = mvrk ? fromMvrk(mvrk) : DEFAULT_MAX_MVRK;
+
+    setTokenState((prevState) => ({ ...prevState, maxUsdt, maxMvn, maxMvrk }));
   }, [apiMavrykUrl]);
 
   useEffect(() => {
@@ -118,7 +120,7 @@ export default function Faucet({ network }: { network: Network }) {
     tokensLabels[TokenType[formState.selectedToken as TokenType]];
 
   const maxTokenAmount = useMemo(() => {
-    if (formState.selectedToken === TokenType.mvrk) return maxMav;
+    if (formState.selectedToken === TokenType.mvrk) return tokenState.maxMvrk;
 
     if (formState.selectedToken === TokenType.usdt) return tokenState.maxUsdt;
 
@@ -134,7 +136,10 @@ export default function Faucet({ network }: { network: Network }) {
         <div className="faucet-info-text">
           Please note, the tokens from the Faucet are testnet tokens only.
           <br />
-          You can request a maximum of {maxTokenAmount} {tokenLabel} tokens
+          You can request a maximum of {maxTokenAmount.toLocaleString(
+            "en-US",
+          )}{" "}
+          {tokenLabel} tokens
         </div>
       </div>
 
