@@ -8,6 +8,6 @@ export const tokensLabels = {
 
 export const tokensImages = {
   [TokenType.mvrk]: "/assets/mvrk.png",
-  [TokenType.mvn]: "/assets/mvnIcon.png",
-  [TokenType.usdt]: "/assets/usdtIcon.png",
+  [TokenType.mvn]: "/assets/mvn.png",
+  [TokenType.usdt]: "/assets/usdt.png",
 };
