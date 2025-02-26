@@ -1,7 +1,7 @@
 {
   "application": {
     "apiMavrykUrl": "https://atlasnet.api.mavryk.network/v1",
-    "backendUrl": "https://atlasnet.faucet.mavryk.network",
+    "backendUrl": "https://atlasnet-backend.faucet.mavryk.network",
     "disableChallenges": true,
     "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
     "googleCaptchaSiteKey": "6LefC8QmAAAAAIXuoOhyI-FtALkYXZm4JK0GBYfb",
