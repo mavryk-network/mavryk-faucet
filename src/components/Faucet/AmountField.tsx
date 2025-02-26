@@ -19,6 +19,8 @@ type Props = {
     maxUsdt: number;
     minMvn: number;
     maxMvn: number;
+    minMvrk: number;
+    maxMvrk: number;
   };
 };
 
@@ -27,7 +29,7 @@ export function AmountField(props: Props) {
 
   const validateAmount = (amount: number) => {
     if (formState.selectedToken === TokenType.mvrk)
-      return amount >= minMav && amount <= maxMav;
+      return amount >= tokenState.minMvrk && amount <= tokenState.maxMvrk;
 
     if (formState.selectedToken === TokenType.usdt)
       return amount >= tokenState.minUsdt && amount <= tokenState.maxUsdt;
