@@ -1,7 +1,7 @@
 import "./styled.css";
 import Wallet from "../Wallet/Wallet";
 
-function Header() {
+function Header(props: { isMaintenance: boolean }) {
   return (
     <div className="header-wrapper">
       <a href="https://mavrykdynamics.com" target="_blank">
@@ -11,7 +11,7 @@ function Header() {
           alt="Mavryk Dynamics Logo"
         />
       </a>
-      <Wallet />
+      {props.isMaintenance ? null : <Wallet />}
     </div>
   );
 }
