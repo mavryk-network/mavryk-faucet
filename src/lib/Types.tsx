@@ -10,6 +10,7 @@ type ApplicationConfig = {
   backendUrl: string;
   githubRepo: string;
   apiMavrykUrl: string;
+  maintenance: boolean;
   disableChallenges?: boolean;
   minMav: number;
   maxMav: number;

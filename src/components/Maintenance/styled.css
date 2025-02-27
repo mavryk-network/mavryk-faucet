@@ -1,0 +1,20 @@
+.maintenance-main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  width: 90%;
+  max-width: 885px;
+  color: var(--color-white-text);
+}
+.maintenance-title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 60px;
+  text-align: center;
+}
+.maintenance-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}

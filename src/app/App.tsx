@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "./App.css";
 import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
 import Faucet from "../components/Faucet/Faucet";
 import { Network } from "~/lib/Types";
 import Config from "../Config";
 import { ToasterMessages } from "~/providers/ToasterProvider/components/ToasterMessages";
+import { Maintenance } from "~/components/Maintenance/Maintenance";
+import Footer from "~/components/Footer/Footer";
+
+const isMaintenance = Config.application.maintenance;
 
 function App() {
   const [network, setNetwork] = useState<Network>(Config.network);
@@ -14,9 +17,9 @@ function App() {
     <div className="main-wrapper">
       <ToasterMessages />
 
-      <Header />
+      <Header isMaintenance={isMaintenance} />
 
-      <Faucet network={network} />
+      {isMaintenance ? <Maintenance /> : <Faucet network={network} />}
 
       <Footer />
 

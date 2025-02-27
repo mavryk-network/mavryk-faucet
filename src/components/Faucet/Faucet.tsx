@@ -62,7 +62,7 @@ export default function Faucet({ network }: { network: Network }) {
   const getContractBigmap = useCallback(async () => {
     const { data }: { data: { key?: { address: string }; value: number }[] } =
       await api.get(
-        `${apiMavrykUrl}/bigmaps/keys?bigmap=5339&sort.desc=lastLevel`,
+        `${apiMavrykUrl}/bigmaps/keys?bigmap=5394&sort.desc=lastLevel`,
       );
 
     const usdt = data.find(
