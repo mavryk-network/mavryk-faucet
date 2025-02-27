@@ -183,7 +183,6 @@ export default function FaucetRequestButton({
     const input = {
       address: formState.address,
       token: formState.selectedToken,
-      amount,
       nonce,
       solution,
     };
@@ -228,7 +227,7 @@ export default function FaucetRequestButton({
       {/*  sitekey={Config.application.googleCaptchaSiteKey}*/}
       {/*/>*/}
 
-      <Button disabled={disabled || !validateAmount(amount)} onClick={getMav}>
+      <Button disabled={disabled} onClick={getMav}>
         <span className="requestBtnText">
           Request{" "}
           {formState.selectedToken

@@ -56,7 +56,7 @@ export default function Faucet({ network }: { network: Network }) {
     address: "",
     selectedToken: TokenType.mvrk,
     isAddressError: true,
-    isAmountError: true,
+    isAmountError: false,
   });
 
   const getContractBigmap = useCallback(async () => {
@@ -98,21 +98,10 @@ export default function Faucet({ network }: { network: Network }) {
   };
 
   const isDisabledButton = useMemo(() => {
-    const {
-      tokenAmount,
-      selectedToken,
-      address,
-      isAddressError,
-      isAmountError,
-    } = formState;
+    const { selectedToken, address, isAddressError } = formState;
 
     return (
-      !address ||
-      statusContext.isLoading ||
-      !tokenAmount ||
-      !selectedToken ||
-      isAddressError ||
-      isAmountError
+      !address || statusContext.isLoading || !selectedToken || isAddressError
     );
   }, [formState, statusContext, user]);
 
@@ -134,31 +123,29 @@ export default function Faucet({ network }: { network: Network }) {
       <div className="faucet-info-block">
         <h1 className="faucet-main-title">{network.name} Faucet</h1>
         <div className="faucet-info-text">
-          Please note, the tokens from the Faucet are testnet tokens only.
-          <br />
-          You can request a maximum of {maxTokenAmount.toLocaleString(
-            "en-US",
-          )}{" "}
-          {tokenLabel} tokens
+          Please note, the tokens from the Faucet are testnet tokens only. You
+          will receive the amount straight to the address.
         </div>
       </div>
 
       <div className="faucet-container">
-        <AddressField
-          status={statusContext}
-          formState={formState}
-          setFormState={setFormState}
-        />
+        <div className="faucet-container-content">
+          <div className={"faucet-amount-container"}>
+            <TokenSelect formState={formState} setFormState={setFormState} />
 
-        <div className={"faucet-amount-container"}>
-          <TokenSelect formState={formState} setFormState={setFormState} />
+            <AddressField
+              status={statusContext}
+              formState={formState}
+              setFormState={setFormState}
+            />
+          </div>
 
-          <AmountField
-            formState={formState}
-            setFormState={setFormState}
-            tokenState={tokenState}
-            status={statusContext}
-          />
+          <div className="faucet-token-amount">
+            You will receive{" "}
+            <span className="faucet-token-amount-bold">
+              {maxTokenAmount.toLocaleString("en-US")} {tokenLabel}
+            </span>
+          </div>
         </div>
 
         <FaucetRequestButton
