@@ -152,6 +152,7 @@ export default function Faucet({ network }: { network: Network }) {
           formState={formState}
           disabled={isDisabledButton}
           network={network}
+          maxTokenAmount={maxTokenAmount}
           status={statusContext}
         />
       </div>

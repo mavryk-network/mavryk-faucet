@@ -4,7 +4,7 @@
     "backendUrl": "https://atlasnet-backend.faucet.mavryk.network",
     "disableChallenges": true,
     "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
-    "googleCaptchaSiteKey": "6LefC8QmAAAAAIXuoOhyI-FtALkYXZm4JK0GBYfb",
+    "googleCaptchaSiteKey": "6Lc_8OMqAAAAAI12I2htoL1Ecujh1pTdhYqpO6cE",
     "maxMav": 7000,
     "maintenance": false,
     "minMav": 1,

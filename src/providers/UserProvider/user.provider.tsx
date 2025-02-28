@@ -36,7 +36,6 @@ export const UserProvider = ({ children }: Props) => {
   const readBalances = async (): Promise<void> => {
     try {
       if (!account?.address) return;
-      console.log("HEEEERE,", account);
       const Tezos = new TezosToolkit(Config.network.rpcUrl);
       const balance = await Tezos.tz.getBalance(account.address);
       setUserBalance(balance.toNumber());
