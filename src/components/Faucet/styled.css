@@ -30,7 +30,7 @@
   padding: 32px 32px 38px 32px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   border-radius: 16px;
   background: radial-gradient(
       98.05% 261.61% at 1.95% 3.59%,
@@ -45,6 +45,7 @@
   flex-direction: column;
   gap: 24px;
   position: relative;
+  width: 100%;
 }
 .address-field-wallet {
   position: absolute;
@@ -67,7 +68,6 @@
 }
 .faucet-btn-wrapper {
   max-width: 100%;
-  margin-top: 8px;
 }
 .select-token-option {
   display: flex;
@@ -120,4 +120,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.faucet-token-amount {
+  color: var(--color-white-secondary);
+  font-size: 16px;
+}
+.faucet-token-amount-bold {
+  font-weight: 700;
+}
+.faucet-container-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
