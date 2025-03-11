@@ -1,14 +1,8 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import "./styled.css";
 
-import {
-  ChallengeResponse,
-  Network,
-  StatusContext,
-  TokenType,
-} from "~/lib/Types";
+import { Network, StatusContext, TokenType } from "~/lib/Types";
 import { AddressField } from "./AddressField";
-import { AmountField } from "./AmountField";
 import { TokenSelect } from "./TokenSelect";
 import FaucetRequestButton, { api } from "./FaucetRequestButton";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
@@ -23,13 +17,13 @@ export type FormState = {
   isAmountError: boolean;
 };
 
-const { maxMav, apiMavrykUrl } = Config.application;
+const { apiMavrykUrl } = Config.application;
 
 const DEFAULT_MAX_USDT = 1000;
-const DEFAULT_MAX_MVN = 1000;
-const DEFAULT_MAX_MVRK = 1000;
-const mvnTokenAddress = "KT1WdbBw5DXF9fXN378v8VgrPqTsCKu2BPgD";
-const usdtTokenAddress = "KT1StUZzJ34MhSNjkQMSyvZVrR9ppkHMFdFf";
+const DEFAULT_MAX_MVN = 400;
+const DEFAULT_MAX_MVRK = 100;
+const mvnTokenAddress = "KT1PBrfUaHoe21a7J4gAUZJT4m3VJTkaEVqY";
+const usdtTokenAddress = "KT1A5hFGc8uGQLZhkpSgTieDd1jEReZkZ65i";
 const mvrkTokenAddress = "mv2ZZZZZZZZZZZZZZZZZZZZZZZZZZZDXMF2d";
 
 const fromMvn = (amount: number) => amount / 10 ** 9;
@@ -62,7 +56,7 @@ export default function Faucet({ network }: { network: Network }) {
   const getContractBigmap = useCallback(async () => {
     const { data }: { data: { key?: { address: string }; value: number }[] } =
       await api.get(
-        `${apiMavrykUrl}/bigmaps/keys?bigmap=5394&sort.desc=lastLevel`,
+        `${apiMavrykUrl}/bigmaps/keys?bigmap=55&sort.desc=lastLevel`,
       );
 
     const usdt = data.find(
