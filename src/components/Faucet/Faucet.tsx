@@ -22,8 +22,8 @@ const { apiMavrykUrl } = Config.application;
 const DEFAULT_MAX_USDT = 1000;
 const DEFAULT_MAX_MVN = 400;
 const DEFAULT_MAX_MVRK = 100;
-const mvnTokenAddress = "KT1PBrfUaHoe21a7J4gAUZJT4m3VJTkaEVqY";
-const usdtTokenAddress = "KT1A5hFGc8uGQLZhkpSgTieDd1jEReZkZ65i";
+const mvnTokenAddress = "KT1EmkMv4FRTCC4op5Xzf3fcHzwazFXXDHLC";
+const usdtTokenAddress = "KT1D7ZQBhwxkMgZThqctYtMXigFvJRZL4eSy";
 const mvrkTokenAddress = "mv2ZZZZZZZZZZZZZZZZZZZZZZZZZZZDXMF2d";
 
 const fromMvn = (amount: number) => amount / 10 ** 9;
@@ -56,7 +56,7 @@ export default function Faucet({ network }: { network: Network }) {
   const getContractBigmap = useCallback(async () => {
     const { data }: { data: { key?: { address: string }; value: number }[] } =
       await api.get(
-        `${apiMavrykUrl}/bigmaps/keys?bigmap=55&sort.desc=lastLevel`,
+        `${apiMavrykUrl}/bigmaps/keys?bigmap=221&sort.desc=lastLevel`,
       );
 
     const usdt = data.find(
