@@ -6,7 +6,7 @@
     "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
     "googleCaptchaSiteKey": "6LfSMOQqAAAAAKDjPFtQ30JPzb8TvyoAWAWnaoUm",
     "maxMav": 7000,
-    "maintenance": true,
+    "maintenance": false,
     "minMav": 1,
     "name": "Mavryk Atlasnet Faucet"
   },
