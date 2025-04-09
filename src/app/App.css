@@ -61,9 +61,19 @@ img {
   right: 0;
   position: absolute;
   z-index: -1;
+  width: 100dvw;
+  height: 100dvh;
 }
 .main-wrapper .blueShadow {
   top: 0;
   position: absolute;
   z-index: -1;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.main-wrapper .orangeShadow img,
+.main-wrapper .blueShadow img {
+  width: 100%;
+  height: 100%;
 }

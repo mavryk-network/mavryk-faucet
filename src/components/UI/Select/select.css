@@ -24,3 +24,20 @@
   letter-spacing: -0.02em;
   color: var(--color-white-text);
 }
+
+.chevronDownIconWrapper {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  right: 8px;
+}
+
+.chevronDownIcon {
+  width: 24px;
+  height: 24px;
+  transform: rotate(0deg);
+}
+
+.chevronDownIconWrapper[data-open="true"] > .chevronDownIcon {
+  transform: rotate(180deg);
+}

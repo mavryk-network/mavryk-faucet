@@ -3,7 +3,9 @@ import "./select.css";
 import Select, {
   CSSObjectWithLabel,
   FormatOptionLabelMeta,
+  components,
 } from "react-select";
+import Icon from "../Icon/Icon";
 
 type Props = {
   disabled?: boolean;
@@ -20,7 +22,7 @@ type Props = {
     formatOptionLabelMeta: FormatOptionLabelMeta<{
       value: string;
       label: string;
-    }>,
+    }>
   ) => ReactNode;
 };
 
@@ -76,6 +78,7 @@ export function CustomSelect(props: Props) {
       fontWeight: 400,
       marginLeft: 0,
       padding: "8px 0",
+      "--icon-visible": "none",
     }),
     valueContainer: (provided: CSSObjectWithLabel) => ({
       ...provided,
@@ -116,7 +119,6 @@ export function CustomSelect(props: Props) {
     dropdownIndicator: (provided: CSSObjectWithLabel, state: any) => ({
       ...provided,
       color: "#F4F4F4",
-      transform: isMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
     }),
   };
 
@@ -139,6 +141,15 @@ export function CustomSelect(props: Props) {
         value={value}
         isSearchable={isSearchable}
         options={options}
+        components={{
+          DropdownIndicator: ({ children, ...rest }) => (
+            <components.DropdownIndicator {...rest}>
+              <div className="chevronDownIconWrapper" data-open={isMenuOpen}>
+                <Icon className="chevronDownIcon" icon="chevronDown" />
+              </div>
+            </components.DropdownIndicator>
+          ),
+        }}
         formatOptionLabel={formatOptionLabel}
         noOptionsMessage={() =>
           noOptionsMessage ? noOptionsMessage : "Nothing found"
