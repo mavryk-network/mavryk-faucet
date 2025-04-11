@@ -116,10 +116,10 @@ export default function Faucet({ network }: { network: Network }) {
     <div className="faucet-main-wrapper">
       <div className="faucet-info-block">
         <h1 className="faucet-main-title">{network.name} Faucet</h1>
-        <div className="faucet-info-text">
+        <p className="faucet-info-text">
           Please note, the tokens from the Faucet are testnet tokens only. You
           will receive the amount straight to the address.
-        </div>
+        </p>
       </div>
 
       <div className="faucet-container">
