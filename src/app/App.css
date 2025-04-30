@@ -43,7 +43,7 @@ img {
 }
 
 .main-wrapper {
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
