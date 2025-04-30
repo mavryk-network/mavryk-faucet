@@ -1,6 +1,6 @@
 html body {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-black-main);
   margin: 0;
   font-family: 'Aeonik', 'Roboto', 'Oxygen',
