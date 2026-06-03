@@ -12,12 +12,12 @@ A one-click faucet for Mavryk, now enhanced with a PoW (Proof of Work) challenge
 - Vite
 - React
 - Bootstrap
-- Taquito
-- Beacon Wallet
+- WebMavryk
+- Mavlet Wallet
 
 ## Overview
 
-The faucet's backend code can be located at [tezos-faucet-backend](https://github.com/oxheadalpha/tezos-faucet-backend). The backend handles the faucet's private key, CAPTCHA secret, PoW challenge creation and solution verification, and the amounts of Mav sent.
+The faucet's backend code can be located at [mavryk-faucet-backend](https://github.com/mavryk-network/mavryk-faucet-backend). The backend handles the faucet's private key, CAPTCHA secret, PoW challenge creation and solution verification, and the amounts of Mav sent.
 
 ### Proof of Work (PoW) Challenge
 
@@ -31,7 +31,7 @@ To mitigate potential abuse and ensure a fair distribution of Mav, users are now
 
 ## Programmatic Faucet Usage
 
-For programmatic usage of the faucet, we provide an npm package `@mavryk-network/get-mav`. The code can be found [here](https://github.com/mavryk-network/mavryk-faucet/tree/main/getMav). Please refer to it for more details on how to use it. This script can be run from a JavaScript program or directly from a shell. It interacts with the backend to request Mav, solve the required challenges, and verify the solutions.
+For programmatic usage of the faucet, we provide an npm package `@mavryk-network/get-mav`. The code can be found [here](https://github.com/mavryk-network/mavryk-faucet/tree/main/getMav). Please refer to it for more details on how to use it. This script can be run from a JavaScript program or directly from a shell. It interacts with the backend to request Tez, solve the required challenges, and verify the solutions.
 
 Please note that the programmatic faucet code does not use CAPTCHA and so more challenges can be given when using it.
 
@@ -39,31 +39,31 @@ Please note that the programmatic faucet code does not use CAPTCHA and so more c
 
 To setup the faucet for a new network:
 
-1. Update Beacon Wallet lib to make sure it will handle the new network
+1. Update Mavlet Wallet lib to make sure it will handle the new network
 2. Deploy a new instance of backend
 3. Configure faucet to use backend
 4. Deploy faucet
 
-### 1. Update Beacon Wallet configuration for new network
+### 1. Update Mavlet Wallet configuration for new network
 
 Currently supported networks include:
 
 - Mainnet
 - Basenet
-- Mondaynet
-- Dailynet
 - Weeklynet
+- Dailynet
 - Atlasnet
+- Boreasnet
 
-To add a new network, first check that `@mavrykdynamics/beacon-sdk` handles it ([check their config on the latest release](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts)), then update:
+To add a new network, first check that `@mavrykdynamics/mavlet-sdk` handles it ([check their config on the latest release](https://github.com/mavryk-network/mavlet-sdk/blob/master/packages/mavlet-types/src/types/mavlet/NetworkType.ts)), then update:
 
 ```
-npm i @mavrykdynamics/beacon-sdk
+npm i @mavrykdynamics/mavlet-sdk
 ```
 
 ### 2. Deploy backend
 
-See https://github.com/oxheadalpha/tezos-faucet-backend
+See https://github.com/mavryk-network/mavryk-faucet-backend
 
 ### 3. Update configuration file: `config.json`
 
@@ -84,13 +84,13 @@ See https://github.com/oxheadalpha/tezos-faucet-backend
 
 **Network configuration:**
 
-- `name`: network name. Must match one of [@mavrykdynamics/beacon-sdk NetworkType](https://github.com/airgap-it/beacon-sdk/blob/v4.0.6/packages/beacon-types/src/types/beacon/NetworkType.ts) value (case insensitive). Also used to be displayed.
+- `name`: network name. Must match one of [@mavrykdynamics/mavlet-sdk NetworkType](https://github.com/mavryk-network/mavlet-sdk/blob/master/packages/mavlet-types/src/types/mavlet/NetworkType.ts) value (case insensitive). Also used to be displayed.
 
 - `rpcUrl`: Mavryk network RPC endpoint to be used by faucet
 
 - `faucetAddress`: public Mavryk address of faucet
 
-- `viewer`: URL of a block explorer that displays operation detail like `http://viewer-url.com/{tx_hash}` (eg. https://ghost.tzstats.com)
+- `viewer`: URL of a block explorer that displays operation detail like `http://viewer-url.com/{tx_hash}` (eg. https://basenet.nexus.mavryk.org/explorer/operation)
 
 ### 4. Deploy
 
@@ -105,5 +105,5 @@ docker build . -t mavryk-faucet
 Run Docker image:
 
 ```
-docker run -p 8080:8080 mavryk-faucet
+docker run -p 8080:8080 --rm mavryk-faucet
 ```

@@ -37,20 +37,19 @@ export default defineConfig(async ({ mode }) => ({
     ],
   ],
   define: {
-    global: "globalThis",
+    // global: "globalThis",
     "import.meta.env.APP_DESCRIPTION": JSON.stringify(pkgJson.description),
     "import.meta.env.APP_VERSION": JSON.stringify(pkgJson.version),
   },
   resolve: {
     alias: {
-      "~": "/src",
-      http: "rollup-plugin-node-polyfills/polyfills/http",
-      https: "rollup-plugin-node-polyfills/polyfills/http",
-      stream: "rollup-plugin-node-polyfills/polyfills/stream",
-      util: "rollup-plugin-node-polyfills/polyfills/util",
-      zlib: "rollup-plugin-node-polyfills/polyfills/zlib",
-      process: "rollup-plugin-node-polyfills/polyfills/process-es6",
-      buffer: "rollup-plugin-node-polyfills/polyfills/buffer-es6",
+      // http: "rollup-plugin-node-polyfills/polyfills/http",
+      // https: "rollup-plugin-node-polyfills/polyfills/http",
+      // stream: "rollup-plugin-node-polyfills/polyfills/stream",
+      // util: "rollup-plugin-node-polyfills/polyfills/util",
+      // zlib: "rollup-plugin-node-polyfills/polyfills/zlib",
+      // process: "rollup-plugin-node-polyfills/polyfills/process-es6",
+      // buffer: "rollup-plugin-node-polyfills/polyfills/buffer-es6",
     },
   },
 }))

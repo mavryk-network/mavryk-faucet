@@ -22,6 +22,13 @@ jobs:
         with:
           fetch-depth: 1
 
+      # Add a step to set the version in package.json
+      - name: Set Version in package.json
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\///')
+          npm version $VERSION --no-git-tag-version
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@master
@@ -30,7 +37,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Cache Docker layers
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-single-buildx-${{ github.sha }}

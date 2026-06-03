@@ -5,8 +5,8 @@ import { useUserApi } from "./hooks/useUserApi";
 
 import { UserContext } from "./user.provider.types";
 import { useWalletContext } from "../WalletProvider/wallet.provider";
-import { AccountInfo } from "@mavrykdynamics/beacon-dapp";
-import { TezosToolkit } from "@mavrykdynamics/taquito";
+import { AccountInfo } from "@mavrykdynamics/mavlet-dapp";
+import { MavrykToolkit } from "@mavrykdynamics/webmavryk";
 import Config from "../../Config";
 
 export const userContext = React.createContext<UserContext>(undefined!);
@@ -36,15 +36,15 @@ export const UserProvider = ({ children }: Props) => {
   const readBalances = async (): Promise<void> => {
     try {
       if (!account?.address) return;
-      const Tezos = new TezosToolkit(Config.network.rpcUrl);
-      const balance = await Tezos.tz.getBalance(account.address);
+      const Mavryk = new MavrykToolkit(Config.network.rpcUrl);
+      const balance = await Mavryk.mv.getBalance(account.address);
       setUserBalance(balance.toNumber());
     } catch (error) {
       //console.log(error);
     }
   };
 
-  // Listening for active account changes with beacon
+  // Listening for active account changes with mavlet
   useEffect(() => {
     (async function () {
       try {

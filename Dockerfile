@@ -1,10 +1,10 @@
-FROM node:20-alpine
+FROM node:24-alpine
 
 USER node
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH=/app/node_modules/.bin:$PATH
 
 RUN chown node:node /app
 

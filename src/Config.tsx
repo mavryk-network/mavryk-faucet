@@ -1,4 +1,4 @@
-import { NetworkType } from "@mavrykdynamics/beacon-types"
+import { NetworkType } from "@mavrykdynamics/mavlet-types"
 import { ConfigType } from "./lib/Types"
 
 const Config: ConfigType = await fetch("/config.json").then((c) => c.json())
@@ -17,19 +17,19 @@ if (!configNetwork || configNetwork.trim() === "") {
 configNetwork = configNetwork.toLowerCase()
 
 Config.network.networkType = undefined
-Config.application.isBeaconWallet = false
+Config.application.isMavletWallet = false
 
 const network = networkKeys.find(
   (x) => NetworkType[x].toLowerCase() === configNetwork
 )
 if (!network) {
   throw new Error(
-    `Unknown network.name "${Config.network.name}" in config.json. If you did not make any typos, please consider updating Mavryk support NPM packages to get latest networks support:\n - @mavrykdynamics/beacon-types\n - @mavrykdynamics/...`
+    `Unknown network.name "${Config.network.name}" in config.json. If you did not make any typos, please consider updating Mavryk support NPM packages to get latest networks support:\n - @mavrykdynamics/mavlet-types\n - @mavrykdynamics/...`
   )
 }
 
 Config.network.networkType = NetworkType[network]
-Config.application.isBeaconWallet = !!Config.network.networkType
+Config.application.isMavletWallet = !!Config.network.networkType
 Config.application.disableChallenges =
 Config.application.disableChallenges === true
 

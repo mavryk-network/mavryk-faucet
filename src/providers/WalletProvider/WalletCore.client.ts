@@ -1,11 +1,11 @@
-import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet";
+import { MavletWallet } from "@mavrykdynamics/webmavryk-mavlet-wallet";
 import {
   AccountInfo,
-  BeaconEvent,
+  MavletEvent,
   NetworkType,
-} from "@mavrykdynamics/beacon-dapp";
-import { TezosToolkit } from "@mavrykdynamics/taquito";
-import type { BeaconWallet as BeaconWalletType } from "@mavrykdynamics/taquito-beacon-wallet";
+} from "@mavrykdynamics/mavlet-dapp";
+import { MavrykToolkit } from "@mavrykdynamics/webmavryk";
+import type { MavletWallet as MavletWalletType } from "@mavrykdynamics/webmavryk-mavlet-wallet";
 
 // consts
 import {
@@ -34,10 +34,10 @@ const getRpcNode = (): RPCNodeType => {
 };
 
 export function dappClient() {
-  let instance: BeaconWalletType | undefined;
+  let instance: MavletWalletType | undefined;
 
   function init() {
-    return new BeaconWallet(DAPP_METADATA);
+    return new MavletWallet(DAPP_METADATA);
   }
 
   function loadWallet() {
@@ -57,10 +57,10 @@ export function dappClient() {
     const client = getDAppClient();
 
     client
-      .subscribeToEvent(BeaconEvent.ACTIVE_ACCOUNT_SET, (account) => {
+      .subscribeToEvent(MavletEvent.ACTIVE_ACCOUNT_SET, (account) => {
         // An active account has been set, update the dApp UI
         console.log(
-          `${BeaconEvent.ACTIVE_ACCOUNT_SET} triggered: `,
+          `${MavletEvent.ACTIVE_ACCOUNT_SET} triggered: `,
           account.address,
         );
 
@@ -86,13 +86,13 @@ export function dappClient() {
     }
   }
 
-  function tezos() {
+  function mavryk() {
     const wallet = getDAppClientWallet();
-    const Tezos = new TezosToolkit(getRpcNode());
+    const Mavryk = new MavrykToolkit(getRpcNode());
 
-    if (wallet) Tezos.setWalletProvider(wallet);
+    if (wallet) Mavryk.setWalletProvider(wallet);
 
-    return Tezos;
+    return Mavryk;
   }
 
   async function disconnectWallet() {
@@ -111,7 +111,7 @@ export function dappClient() {
     loadWallet,
     getDAppClient,
     connectAccount,
-    tezos,
+    mavryk,
     disconnectWallet,
   };
 }

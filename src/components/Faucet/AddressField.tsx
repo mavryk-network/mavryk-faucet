@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback } from "react";
-import { validateKeyHash } from "@mavrykdynamics/taquito-utils";
+import { validateKeyHash } from "@mavrykdynamics/webmavryk-utils";
 import { StatusContext } from "~/lib/Types";
 import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";

@@ -35,14 +35,14 @@ const displayHelp = () => {
 <address>:
   The address where Mav should be sent. This can be either a standard Mavryk public key hash (e.g. mv1234abc...)
   or a local alias. If an alias is provided (e.g., 'alice'), the program will attempt to resolve it to a public
-  key hash by looking it up in the specified client directory, set by --client-dir or by the TEZOS_CLIENT_DIR
-  environment variable. If neither is set, the default lookup location is $HOME/.tezos-client.
+  key hash by looking it up in the specified client directory, set by --client-dir or by the MAVRYK_CLIENT_DIR
+  environment variable. If neither is set, the default lookup location is $HOME/.mavryk-client.
 
 Options:
   -h, --help                Display help information.
   -a, --amount     <value>  The amount of Mav to request.
   -n, --network    <value>  Set the faucet's network name. Must match a
-                            network name with a faucet listed at https://teztnets.xyz.
+                            network name with a faucet listed at https://teztnets.com
                             Ignored if --faucet-url is set.
   -f, --faucet-url <value>  Set the custom faucet URL. Ignores --network.
   -d, --client-dir <value>  Custom client directory path to look up an address alias.
@@ -65,7 +65,7 @@ const handleError = (message: string, help?: boolean) => {
 }
 
 const DEFAULT_CLIENT_DIR =
-  process.env.TEZOS_CLIENT_DIR || path.join(process.env.HOME!, ".tezos-client")
+  process.env.MAVRYK_CLIENT_DIR || path.join(process.env.HOME!, ".mavryk-client")
 
 const resolveAliasToPkh = (
   alias: string,
@@ -89,7 +89,7 @@ type GetMavArgs = {
   /** Custom client directory path to look up address alias. */
   clientDir?: string
   /** Set the faucet's network name. Must match a network name with a faucet
-   * listed at https://teztnets.xyz. Ignored if `faucetUrl` is set. */
+   * listed at https://teztnets.com. Ignored if `faucetUrl` is set. */
   network?: string
   /** Set the custom faucet URL. Ignores `network`. */
   faucetUrl?: string
@@ -435,7 +435,7 @@ if (isMainModule) {
   const args = process.argv.slice(isMainModule ? 2 : 1)
   const parsedArgs = parseCliArgs(args)
 
-  log(`get-mav v${pkgJson.version} by Mavryk Dynamics - Get Free Mav\n`)
+  log(`get-mav v${pkgJson.version} - Get Free Mav\n`)
 
   getMav(parsedArgs).then(
     (txHash) => txHash && process.stderr.write("- Transfer done!\nOperation hash: ") &&

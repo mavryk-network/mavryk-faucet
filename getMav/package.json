@@ -37,7 +37,7 @@
   "author": "Aryeh Harris",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.6.0",
-    "typescript": "^5.2.2"
+    "@types/node": "^20.11.5",
+    "typescript": "^5.3.3"
   }
 }

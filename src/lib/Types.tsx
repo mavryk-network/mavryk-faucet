@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
-import { TezosToolkit } from "@mavrykdynamics/taquito";
-import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet";
-import { NetworkType } from "@mavrykdynamics/beacon-types";
+import { MavrykToolkit } from "@mavrykdynamics/webmavryk";
+import { MavletWallet } from "@mavrykdynamics/webmavryk-mavlet-wallet";
+import { NetworkType } from "@mavrykdynamics/mavlet-types";
 
 type ApplicationConfig = {
   name: string;
   googleCaptchaSiteKey: string;
-  isBeaconWallet?: boolean;
+  isMavletWallet?: boolean;
   backendUrl: string;
   githubRepo: string;
   apiMavrykUrl: string;
@@ -63,10 +63,10 @@ export type UserContext = {
 
 export type TestnetContext = {
   network: Network;
-  wallet: BeaconWallet;
+  wallet: MavletWallet;
   setWallet: Dispatch<SetStateAction<any>>;
-  Tezos: TezosToolkit;
-  setTezos: Dispatch<SetStateAction<any>>;
+  Mavryk: MavrykToolkit;
+  setMavryk: Dispatch<SetStateAction<any>>;
 };
 
 export type StatusContext = {
