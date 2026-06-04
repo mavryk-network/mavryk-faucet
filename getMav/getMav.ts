@@ -318,6 +318,47 @@ const solveChallenge = ({
   }
 }
 
+/* Poll for request completion */
+
+const pollForCompletion = async (
+  faucetUrl: string,
+  requestId: string
+): Promise<string> => {
+  const maxPollTime = 5 * 60 * 1000 // 5 minutes
+  const pollInterval = 3000 // 3 seconds
+  const startTime = Date.now()
+
+  verboseLog("Waiting for transaction to be confirmed...")
+
+  while (Date.now() - startTime < maxPollTime) {
+    await new Promise((res) => setTimeout(res, pollInterval))
+
+    try {
+      const response = await fetch(`${faucetUrl}/status/${requestId}`, {
+        headers: requestHeaders,
+        signal: AbortSignal.timeout(10_000),
+      })
+      const data = await response.json()
+
+      if (data.requestStatus === "confirmed" && data.txHash) {
+        verboseLog(`Mav sent! Check transaction: ${data.txHash}\n`)
+        return data.txHash
+      }
+
+      if (data.requestStatus === "failed") {
+        handleError(data.errorMessage || "Transaction failed")
+      }
+
+      verboseLog(`Status: ${data.requestStatus}...`)
+    } catch (err: any) {
+      verboseLog(`Poll error: ${err.message}`)
+    }
+  }
+
+  handleError(`Request timed out (ID: ${requestId}). Check status manually.`)
+  return ""
+}
+
 /* Verify Solution */
 
 type VerifySolutionArgs = Solution & ValidatedArgs
@@ -327,6 +368,7 @@ type VerifySolutionResult = {
   challengeCounter?: number
   difficulty?: number
   txHash?: string
+  requestId?: string
 }
 
 const verifySolution = async ({
@@ -342,17 +384,21 @@ const verifySolution = async ({
     method: "POST",
     headers: requestHeaders,
     signal: AbortSignal.timeout(10_000),
-    body: JSON.stringify({ address, amount, nonce, solution }),
+    body: JSON.stringify({ address, amount, nonce, solution, token: "mvrk" }),
   })
 
-  const { txHash, challenge, challengeCounter, difficulty, message } =
+  const { txHash, requestId, challenge, challengeCounter, difficulty, message } =
     await response.json()
 
   if (!response.ok) {
     handleError(message)
   }
 
-  if (txHash) {
+  if (requestId) {
+    verboseLog(`Solution is valid. Request queued (ID: ${requestId})`)
+    const confirmedHash = await pollForCompletion(faucetUrl, requestId)
+    return { txHash: confirmedHash }
+  } else if (txHash) {
     verboseLog(`Solution is valid`)
     verboseLog(`Mav sent! Check transaction: ${txHash}\n`)
     return { txHash }

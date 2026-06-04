@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">
 
   <title>Mavryk Faucet</title>
+  <script>
+    window.global = window;
+    window.process = window.process || { env: {}, version: '', platform: 'browser', browser: true, nextTick: function(cb) { setTimeout(cb, 0); }, versions: {} };
+  </script>
 </head>
 
 <body>

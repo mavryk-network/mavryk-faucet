@@ -5,18 +5,23 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@dicebear/avatars": "^4.10.8",
+    "@dicebear/avatars-bottts-sprites": "^4.10.8",
     "@mavrykdynamics/mavlet-sdk": "1.0.2",
     "@mavrykdynamics/webmavryk-mavlet-wallet": "2.0.1",
     "@mavrykdynamics/webmavryk-signer": "2.0.1",
     "axios": "1.12.2",
     "bootstrap": "5.3.2",
     "html-react-parser": "5.0.7",
+    "jdenticon": "^3.3.0",
     "react": "18.2.0",
     "react-bootstrap": "2.9.1",
     "react-bootstrap-icons": "1.11.6",
     "react-dom": "18.2.0",
     "react-google-recaptcha": "3.1.0",
-    "serve": "14.2.5"
+    "react-select": "^5.10.2",
+    "serve": "14.2.5",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@esbuild-plugins/node-modules-polyfill": "0.2.2",

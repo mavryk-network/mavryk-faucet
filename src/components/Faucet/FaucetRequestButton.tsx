@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RefObject, useRef } from "react";
+import { Dispatch, RefObject, SetStateAction, useRef } from "react";
 import { Button } from "../UI/Button/button";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -10,6 +10,7 @@ import {
   ChallengeResponse,
   Network,
   StatusContext,
+  StatusResponse,
   TokenType,
   VerifyResponse,
 } from "~/lib/Types";
@@ -17,6 +18,7 @@ import { FormState } from "./Faucet";
 import { useUserContext } from "~/providers/UserProvider/user.provider";
 import { useToasterContext } from "~/providers/ToasterProvider/toaster.provider";
 import { tokensLabels } from "~/components/Faucet/Faucet.const";
+import { RequestState } from "./RequestStatus";
 
 export const api = axios.create({
   baseURL: Config.application.backendUrl,
@@ -32,12 +34,14 @@ export default function FaucetRequestButton({
   status,
   formState,
   maxTokenAmount,
+  setRequestState,
 }: {
   formState: FormState;
   disabled: boolean;
   network: Network;
   maxTokenAmount: number;
   status: StatusContext;
+  setRequestState: Dispatch<SetStateAction<RequestState>>;
 }) {
   const { readBalances } = useUserContext();
   const recaptchaRef: RefObject<ReCAPTCHA> = useRef(null);
@@ -49,25 +53,31 @@ export default function FaucetRequestButton({
     status.setLoading(true);
     status.setStatus("");
     status.setStatusType("");
+    setRequestState({ phase: "solving", progress: 0 });
   };
 
-  const stopLoadingSuccess = async (message: string) => {
-    status.setStatus(message);
+  const stopLoadingSuccess = async (txHash?: string) => {
     status.setStatusType("success");
     status.setLoading(false);
-    success("Fund wallet request sent! Confirming...");
+    setRequestState((prev) => ({
+      ...prev,
+      phase: "confirmed",
+      txHash,
+    }));
+    success("Tokens sent successfully!");
     await readBalances();
   };
 
   const stopLoadingError = (message: string) => {
-    status.setStatus(message);
     status.setStatusType("danger");
     status.setLoading(false);
+    setRequestState((prev) => ({
+      ...prev,
+      phase: "failed",
+      errorMessage: message,
+    }));
     bug(message || "Something went wrong. Please try again");
   };
-
-  const validateAmount = (amount: number) =>
-    amount >= minMav && amount <= maxMav;
 
   const validateChallenge = (data: Partial<Challenge>): data is Challenge =>
     !!(
@@ -77,10 +87,8 @@ export default function FaucetRequestButton({
       data.challengesNeeded
     );
 
-  const getProgress = (challengeCounter: number, challengesNeeded: number) =>
-    String(
-      Math.min(99, Math.floor((challengeCounter / challengesNeeded) * 100)),
-    );
+  const getProgressNum = (counter: number, needed: number) =>
+    Math.min(99, Math.floor((counter / needed) * 100));
 
   const execCaptcha = async () => {
     const captchaToken: any = await recaptchaRef.current?.executeAsync();
@@ -97,8 +105,10 @@ export default function FaucetRequestButton({
     { challenge, difficulty, challengeCounter, challengesNeeded }: Challenge,
     powWorker: Worker,
   ) => {
+    const progress = getProgressNum(challengeCounter - 1, challengesNeeded);
     status.setStatusType("solving");
-    status.setStatus(getProgress(challengeCounter - 1, challengesNeeded));
+    status.setStatus(String(progress));
+    setRequestState({ phase: "solving", progress });
 
     const powSolution: Promise<{ solution: string; nonce: number }> =
       new Promise((resolve, reject) => {
@@ -111,7 +121,9 @@ export default function FaucetRequestButton({
 
     await powSolution;
 
-    status.setStatus(getProgress(challengeCounter, challengesNeeded));
+    const newProgress = getProgressNum(challengeCounter, challengesNeeded);
+    status.setStatus(String(newProgress));
+    setRequestState({ phase: "solving", progress: newProgress });
 
     return powSolution;
   };
@@ -120,6 +132,7 @@ export default function FaucetRequestButton({
     try {
       startLoading();
       if (Config.application.disableChallenges) {
+        setRequestState({ phase: "submitting" });
         return verifySolution({ solution: "", nonce: 0 });
       }
 
@@ -132,6 +145,7 @@ export default function FaucetRequestButton({
         while (validateChallenge(challengeRes)) {
           const powSolution = await solvePow(challengeRes, powWorker);
 
+          setRequestState({ phase: "submitting" });
           const newChallengeRes = await verifySolution(powSolution);
           challengeRes = newChallengeRes;
         }
@@ -195,20 +209,12 @@ export default function FaucetRequestButton({
         input,
       );
 
-      // If there is another challenge
       if (validateChallenge(data)) {
         return data;
+      } else if (data.requestId) {
+        await pollStatus(data.requestId);
       } else if (data.txHash) {
-        // All challenges were solved
-
-        // Let the progress bar briefly show 100% before it goes away
-        await new Promise((res) => setTimeout(res, 800));
-
-        const viewerUrl = network.viewer && `${network.viewer}/${data.txHash}`
-
-        stopLoadingSuccess(
-          `Your ṁ is on the way!${ viewerUrl ? ` <a target="_blank" href="${viewerUrl}" class="alert-link">Check it.</a>` : '' }`
-        )
+        await stopLoadingSuccess(data.txHash);
       } else {
         stopLoadingError("Error verifying solution");
       }
@@ -218,6 +224,55 @@ export default function FaucetRequestButton({
       );
     }
     return {};
+  };
+
+  const pollStatus = async (requestId: string): Promise<void> => {
+    const maxPollTime = 5 * 60 * 1000;
+    const pollInterval = 3000;
+    const startTime = Date.now();
+
+    setRequestState({ phase: "pending", requestId });
+
+    while (Date.now() - startTime < maxPollTime) {
+      await new Promise((res) => setTimeout(res, pollInterval));
+
+      try {
+        const { data }: { data: StatusResponse } = await api.get(
+          `/status/${requestId}`,
+        );
+
+        if (data.requestStatus === "confirmed" && data.txHash) {
+          await stopLoadingSuccess(data.txHash);
+          return;
+        }
+
+        if (data.requestStatus === "failed") {
+          stopLoadingError(
+            data.errorMessage || "Transaction failed. Please try again.",
+          );
+          return;
+        }
+
+        if (data.requestStatus === "batched") {
+          setRequestState({
+            phase: "batched",
+            requestId,
+          });
+        } else {
+          setRequestState({
+            phase: "pending",
+            requestId,
+            position: data.position,
+          });
+        }
+      } catch (err: any) {
+        console.error("Poll error:", err);
+      }
+    }
+
+    stopLoadingError(
+      `Request is still processing (ID: ${requestId}). Please check back later.`,
+    );
   };
 
   return (

@@ -43,6 +43,16 @@ export type VerifyResponse = Partial<Challenge> & {
   status?: string;
   message?: string;
   txHash?: string;
+  requestId?: string;
+};
+
+export type StatusResponse = {
+  status: string;
+  requestId: string;
+  requestStatus: "pending" | "batched" | "confirmed" | "failed";
+  txHash?: string;
+  errorMessage?: string;
+  position?: number;
 };
 
 // Must match Config.tsx "network" item
