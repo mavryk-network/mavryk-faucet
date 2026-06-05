@@ -199,6 +199,7 @@ export default function FaucetRequestButton({
     const input = {
       address: formState.address,
       token: formState.selectedToken,
+      amount,
       nonce,
       solution,
     };

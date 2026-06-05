@@ -123,6 +123,10 @@ export default function Faucet({ network }: { network: Network }) {
           Please note, the tokens from the Faucet are testnet tokens only. You
           will receive the amount straight to the address.
         </div>
+        <div className="faucet-info-text faucet-info-requirements">
+          A minimum of 100 MVRK on mainnet is required to request tokens. Each
+          token type (MVRK, MVN, USDT) has a 24-hour cooldown per address.
+        </div>
       </div>
 
       <div className="faucet-container">

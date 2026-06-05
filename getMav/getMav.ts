@@ -41,6 +41,7 @@ const displayHelp = () => {
 Options:
   -h, --help                Display help information.
   -a, --amount     <value>  The amount of Mav to request.
+  -T, --token      <value>  Token type to request: mvrk (default), mvn, usdt.
   -n, --network    <value>  Set the faucet's network name. Must match a
                             network name with a faucet listed at https://teztnets.com
                             Ignored if --faucet-url is set.
@@ -86,6 +87,8 @@ type GetMavArgs = {
   address: string
   /** The amount of Mav to request. */
   amount: number
+  /** Token type to request: mvrk, mvn, or usdt. */
+  token?: string
   /** Custom client directory path to look up address alias. */
   clientDir?: string
   /** Set the faucet's network name. Must match a network name with a faucet
@@ -140,6 +143,14 @@ const parseCliArgs = (args: string | string[]): GetMavArgs => {
         }
         parsedArgs.clientDir = clientDir
         break
+      case "-T":
+      case "--token":
+        const tokenArg = args.shift()?.toLowerCase() || ""
+        if (!["mvrk", "mvn", "usdt"].includes(tokenArg)) {
+          handleError(`Invalid token '${tokenArg}'. Must be mvrk, mvn, or usdt.`, DISPLAY_HELP)
+        }
+        parsedArgs.token = tokenArg
+        break
       case "-v":
       case "--verbose":
         VERBOSE = true
@@ -164,7 +175,7 @@ const parseCliArgs = (args: string | string[]): GetMavArgs => {
   return parsedArgs
 }
 
-type ValidatedArgs = Required<Omit<GetMavArgs, "verbose" | "time" | "network">>
+type ValidatedArgs = Required<Omit<GetMavArgs, "verbose" | "time" | "network" | "token">> & { token: string }
 
 const validateArgs = async (args: GetMavArgs): Promise<ValidatedArgs> => {
   if (args.clientDir && !fs.existsSync(args.clientDir)) {
@@ -218,6 +229,7 @@ const validateArgs = async (args: GetMavArgs): Promise<ValidatedArgs> => {
 
   if (args.verbose) VERBOSE = true
   if (args.time) TIME = true
+  if (!args.token) args.token = "mvrk"
 
   return args as ValidatedArgs
 }
@@ -341,7 +353,7 @@ const pollForCompletion = async (
       const data = await response.json()
 
       if (data.requestStatus === "confirmed" && data.txHash) {
-        verboseLog(`Mav sent! Check transaction: ${data.txHash}\n`)
+        verboseLog(`Tokens sent! Check transaction: ${data.txHash}\n`)
         return data.txHash
       }
 
@@ -374,6 +386,7 @@ type VerifySolutionResult = {
 const verifySolution = async ({
   address,
   amount,
+  token,
   faucetUrl,
   nonce,
   solution,
@@ -384,7 +397,7 @@ const verifySolution = async ({
     method: "POST",
     headers: requestHeaders,
     signal: AbortSignal.timeout(10_000),
-    body: JSON.stringify({ address, amount, nonce, solution, token: "mvrk" }),
+    body: JSON.stringify({ address, amount, nonce, solution, token }),
   })
 
   const { txHash, requestId, challenge, challengeCounter, difficulty, message } =
@@ -400,7 +413,7 @@ const verifySolution = async ({
     return { txHash: confirmedHash }
   } else if (txHash) {
     verboseLog(`Solution is valid`)
-    verboseLog(`Mav sent! Check transaction: ${txHash}\n`)
+    verboseLog(`Tokens sent! Check transaction: ${txHash}\n`)
     return { txHash }
   } else if (challenge && difficulty && challengeCounter) {
     verboseLog(`Solution is valid\n`)
@@ -421,15 +434,22 @@ const getMav = async (args: GetMavArgs) => {
   try {
     const validatedArgs = await validateArgs(args)
 
-    const { challengesEnabled, minMav, maxMav } = await getInfo(
-      validatedArgs.faucetUrl
-    )
+    const info = await getInfo(validatedArgs.faucetUrl)
+    const { challengesEnabled } = info
 
-    if (!(args.amount >= minMav && args.amount <= maxMav)) {
+    // Validate amount against per-token limits from /info
+    const tokenUpper = validatedArgs.token.toUpperCase()
+    const limitsMap: Record<string, { min: number; max: number }> = {
+      mvrk: { min: info.minMav, max: info.maxMav },
+      mvn: { min: info.minMvn ?? 1, max: info.maxMvn ?? 400 },
+      usdt: { min: info.minUsdt ?? 1, max: info.maxUsdt ?? 100 },
+    }
+    const limits = limitsMap[validatedArgs.token]
+    if (limits && !(args.amount >= limits.min && args.amount <= limits.max)) {
       handleError(
-        `Amount must be between ${formatAmount(minMav)} and ${formatAmount(
-          maxMav
-        )} mav.`
+        `Amount must be between ${formatAmount(limits.min)} and ${formatAmount(
+          limits.max
+        )} ${tokenUpper}.`
       )
     }
 
