@@ -26,8 +26,6 @@ export const api = axios.create({
   timeoutErrorMessage: "Connection timeout exceeded. Please try again.",
 });
 
-const { minMav, maxMav } = Config.application;
-
 export default function FaucetRequestButton({
   disabled,
   network,

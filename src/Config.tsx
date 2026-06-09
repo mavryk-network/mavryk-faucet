@@ -52,8 +52,6 @@ try {
   const info = await fetch(`${Config.application.backendUrl}/info`).then((r) =>
     r.json()
   )
-  if (info.minMav) Config.application.minMav = info.minMav
-  if (info.maxMav) Config.application.maxMav = info.maxMav
   Config.application.disableChallenges = !info.challengesEnabled
 } catch (err) {
   console.error("Failed to fetch /info from backend:", err)

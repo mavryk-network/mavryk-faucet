@@ -2,11 +2,8 @@ import React, { useEffect } from "react";
 import { StatusContext, TokenType } from "~/lib/Types";
 import { autoSelectInputText } from "~/lib/Utils";
 import { Input } from "../UI/Input/Input";
-import Config from "../../Config";
 import { formatInputToDecimalNumber } from "~/utils/formaters";
 import { FormState } from "./Faucet";
-
-const { minMav, maxMav } = Config.application;
 
 type Props = {
   status: StatusContext;
@@ -63,8 +60,8 @@ export function AmountField(props: Props) {
       <Input
         isClearable
         type="number"
-        min={minMav}
-        max={maxMav}
+        min={0}
+        max={undefined}
         value={formState.tokenAmount}
         error={
           formState.isAmountError && formState.tokenAmount

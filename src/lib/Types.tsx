@@ -12,8 +12,6 @@ type ApplicationConfig = {
   apiMavrykUrl: string;
   maintenance: boolean;
   disableChallenges?: boolean;
-  minMav: number;
-  maxMav: number;
 };
 
 export type ConfigType = {

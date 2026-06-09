@@ -105,22 +105,6 @@ const config: ConfigType = configJson
     "tmpConfig.ts"
   )
 
-;["minMav", "maxMav"].forEach((str) => {
-  const numValue = Number(Config.application[str])
-  if (isNaN(numValue) || numValue <= 0) {
-    throw new Error(
-      `config.json is missing the application.${str} property or it's invalid. Please set application.${str} to a number greater than 0.`
-    )
-  }
-})
-
-if (Config.application.minMav > Config.application.maxMav) {
-  throw new Error(
-    `In config.json, application.minMav is greater than application.maxMav. Please ensure that minMav is less than or equal to maxMav.`
-  )
-}
-
-
 const networkKeys = Object.keys(NetworkType);
 
 const configNetwork = Config.network.name.toLowerCase();
