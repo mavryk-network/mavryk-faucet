@@ -11,13 +11,9 @@ if (e.VITE_BACKEND_URL) Config.application.backendUrl = e.VITE_BACKEND_URL
 if (e.VITE_CAPTCHA_SITE_KEY) Config.application.googleCaptchaSiteKey = e.VITE_CAPTCHA_SITE_KEY
 if (e.VITE_API_MAVRYK_URL) Config.application.apiMavrykUrl = e.VITE_API_MAVRYK_URL
 if (e.VITE_GITHUB_REPO) Config.application.githubRepo = e.VITE_GITHUB_REPO
-if (e.VITE_DISABLE_CHALLENGES) Config.application.disableChallenges = e.VITE_DISABLE_CHALLENGES === "true"
 if (e.VITE_MAINTENANCE) Config.application.maintenance = e.VITE_MAINTENANCE === "true"
-if (e.VITE_MIN_MAV) Config.application.minMav = Number(e.VITE_MIN_MAV)
-if (e.VITE_MAX_MAV) Config.application.maxMav = Number(e.VITE_MAX_MAV)
 if (e.VITE_NETWORK_NAME) Config.network.name = e.VITE_NETWORK_NAME
 if (e.VITE_RPC_URL) Config.network.rpcUrl = e.VITE_RPC_URL
-if (e.VITE_FAUCET_ADDRESS) Config.network.faucetAddress = e.VITE_FAUCET_ADDRESS
 if (e.VITE_VIEWER) Config.network.viewer = e.VITE_VIEWER
 
 const networkKeys = Object.keys(NetworkType) as [keyof typeof NetworkType]
@@ -49,5 +45,18 @@ Config.network.networkType = NetworkType[network]
 Config.application.isMavletWallet = !!Config.network.networkType
 Config.application.disableChallenges =
 Config.application.disableChallenges === true
+
+// Fetch backend-owned settings from /info (limits, challenge config).
+// These are the source of truth and override any config.json values.
+try {
+  const info = await fetch(`${Config.application.backendUrl}/info`).then((r) =>
+    r.json()
+  )
+  if (info.minMav) Config.application.minMav = info.minMav
+  if (info.maxMav) Config.application.maxMav = info.maxMav
+  Config.application.disableChallenges = !info.challengesEnabled
+} catch (err) {
+  console.error("Failed to fetch /info from backend:", err)
+}
 
 export default Config

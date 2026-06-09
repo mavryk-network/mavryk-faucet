@@ -59,7 +59,6 @@ export type StatusResponse = {
 export type Network = {
   name: string;
   rpcUrl: string;
-  faucetAddress: string;
   viewer: string;
   networkType?: NetworkType;
 };

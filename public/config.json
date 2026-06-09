@@ -1,19 +1,15 @@
 {
     "application": {
-      "apiMavrykUrl": "https://atlasnet.api.mavryk.network/v1",
+      "apiMavrykUrl": "https://basenet.api.mavryk.network/v1",
       "name": "Mavryk Basenet Faucet",
       "googleCaptchaSiteKey": "6LfSMOQqAAAAAKDjPFtQ30JPzb8TvyoAWAWnaoUm",
       "backendUrl": "https://basenet-backend.faucet.mavryk.network",
       "githubRepo": "https://github.com/mavryk-network/mavryk-faucet",
-      "disableChallenges": false,
-      "maintenance": false,
-      "minMav": 1,
-      "maxMav": 7000
+      "maintenance": false
     },
     "network": {
       "name": "Basenet",
       "rpcUrl": "https://basenet.rpc.mavryk.network",
-      "faucetAddress": "mv1a4GT7THHaGDiTxgXoatDWcZfJ5j29z5RC",
       "viewer": ""
     }
 }
