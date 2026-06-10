@@ -28,9 +28,9 @@ You can then use the `getMav` function to interact with the Mavryk faucet. The f
 
 - `address`: The address to send Mav to. This can be a raw Mavryk public key hash or a local address's alias.
 - `amount`: The amount of Mav to request.
-- `network`: The faucet's network name. Must match a network name with a faucet listed at https://teztnets.xyz. Ignored if `faucetUrl` is set.
+- `network`: The faucet's network name. Must match a network name with a faucet listed at https://testnets.mavryk.network. Ignored if `faucetUrl` is set.
 - `faucetUrl`: The custom faucet URL. Ignores `network`.
-- `clientDir`: (Optional) Specifies a custom client directory path to look up an address alias. If not set, it will default to `$HOME/.tezos-client/` or `$TEZOS_CLIENT_DIR` if the `TEZOS_CLIENT_DIR` environment variable is set.
+- `clientDir`: (Optional) Specifies a custom client directory path to look up an address alias. If not set, it will default to `$HOME/.mavryk-client/` or `$MAVRYK_CLIENT_DIR` if the `MAVRYK_CLIENT_DIR` environment variable is set.
 
 Here is an example of how to use the `getMav` function:
 

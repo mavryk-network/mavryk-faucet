@@ -1,19 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
-import { TezosToolkit } from "@mavrykdynamics/taquito";
-import { BeaconWallet } from "@mavrykdynamics/taquito-beacon-wallet";
-import { NetworkType } from "@mavrykdynamics/beacon-types";
+import { MavrykToolkit } from "@mavrykdynamics/webmavryk";
+import { MavletWallet } from "@mavrykdynamics/webmavryk-mavlet-wallet";
+import { NetworkType } from "@mavrykdynamics/mavlet-types";
 
 type ApplicationConfig = {
   name: string;
   googleCaptchaSiteKey: string;
-  isBeaconWallet?: boolean;
+  isMavletWallet?: boolean;
   backendUrl: string;
   githubRepo: string;
   apiMavrykUrl: string;
   maintenance: boolean;
   disableChallenges?: boolean;
-  minMav: number;
-  maxMav: number;
 };
 
 export type ConfigType = {
@@ -43,13 +41,22 @@ export type VerifyResponse = Partial<Challenge> & {
   status?: string;
   message?: string;
   txHash?: string;
+  requestId?: string;
+};
+
+export type StatusResponse = {
+  status: string;
+  requestId: string;
+  requestStatus: "pending" | "batched" | "confirmed" | "failed";
+  txHash?: string;
+  errorMessage?: string;
+  position?: number;
 };
 
 // Must match Config.tsx "network" item
 export type Network = {
   name: string;
   rpcUrl: string;
-  faucetAddress: string;
   viewer: string;
   networkType?: NetworkType;
 };
@@ -63,10 +70,10 @@ export type UserContext = {
 
 export type TestnetContext = {
   network: Network;
-  wallet: BeaconWallet;
+  wallet: MavletWallet;
   setWallet: Dispatch<SetStateAction<any>>;
-  Tezos: TezosToolkit;
-  setTezos: Dispatch<SetStateAction<any>>;
+  Mavryk: MavrykToolkit;
+  setMavryk: Dispatch<SetStateAction<any>>;
 };
 
 export type StatusContext = {

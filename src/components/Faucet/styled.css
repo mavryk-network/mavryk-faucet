@@ -26,6 +26,11 @@
   letter-spacing: -0.02em;
   color: var(--color-white-secondary);
 }
+.faucet-info-requirements {
+  font-size: 13px;
+  color: var(--color-white-secondary);
+  opacity: 0.8;
+}
 .faucet-container {
   padding: 32px 32px 38px 32px;
   display: flex;

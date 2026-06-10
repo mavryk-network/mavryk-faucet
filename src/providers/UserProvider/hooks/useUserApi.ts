@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { dappClient } from "~/providers/WalletProvider/WalletCore.client";
-import { AccountInfo } from "@mavrykdynamics/beacon-dapp";
+import { AccountInfo } from "@mavrykdynamics/mavlet-dapp";
 
 type UseUserApiType = {
   DAPP_INSTANCE: ReturnType<typeof dappClient> | null;
@@ -31,7 +31,7 @@ export const useUserApi = ({
 }: UseUserApiType) => {
   /**
    * connect user's wallet to DAPP:
-   * load tzkt balances and set user's address to ctx (inside loadInitialTzktTokensForNewlyConnectedUser) to make QueryWithRefetch work
+   * load mvkt balances and set user's address to ctx (inside loadInitialMvktTokensForNewlyConnectedUser) to make QueryWithRefetch work
    */
   const connect = useCallback(async () => {
     try {

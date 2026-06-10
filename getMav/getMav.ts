@@ -35,14 +35,15 @@ const displayHelp = () => {
 <address>:
   The address where Mav should be sent. This can be either a standard Mavryk public key hash (e.g. mv1234abc...)
   or a local alias. If an alias is provided (e.g., 'alice'), the program will attempt to resolve it to a public
-  key hash by looking it up in the specified client directory, set by --client-dir or by the TEZOS_CLIENT_DIR
-  environment variable. If neither is set, the default lookup location is $HOME/.tezos-client.
+  key hash by looking it up in the specified client directory, set by --client-dir or by the MAVRYK_CLIENT_DIR
+  environment variable. If neither is set, the default lookup location is $HOME/.mavryk-client.
 
 Options:
   -h, --help                Display help information.
   -a, --amount     <value>  The amount of Mav to request.
+  -T, --token      <value>  Token type to request: mvrk (default), mvn, usdt.
   -n, --network    <value>  Set the faucet's network name. Must match a
-                            network name with a faucet listed at https://teztnets.xyz.
+                            network name with a faucet listed at https://teztnets.com
                             Ignored if --faucet-url is set.
   -f, --faucet-url <value>  Set the custom faucet URL. Ignores --network.
   -d, --client-dir <value>  Custom client directory path to look up an address alias.
@@ -65,7 +66,7 @@ const handleError = (message: string, help?: boolean) => {
 }
 
 const DEFAULT_CLIENT_DIR =
-  process.env.TEZOS_CLIENT_DIR || path.join(process.env.HOME!, ".tezos-client")
+  process.env.MAVRYK_CLIENT_DIR || path.join(process.env.HOME!, ".mavryk-client")
 
 const resolveAliasToPkh = (
   alias: string,
@@ -86,10 +87,12 @@ type GetMavArgs = {
   address: string
   /** The amount of Mav to request. */
   amount: number
+  /** Token type to request: mvrk, mvn, or usdt. */
+  token?: string
   /** Custom client directory path to look up address alias. */
   clientDir?: string
   /** Set the faucet's network name. Must match a network name with a faucet
-   * listed at https://teztnets.xyz. Ignored if `faucetUrl` is set. */
+   * listed at https://teztnets.com. Ignored if `faucetUrl` is set. */
   network?: string
   /** Set the custom faucet URL. Ignores `network`. */
   faucetUrl?: string
@@ -140,6 +143,14 @@ const parseCliArgs = (args: string | string[]): GetMavArgs => {
         }
         parsedArgs.clientDir = clientDir
         break
+      case "-T":
+      case "--token":
+        const tokenArg = args.shift()?.toLowerCase() || ""
+        if (!["mvrk", "mvn", "usdt"].includes(tokenArg)) {
+          handleError(`Invalid token '${tokenArg}'. Must be mvrk, mvn, or usdt.`, DISPLAY_HELP)
+        }
+        parsedArgs.token = tokenArg
+        break
       case "-v":
       case "--verbose":
         VERBOSE = true
@@ -164,7 +175,7 @@ const parseCliArgs = (args: string | string[]): GetMavArgs => {
   return parsedArgs
 }
 
-type ValidatedArgs = Required<Omit<GetMavArgs, "verbose" | "time" | "network">>
+type ValidatedArgs = Required<Omit<GetMavArgs, "verbose" | "time" | "network" | "token">> & { token: string }
 
 const validateArgs = async (args: GetMavArgs): Promise<ValidatedArgs> => {
   if (args.clientDir && !fs.existsSync(args.clientDir)) {
@@ -218,6 +229,7 @@ const validateArgs = async (args: GetMavArgs): Promise<ValidatedArgs> => {
 
   if (args.verbose) VERBOSE = true
   if (args.time) TIME = true
+  if (!args.token) args.token = "mvrk"
 
   return args as ValidatedArgs
 }
@@ -318,6 +330,47 @@ const solveChallenge = ({
   }
 }
 
+/* Poll for request completion */
+
+const pollForCompletion = async (
+  faucetUrl: string,
+  requestId: string
+): Promise<string> => {
+  const maxPollTime = 5 * 60 * 1000 // 5 minutes
+  const pollInterval = 3000 // 3 seconds
+  const startTime = Date.now()
+
+  verboseLog("Waiting for transaction to be confirmed...")
+
+  while (Date.now() - startTime < maxPollTime) {
+    await new Promise((res) => setTimeout(res, pollInterval))
+
+    try {
+      const response = await fetch(`${faucetUrl}/status/${requestId}`, {
+        headers: requestHeaders,
+        signal: AbortSignal.timeout(10_000),
+      })
+      const data = await response.json()
+
+      if (data.requestStatus === "confirmed" && data.txHash) {
+        verboseLog(`Tokens sent! Check transaction: ${data.txHash}\n`)
+        return data.txHash
+      }
+
+      if (data.requestStatus === "failed") {
+        handleError(data.errorMessage || "Transaction failed")
+      }
+
+      verboseLog(`Status: ${data.requestStatus}...`)
+    } catch (err: any) {
+      verboseLog(`Poll error: ${err.message}`)
+    }
+  }
+
+  handleError(`Request timed out (ID: ${requestId}). Check status manually.`)
+  return ""
+}
+
 /* Verify Solution */
 
 type VerifySolutionArgs = Solution & ValidatedArgs
@@ -327,11 +380,13 @@ type VerifySolutionResult = {
   challengeCounter?: number
   difficulty?: number
   txHash?: string
+  requestId?: string
 }
 
 const verifySolution = async ({
   address,
   amount,
+  token,
   faucetUrl,
   nonce,
   solution,
@@ -342,19 +397,23 @@ const verifySolution = async ({
     method: "POST",
     headers: requestHeaders,
     signal: AbortSignal.timeout(10_000),
-    body: JSON.stringify({ address, amount, nonce, solution }),
+    body: JSON.stringify({ address, amount, nonce, solution, token }),
   })
 
-  const { txHash, challenge, challengeCounter, difficulty, message } =
+  const { txHash, requestId, challenge, challengeCounter, difficulty, message } =
     await response.json()
 
   if (!response.ok) {
     handleError(message)
   }
 
-  if (txHash) {
+  if (requestId) {
+    verboseLog(`Solution is valid. Request queued (ID: ${requestId})`)
+    const confirmedHash = await pollForCompletion(faucetUrl, requestId)
+    return { txHash: confirmedHash }
+  } else if (txHash) {
     verboseLog(`Solution is valid`)
-    verboseLog(`Mav sent! Check transaction: ${txHash}\n`)
+    verboseLog(`Tokens sent! Check transaction: ${txHash}\n`)
     return { txHash }
   } else if (challenge && difficulty && challengeCounter) {
     verboseLog(`Solution is valid\n`)
@@ -375,15 +434,22 @@ const getMav = async (args: GetMavArgs) => {
   try {
     const validatedArgs = await validateArgs(args)
 
-    const { challengesEnabled, minMav, maxMav } = await getInfo(
-      validatedArgs.faucetUrl
-    )
+    const info = await getInfo(validatedArgs.faucetUrl)
+    const { challengesEnabled } = info
 
-    if (!(args.amount >= minMav && args.amount <= maxMav)) {
+    // Validate amount against per-token limits from /info
+    const tokenUpper = validatedArgs.token.toUpperCase()
+    const limitsMap: Record<string, { min: number; max: number }> = {
+      mvrk: { min: info.minMav, max: info.maxMav },
+      mvn: { min: info.minMvn ?? 1, max: info.maxMvn ?? 400 },
+      usdt: { min: info.minUsdt ?? 1, max: info.maxUsdt ?? 100 },
+    }
+    const limits = limitsMap[validatedArgs.token]
+    if (limits && !(args.amount >= limits.min && args.amount <= limits.max)) {
       handleError(
-        `Amount must be between ${formatAmount(minMav)} and ${formatAmount(
-          maxMav
-        )} mav.`
+        `Amount must be between ${formatAmount(limits.min)} and ${formatAmount(
+          limits.max
+        )} ${tokenUpper}.`
       )
     }
 
@@ -435,7 +501,7 @@ if (isMainModule) {
   const args = process.argv.slice(isMainModule ? 2 : 1)
   const parsedArgs = parseCliArgs(args)
 
-  log(`get-mav v${pkgJson.version} by Mavryk Dynamics - Get Free Mav\n`)
+  log(`get-mav v${pkgJson.version} - Get Free Mav\n`)
 
   getMav(parsedArgs).then(
     (txHash) => txHash && process.stderr.write("- Transfer done!\nOperation hash: ") &&

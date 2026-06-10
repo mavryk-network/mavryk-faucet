@@ -1,6 +1,6 @@
 const errorMessagesMap = new Map<string, string>([
-  ["BeaconWalletNotInitialized", "Please synchronize your wallet."],
-  ["UnknownBeaconError", "Wallet error."],
+  ["MavletWalletNotInitialized", "Please synchronize your wallet."],
+  ["UnknownMavletError", "Wallet error."],
   ["MissedBlockDuringConfirmationError", "Unkown error."],
   [
     "InvalidAddressError",
